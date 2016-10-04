@@ -22,6 +22,24 @@
 % математически символи
 \usepackage{amsmath}
 
+% двойни разделителни черти в таблици
+\usepackage{hhline}
+
+% вертикално сливане на клетки от повече от един ред
+\usepackage{multirow}
+
+% цветни таблици
+\usepackage{colortbl}
+
+% листинги
+\usepackage{listings}
+\lstset{language=c++,
+        basicstyle=\ttfamily,
+        keywordstyle=\color{blue},
+        extendedchars=false,
+        texcl=true,
+        showstringspaces=false}
+
 %%% кратки команди за форматиране
 
 % код
@@ -51,6 +69,9 @@
 
 %%% макроси
 
+% цитиране на wikipedia
+\newcommand{\wiki}{\raggedleft\tiny\textcolor{lightgray}{Изображения: wikipedia.org}}
+
 %% диаграми
 
 % покажи засивен текст
@@ -58,3 +79,15 @@
 
 % откриване на въпрос
 \newcommand{\rvl}[1]{\alt<+->{#1}?}
+
+% голяма стрелка нагоре (указател)
+\newcommand{\bua}{\bigg\uparrow}
+
+% голяма стрелка надолу (указател)
+\newcommand{\bda}{\bigg\downarrow}
+
+% голяма стрелка надясно (указател)
+\newcommand{\bra}{\xrightarrow{\hspace{5ex}}}
+
+% голяма стрелка наляво (указател)
+\newcommand{\bla}{\xleftarrow{\hspace{5ex}}}

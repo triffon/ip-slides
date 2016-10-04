@@ -1,0 +1,306 @@
+\documentclass{beamer}
+\usepackage{up}
+
+\title{Организация на курса}
+
+\date{5 октомври 2016 г.}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Екип}
+
+  \textbf{Компютърни науки, 1 поток:}
+  \begin{itemize}
+  \item \textbf{1 група семинар:} Слави Боянов
+  \item \textbf{1 група практикум:} Камен Петров, Божин Кацарски
+  \item \textbf{2 група семинар:} Боян Киров
+  \item \textbf{2 група практикум:} Марио Дончев, Стамен Драгоев
+  \item \textbf{3 група семинар:} Ивайло Сачански
+  \item \textbf{3 група практикум:} Владимир Начев, Яна Георгиева
+  \item \textbf{4 група семинар:} Димитър Узунов
+  \item \textbf{4 група практикум:} Георги Киряков, Алекс Николов
+  \end{itemize}
+  \textbf{Софтуерно инженерство:}
+  \begin{itemize}
+  \item \textbf{4 група семинар:} Николай Стойков
+  \item \textbf{5 група семинар:} Мария Паскова
+  \item \textbf{6 група семинар:} Никола Димитров
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Компоненти за оценяване}
+  
+  \begin{itemize}
+  \item Домашни: 3 $\times$ 20 т. \alert{(минимум 30 т.)}
+  \item Контролно: 1 $\times$ 40 т.
+  \item Проект: 1 $\times$ 50 т. + 10 т. бонус (за напреднали)
+  \item Бонуси: 2 $\times$ 20 т. (упражнения + лекции)
+  \item \textbf{Максимум текущ контрол:} 100 т.
+  \item Изпит задачи: 1 $\times$ 60 т. \alert{(минимум 24 т.)}
+  \item Изпит теория: 1 $\times$ 40 т. \alert{(минимум 16 т.)}
+  \item \textbf{Максимум за курса:} 200 т.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Схема за оценяване}
+
+  \begin{center}
+    \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Точки} & \textbf{Оценка}\\
+      \hline\hline
+      170 -- 200&Отличен 6\\
+      \hline
+      140 -- 169&Мн. добър 5\\
+      \hline
+      110 -- 139&Добър 4\\
+      \hline
+      80  -- 109&Среден 3\\
+      \hline
+      0   --  79&Слаб 2\\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Learn.fmi}
+  
+  \begin{itemize}
+  \item \url{https://learn.fmi.uni-sofia.bg/}
+  \item Бакалаври, зимен семестър 2016/2017
+    \begin{itemize}
+    \item КН
+      \begin{itemize}
+      \item Увод в програмирането (КН) 2016/2017 г., 1 поток
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% \begin{frame}
+%   \frametitle{Помощни материали}
+%   \begin{thebibliography}
+    
+%   \end{thebibliography}
+% \end{frame}
+
+\begin{frame}
+  \frametitle{Какво е компютър?}
+  
+  Архитектура на von Neumann\\
+  
+  \begin{center}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{c*4{@{}c}}
+      \hhline{~~-~~}
+      \multicolumn 2r{\onslide<2->{\includegraphics[width=12ex]{images/cpu.png}}}&
+      \multicolumn 1{|c|}{\cellcolor{diagramblue}процесор}&&
+      \multirow 2*{\onslide<4->{\includegraphics[width=12ex]{images/speakers.png}}}\\
+      \hhline{~~-~~}
+      &&\bua\hspace{1em}\bda&&\\
+      \hhline{-~-~-}
+      \multicolumn 1{|c|}{\cellcolor{diagramblue}
+      \renewcommand{\arraystretch}{1.2}
+      \begin{tabular}c входно\\устройство\end{tabular}}&
+      $\bra$&
+      \multicolumn 1{|c|}{\cellcolor{diagramblue}памет}&
+      $\bra$&
+      \multicolumn 1{|c|}{\cellcolor{diagramblue}
+      \renewcommand{\arraystretch}{1.2}
+      \begin{tabular}c изходно\\устройство\end{tabular}}\\
+      \hhline{-~-~-}
+      \onslide<3->{\includegraphics[width=7ex]{images/mouse.png}}&&
+      \onslide<2->{\includegraphics[width=15ex]{images/ram.png}}&&
+      \multirow 2*{\onslide<4->{\includegraphics[width=12ex]{images/monitor.png}}}\\
+      \onslide<3->{\includegraphics[width=12ex]{images/keyboard.png}}
+    \end{tabular}
+  \end{center}
+  \ \\[-0.5em]
+  \onslide<2->{\wiki}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Входно-изходни устройства}
+
+  Аналогова и цифрова информация\\[1em]
+  \includegraphics[width=28ex]{images/odometer.png}
+  \hspace{5ex}
+  \includegraphics[width=28ex]{images/chip.png}\\[1em]
+  \includegraphics[width=40ex]{images/quanterr.png}\\
+  \wiki
+\end{frame}
+
+\begin{frame}
+  \frametitle{Памет}
+  
+  \begin{center}
+    \begin{tabular}{|*{15}{c|}}
+      \hline
+      \rowcolor{diagramblue}
+      \ldots&0&1&0&0&1&0&1&1&1&0&0&1&0&\ldots\\
+      \hline
+    \end{tabular}\\[2em]
+    \begin{tabular}{r|c|}
+      \hhline{~-}
+      0&\cellcolor{diagramblue} \alt<2>{3643084502}{11011001001001010000111011010110}\\
+      \hhline{~-}
+      1&\cellcolor{diagramblue} \alt<2>{2462501989}{10010010110001101100110001100101}\\
+      \hhline{~-}
+      2&\cellcolor{diagramblue} \alt<2>{3039721545}{10110101001011100111100001001001}\\
+      \hhline{~-}
+      \ldots&\cellcolor{diagramblue} \ldots\\
+      \hhline{~-}
+      \ldots&\cellcolor{diagramblue} \ldots\\
+      \hhline{~-}
+      65535&\cellcolor{diagramblue} \alt<2>{1011488055}{00111100010010100001010100110111}\\
+      \hhline{~-}
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Двоична бройна система}
+  \begin{itemize}
+  \item Число
+  \item Цифра
+  \item Бройна система
+  \item Позиционна бройна система
+  \end{itemize}
+  \pause
+  \onslide<+->
+  \begin{equation*}
+    149_{10} = 100 + 40 + 9 = 1.10^2 + 4.10^1 + 9.10^0
+  \end{equation*}
+  \onslide<+->
+  \begin{eqnarray*}
+    1001011_2 &=& 1.2^7 + 0.2^6 + 0.2^5 + 1.2^4 + 0.2^3 + 1.2^2 + 0.2^1 + 1.2^0\\
+    \nxt{&=& 128 + 16 + 4 + 1\\
+    \nxt{&=& 149}}
+  \end{eqnarray*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Процесор}
+  \begin{tabular}{|*{13}{c|}}
+    \hline
+    \rowcolor{diagramblue}
+    \ldots&\alert<2>{20}&\alert<2>5&\alert<2>2&
+    \alert<3>{18}&\alert<3>7&\alert<3>{14}&
+    \alert<4>{12}&\alert<4>{10}&\alert<4>{3}&
+    \alert<5>5&\alert<5>{23}&\ldots\\
+    \hline
+  \end{tabular}\\[2em]
+  \pause
+  \begin{itemize}[<+->]
+  \item ``Добави 2 към стойността в клетка №5''
+  \item ``Прехвърли стойността на клетка №7 в клетка №14''
+  \item ``Провери дали стойността на клетка №10 е по-голяма от 3''
+  \item ``Ако предното е вярно, премини към клетка №23''
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Алгоритъм}
+  \begin{enumerate}
+  \item Дадени са числата $a$ и $b$
+  \item Ако $a = b$, преминаваме към 5.
+  \item Ако $a > b$, заменяме $a$ с $a - b$ и преминаваме към 1.
+  \item Ако $a < b$, заменяме $b$ с $b - a$ и преминаваме към 1.
+  \item Отговорът е $a$.
+  \end{enumerate}
+  \pause\ \\[2em]
+  Алгоритъм на Евклид за намирне на най-голям общ делител (НОД)
+\end{frame}
+
+\begin{frame}
+  \frametitle{Машина на Turing}
+
+  \includegraphics[width=0.9\textwidth]{images/turing.pdf}
+
+  \pause
+  \textbf{$M$ изчислява функцията $f_M$}, ако при лента с числото $n$ машината $M$ завършва и записва върху лентата числото $f_M(n)$.
+
+  \pause
+  Ако $M$ не завърши, казваме, че \textbf{$f_M(n)$ не е дефинирана}.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Езици за програмиране}
+  \begin{itemize}[<+->]
+  \item Машинни езици
+    \begin{itemize}
+    \item 20, 5, 2, 18, 7, 14, 12, 10, 3, 5, 23
+    \end{itemize}
+  \item Асемблерни езици
+    \begin{itemize}
+    \item \tt{ADD 5, 2}
+    \item \tt{MOV 7, 14}
+    \end{itemize}
+  \item Макроезици
+    \begin{itemize}
+    \item \tt{add(\#5,2)}
+    \item \tt{move(\#7,\#14)}
+    \end{itemize}
+  \item Процедурни езици
+    \begin{itemize}
+    \item \tt{a = a + 2; b = c;}
+    \end{itemize}
+  \item Структурни езици
+    \begin{itemize}
+    \item \tt{if (d > 3) d = c + 10;}
+    \end{itemize}
+  \item Декларативни езици
+    \begin{itemize}
+    \item \tt{f x = minimum [ y | y $\in$ [1..x], y${^2}$ $\geq$ x ]}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{От код до програма}
+  \includegraphics[width=0.9\textwidth]{images/compile.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Първа програма на C++}
+  \begin{lstlisting}
+#include <iostream>
+using namespace std;
+int main() {
+  int a = 5;
+  cout << "a = " << a << endl;
+  cout << "2a = " << 2 * a << endl;
+  return 0;
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Втора програма на C++}
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+int main() {
+  int a, b;
+  // първо въвеждаме стойности
+  cout << "a = "; cin >> a;
+  cout << "b = "; cin >> b;
+
+  // събираме числата
+  int c = a + b;
+
+  // извеждаме резултата
+  cout << "a + b = " << c << endl;
+  return 0;
+}
+\end{lstlisting}
+\end{frame}
+\end{document}
