@@ -1,0 +1,60 @@
+%%% стандартни пакети
+
+% поддръжка на български език
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,bulgarian]{babel}
+\deftranslation[to=bulgarian]{Definition}{Дефиниция}
+\deftranslation[to=bulgarian]{Theorem}{Теорема}
+
+% правене на нови команди
+\usepackage{makecmds}
+
+% поддръжка на линкове
+\usepackage{hyperref}
+
+% коментари
+\usepackage{comment}
+
+% вертикално подравняване на \includegraphics
+\usepackage[export]{adjustbox}
+
+% математически символи
+\usepackage{amsmath}
+
+%%% кратки команди за форматиране
+
+% код
+\renewcommand{\tt}{\texttt}
+
+% код в червено
+\newcommand{\tta}[1]{\tt{\alert{#1}}}
+
+% по-приличен pause (за математика и таблици)
+\newcommand{\nxt}[1]{\visible<+->{#1}}
+
+% син цвят по подразбиране
+\colorlet{diagramblue}{blue!60!green!40}
+
+%%% настройки общи за всички слайдове
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \usecolortheme{dolphin}
+}
+\author{Трифон Трифонов}
+\institute[УП 16/17]{\small Увод в програмирането,\\
+спец. Компютърни науки, 1 поток,\\
+спец. Софтуерно инженерство,\\
+2016/17 г.}
+\subject{LectureSlides}
+
+%%% макроси
+
+%% диаграми
+
+% покажи засивен текст
+\newcommand{\gc}[2]{\onslide<#1>{\textcolor{gray}{#2}}}
+
+% откриване на въпрос
+\newcommand{\rvl}[1]{\alt<+->{#1}?}
