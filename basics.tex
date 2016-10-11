@@ -116,7 +116,7 @@
 \begin{frame}[fragile]
   \frametitle{Коментари}
   \begin{itemize}[<+->]
-  \item\ <коментар> ::= \tta{\textbackslash\textbackslash}<текст\_без\_нов\_ред> |  \tta{/*} <текст> \tta{*/}
+  \item\ <коментар> ::= \tta{//}<текст\_без\_нов\_ред> |  \tta{/*} <текст> \tta{*/}
   \item Компилаторът игнорира:
     \begin{itemize}
     \item коментари
@@ -182,7 +182,7 @@ int sum = 0; // нулираме сумата
 
   \begin{itemize}
   \item \tta{cout <{}<} <израз> \{\tta{<{}<} <израз>\}\tta;
-  \item \temporal<2>{\tt{cout <{}< a <{}< b <{}< c;}}{\tt{((cout <{}< a) <{}< b) <{}< c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cout <{}< a)}}_{\tt{cout}} \tt{<{}< b)}}_{\tt{cout}}\tt{ <{}< c;}}_{\tt{cout}}$}
+  \item \temporal<2>{\tt{cout <{}< a <{}< b <{}< c;}}{\tt{((cout <{}< a) <{}< b) <{}< c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cout <{}< a)}}_{\tt{cout}} \tt{<{}< b)}}_{\tt{cout}}\tt{ <{}< c}}_{\tt{cout}}\tt;$}
   \item<4-> \lstinline{cout << "a + b = "} \lstinline{<< a + b << endl;}
   \item<5-> \sta{cout <{}< \quot a = \quot{} 2;}
   \end{itemize}
@@ -192,8 +192,8 @@ int sum = 0; // нулираме сумата
   \frametitle{Вход от клавиатурата}
 
   \begin{itemize}
-  \item \tta{cin >{}>} <идентификатор> \{tta{>{}>} <идентификатор>\}\tta;
-  \item \temporal<2>{\tt{cin >{}> a >{}> b >{}> c;}}{\tt{((cin >{}> a) >{}> b) >{}> c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cin >{}> a)}}_{\tt{cin}} \tt{>{}> b)}}_{\tt{cin}}\tt{ >{}> c;}}_{\tt{cin}}$}
+  \item \tta{cin >{}>} <идентификатор> \{\tta{>{}>} <идентификатор>\}\tta;
+  \item \temporal<2>{\tt{cin >{}> a >{}> b >{}> c;}}{\tt{((cin >{}> a) >{}> b) >{}> c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cin >{}> a)}}_{\tt{cin}} \tt{>{}> b)}}_{\tt{cin}}\tt{ >{}> c}}_{\tt{cin}}\tt;$}
   \item<4-> \sta{cin >{}> a + b;}
   \item<5-> \sta{cin >{}> 15;}
   \end{itemize}
@@ -358,30 +358,85 @@ int sum = 0; // нулираме сумата
 
 \begin{frame}
   \frametitle{Числа с плаваща запетая}
-  \begin{itemize}
+  \begin{itemize}[<+->]
   \item \alert{Внимание: това не са реални числа!}
     \begin{itemize}
     \item А какво са реални числа?
     \end{itemize}
   \item Още ще ги наричаме и \textbf{дробни числа}
-  \item Мантиса и експонента
-    % TODO: Диаграма
-  \item Машинна нула
-    % TODO: Диаграма
-  \item Типове числа с плаваща запетая
+  \item Представяне в паметта
     \begin{itemize}
-    \item \tt{float} (4 байта)
-    \item \tt{double} (8 байта)
-    \item \tt{long double} (16 байта)
+    \item $f = (-1)^s\cdot m\cdot 2^e$\\[1em]
+      \begin{tabular}{|P{4ex}|P{12ex}|P{35ex}|}
+        \hline
+        \rowcolor{diagramblue}
+        s&e&m\\
+        \hline
+        \multicolumn1c{$\underbrace{}_{\text{1 бит}}$}&\multicolumn1c{$\underbrace{\hspace{12ex}}_{\text{8 бита}}$}&\multicolumn1c{$\underbrace{\hspace{34.5ex}}_{\text{23 бита}}$}
+      \end{tabular}\\[1em]
+    \item $s \in \{0,1\}$ --- знак
+    \item $m \in [0; 2^{23}-1]$ --- мантиса
+    \item $e \in [-126; 127]$ --- експонента
+    \item машинна нула: $(-2^{-127}; 2^{-127})$
     \end{itemize}
   \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Общо представяне на числа с плаваща запетая}
+  $f = (-1)^s\cdot m\cdot 2^e$\\[1em]
+  \begin{tabular}{|P{1.5ex}|P{12ex}|P{34.5ex}|}
+    \hline
+    \rowcolor{diagramblue}
+    s&e&m\\
+    \hline
+    \multicolumn1c{}&\multicolumn1c{$\underbrace{\hspace{12ex}}_{\text{q бита}}$}&\multicolumn1c{$\underbrace{\hspace{34.5ex}}_{\text{p бита}}$}
+  \end{tabular}
+  \begin{itemize}
+  \item $s \in \{0,1\}$ --- знак
+  \item $m \in [0; 2^p-1]$ --- мантиса
+    \begin{itemize}
+    \item $p$ --- точност, брой двоични цифри на мантисата
+    \end{itemize}
+  \item $e \in [e_{min}; e_{max}]$ --- експонента
+    \begin{itemize}
+    \item $e_{min} = -e_{max}+1$
+    \item $e_{max} = 2^{q-1}-1$
+    \item $q$ --- обхват на експонентата
+    \item $e_{min}-1$ и $e_{max}+1$ са запазени за служебно ползване
+    \end{itemize}
+  \item общо използвани битове: $p + q + 1$
+  \item машинна нула: $(-2^{e_{min}-1}; 2^{e_{min}-1})$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Типове дробни числа}
+  \begin{tabular}{|P{1.5ex}|P{12ex}|P{34.5ex}|}
+    \hline
+    \rowcolor{diagramblue}
+    s&e&m\\
+    \hline
+    \multicolumn1c{}&\multicolumn1c{$\underbrace{\hspace{12ex}}_{\text{q бита}}$}&\multicolumn1c{$\underbrace{\hspace{34.5ex}}_{\text{p бита}}$}
+  \end{tabular}\\[2em]
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+    \textbf{тип}&\textbf{размер}&\textbf{точност (p)}&\textbf{обхват (q)}\\
+    \hline\hline
+    \tt{float}&4 байта = 32 бита&23 бита&8 бита\\
+    \hline
+    \tt{double}&8 байта = 64 бита&52 бита&11 бита\\
+    \hline
+    \tt{long double}&16 байта = 128 бита&112 бита &15 бита\\
+    \hline
+  \end{tabular}
 \end{frame}
 
 \begin{frame}
   \frametitle{Дробни литерали}
   \begin{itemize}
-  \item\ <дробно\_число> ::= [<цяло\_число>]\tta.[<цяло\_число\_без\_знак>]\\[0em]
-[(\tta{E}|\tta{e})<цяло\_число>]
+  \item\ [<цяло\_число>]\tta.[<цяло\_без\_знак>][(\tta{E}|\tta{e})<цяло\_число>]
   \item Примери: \tt1, \tt{2.34}, \tt{12e-2}, \tt{10.14E+03}, \tt{.23}
   \item Операции:
     \begin{itemize}

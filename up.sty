@@ -10,6 +10,10 @@
 % поддръжка на Text Companion шрифтове
 % използват се за апострофи и кавички
 \usepackage{textcomp}
+
+% хоризонтално центриране на клетки с фиксирана ширина
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
  
 % правене на нови команди
 \usepackage{makecmds}
