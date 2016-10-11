@@ -7,6 +7,10 @@
 \deftranslation[to=bulgarian]{Definition}{Дефиниция}
 \deftranslation[to=bulgarian]{Theorem}{Теорема}
 
+% поддръжка на Text Companion шрифтове
+% използват се за апострофи и кавички
+\usepackage{textcomp}
+ 
 % правене на нови команди
 \usepackage{makecmds}
 
@@ -15,6 +19,9 @@
 
 % коментари
 \usepackage{comment}
+
+% зачертан текст
+\usepackage{soul}
 
 % вертикално подравняване на \includegraphics
 \usepackage[export]{adjustbox}
@@ -49,6 +56,9 @@
 % код в червено
 \newcommand{\tta}[1]{\tt{\alert{#1}}}
 
+% зачертан код в червено
+\newcommand{\sta}[1]{\tta{\st{#1}}}
+
 % по-приличен pause (за математика и таблици)
 \newcommand{\nxt}[1]{\visible<+->{#1}}
 
@@ -72,6 +82,12 @@
 
 % цитиране на wikipedia
 \newcommand{\wiki}{\raggedleft\tiny\textcolor{lightgray}{Изображения: wikipedia.org}}
+
+% обикновени кавички
+\newcommand{\quot}{\textquotedbl}
+
+% обикновен апостроф
+\newcommand{\apos}{\textquotesingle}
 
 %% диаграми
 

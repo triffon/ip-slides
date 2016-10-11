@@ -3,13 +3,15 @@
 
 \title{Основни елементи на C++}
 
-\date{5 октомври 2016 г.}
+\date{11 октомври 2016 г.}
 
 \begin{document}
 
 \begin{frame}
   \titlepage
 \end{frame}
+
+\section{Синтаксис и семантика}
 
 \begin{frame}
   \frametitle{Азбука}
@@ -91,6 +93,8 @@
   \end{itemize}
 \end{frame}
 
+\section{Синтактични елементи}
+
 \begin{frame}
   \frametitle{Основни думи на C++ (tokens)}
   \begin{itemize}[<+->]
@@ -102,7 +106,7 @@
     \begin{itemize}
     \item числови (\tt1, \tt{-5}, \tt{+2.34}, \tt{1e-02}, \tt{012}, \tt{0x123})
     \item символни (\tt{'a'}, \tt{'\textbackslash{}t'})
-    \item низови (\tt{"hello"}, \tt{"yes!"}) 
+    \item низови (\tt{"hello"}, \tt{"yes!"})
     \end{itemize}
   \item операции (\tt+, \tt-, \tt*, \tt/)
   \item разделители (\tt{: ; , ( ) [ ] \{ \} < >})
@@ -129,6 +133,315 @@ int sum = 0; // нулираме сумата
 ...
 \end{lstlisting}
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Променливи}
+Променливата е именувана област в паметта.\\
+\alert{\footnotesize Различно от променлива в математиката!}\\[1em]
+\pause
+\begin{itemize}
+\item Име (идентификатор)
+\item Място в паметта (адрес)
+\item Тип
+\item Стойност
+\end{itemize}
+\pause
+\begin{center}
+  \begin{tabular}{|p{2ex}|p{8ex}|p{8ex}|p{2ex}|p{4ex}|p{16ex}|}
+    \multicolumn 1c{}&\multicolumn2l{\tt{fn}}&\multicolumn2l{\tt c}&\multicolumn1l{\tt{pi}}\\
+    \hline
+    \rowcolor{diagramblue}
+    \ldots&\tt{81111}&\ldots&\tt{F}&\ldots&\tt{3.14159}\\
+    \hline
+    \multicolumn 1c{}&\multicolumn2l{\tt{int}}&\multicolumn2l{\tt{char}}&\multicolumn1l{\tt{double}}\\
+  \end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Дефиниция и присвояване}
+<дефиниция> ::= <тип>
+<идентификатор> [ \tta= <израз> ] \{\tta,\\
+\hspace{25ex}
+<идентификатор> [ \tta= <израз> ] \}\tta;\\[2em]
+<присвояване> ::= <идентификатор> \tta= <израз>\tta;\\[2em]
+\pause
+Примери:
+\begin{itemize}
+\item \lstinline{double x;}
+\item \lstinline{int a, b = 15;}
+\item \lstinline{a = b + 5;}
+\item \lstinline{x = a * (b - 3);}
+\item \sta{double y = double x;}
+\end{itemize}
+\end{frame}
+
+\begin{frame}<1-5>[fragile]
+  \frametitle{Изход на екрана}
+
+  \begin{itemize}
+  \item \tta{cout <{}<} <израз> \{\tta{<{}<} <израз>\}\tta;
+  \item \temporal<2>{\tt{cout <{}< a <{}< b <{}< c;}}{\tt{((cout <{}< a) <{}< b) <{}< c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cout <{}< a)}}_{\tt{cout}} \tt{<{}< b)}}_{\tt{cout}}\tt{ <{}< c;}}_{\tt{cout}}$}
+  \item<4-> \lstinline{cout << "a + b = "} \lstinline{<< a + b << endl;}
+  \item<5-> \sta{cout <{}< \quot a = \quot{} 2;}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Вход от клавиатурата}
+
+  \begin{itemize}
+  \item \tta{cin >{}>} <идентификатор> \{tta{>{}>} <идентификатор>\}\tta;
+  \item \temporal<2>{\tt{cin >{}> a >{}> b >{}> c;}}{\tt{((cin >{}> a) >{}> b) >{}> c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cin >{}> a)}}_{\tt{cin}} \tt{>{}> b)}}_{\tt{cin}}\tt{ >{}> c;}}_{\tt{cin}}$}
+  \item<4-> \sta{cin >{}> a + b;}
+  \item<5-> \sta{cin >{}> 15;}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Константи}
+  \begin{itemize}[<+->]
+  \item \tta{const} <тип> <идентификатор> \tta= <израз>\tta;
+  \item стойността на константите:
+    \begin{itemize}
+    \item \alert{трябва} да бъде зададена при дефиниране
+    \item \alert{не може} да се променя след това
+    \end{itemize}
+  \item Примери:
+    \begin{itemize}
+    \item \lstinline{const int FINGERS = 10;}
+    \item \sta{FINGERS = FINGERS + 2;}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Типове}
+
+\begin{frame}
+  \frametitle{Типове}
+  \begin{itemize}[<+->]
+  \item Класификация на видовете данни
+  \item Носят \textbf{семантична} информация
+  \item Помагат за проверка на коректност
+  \item Множество от допустими стойности
+  \item Операции
+  \item Вградени функции
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Класификация на типовете}
+  \begin{itemize}
+  \item Скаларни (атомарни)
+    \begin{itemize}
+    \item интегрални
+      \begin{itemize}
+      \item булев (\tt{bool})
+      \item целочислен (\tt{int})
+      \item символен (\tt{char})
+      \item изброен (\tt{enum})
+      \end{itemize}
+    \item други
+      \begin{itemize}
+      \item числа с плаваща запетая (\tt{float}, \tt{double})
+      \item указател (\tt{T*})
+      \item псевдоним (\tt{T\&})
+      \end{itemize}
+    \end{itemize}
+  \item Съставни
+    \begin{itemize}
+    \item масив (\tt{[]})
+      \begin{itemize}
+      \item низ (\tt{char[]})
+      \end{itemize}
+    \item структура (\tt{struct})
+    \item клас (\tt{class})
+    \item обединение (\tt{union})
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Логически тип (\tt{bool})}
+  \begin{itemize}
+  \item Множество от стойности: \{\tt{false}, \tt{true}\}
+  \item\ <булева\_константа> ::= \tta{true} | \tta{false}
+  \item логически операции
+  \end{itemize}
+  \begin{center}
+    \small
+    \begin{tabular}{c@{\hskip 3ex}c@{\hskip 3ex}c}
+      Конюкнция & Дизюкнция & Отрицание\\[1em]
+      \begin{tabular}{c|c|c}
+        \tt{\&\&}&\tt{false}&\tt{true}\\
+        \hline
+        \tt{false}&\tt{false}&\tt{false}\\
+        \hline
+        \tt{false}&\tt{false}&\tt{true}
+      \end{tabular}
+      &
+        \begin{tabular}{c|c|c}
+          \tt{||}&\tt{false}&\tt{true}\\
+          \hline
+          \tt{false}&\tt{false}&\tt{true}\\
+          \hline
+          \tt{true}&\tt{true}&\tt{true}
+        \end{tabular}
+      &
+        \begin{tabular}{c|c}
+          \tt{!}&\\
+          \hline
+          \tt{false}&\tt{true}\\
+          \hline
+          \tt{true}&\tt{false}
+        \end{tabular}
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Символен тип (\tt{char})}
+  \begin{itemize}
+  \item Множество от стойности
+    \begin{itemize}
+    \item \tt{signed char}: $[-128; 127]$
+    \item \tt{unsigned char}: $[0; 255]$
+    \end{itemize}
+  \item Литерали
+    \begin{itemize}
+    \item \tta\apos<символ>\tta\apos
+    \item \tta\apos\tta\textbackslash<контролен\_символ>\tta\apos
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Целочислен тип (\texttt{int})}
+  \begin{itemize}
+  \item Множество от стойности: $[-2^{31}; 2^{31}-1]$
+  \item модификатори
+    \begin{itemize}
+    \item \tt{short}:\hspace{2ex} $[-2^{15}; 2^{15}-1 ]$
+    \item \tt{long}:\hspace{2ex} $[-2^{63}; 2^{63} - 1]$
+    \item \tt{unsigned}:\hspace{2ex} $[0; 2^x-1 ]$, където $(x = 16, 32, 64)$
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Целочислен тип (\texttt{int})}
+  \begin{itemize}
+  \item аритметични операции
+    \begin{itemize}
+    \item едноместни операции за знак (\tt+, \tt-)
+    \item двуместни аритметични операции
+      \begin{itemize}
+      \item \tt{a + b} (събиране)
+      \item \tt{a - b} (изваждане)
+      \item \tt{a * b} (умножение)
+      \item \tt{a / b} (частно)
+      \item \tt{a \% b} (остатък)
+      \end{itemize}
+    \end{itemize}
+  \item операции за сравнение (предикати)
+    \begin{itemize}
+    \item \tt{a == b} (равно)
+    \item \tt{a != b} (различно)
+    \item \tt{a < b} (по-малко)
+    \item \tt{a > b} (по-голямо)
+    \item \tt{a <= b} (по-малко или равно)
+    \item \tt{a >= b} (по-голямо или равно)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Числа с плаваща запетая}
+  \begin{itemize}
+  \item \alert{Внимание: това не са реални числа!}
+    \begin{itemize}
+    \item А какво са реални числа?
+    \end{itemize}
+  \item Още ще ги наричаме и \textbf{дробни числа}
+  \item Мантиса и експонента
+    % TODO: Диаграма
+  \item Машинна нула
+    % TODO: Диаграма
+  \item Типове числа с плаваща запетая
+    \begin{itemize}
+    \item \tt{float} (4 байта)
+    \item \tt{double} (8 байта)
+    \item \tt{long double} (16 байта)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Дробни литерали}
+  \begin{itemize}
+  \item\ <дробно\_число> ::= [<цяло\_число>]\tta.[<цяло\_число\_без\_знак>]\\[0em]
+[(\tta{E}|\tta{e})<цяло\_число>]
+  \item Примери: \tt1, \tt{2.34}, \tt{12e-2}, \tt{10.14E+03}, \tt{.23}
+  \item Операции:
+    \begin{itemize}
+    \item всички за целочислен тип \alert{без \tt\%}
+    \item \tt/ е \alert{дробно деление}, а не частно!
+    \item сравненията \tt{==} и \tt{!=} са \alert{ненадеждни}!
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Математически функции}
+  \lstinline{#include <cmath>}
+  \begin{itemize}
+  \item \tt{abs(x)}, \tt{fabs(x)}
+  \item \tt{sin(x)}, \tt{cos(x)}, \tt{tan(x)}, \tt{asin(x)}, \tt{acos(x)}, \tt{atan(x)}
+  \item \tt{exp(x)}, \tt{log(x)}, \tt{log10(x)}
+  \item \tt{ceil(x)}, \tt{floor(x)}
+  \item \tt{sqrt(x)}, \tt{pow(x, n)}
+  \end{itemize}
+\end{frame}
+
+\section{Разрешаване на нееднозначности}
+
+\begin{frame}
+  \frametitle{Преобразуване на типове}
+  \begin{itemize}
+  \item $\tt{bool}\rightarrow%
+    \tt{char}\rightarrow%
+    \tt{short}\rightarrow%
+    \tt{int}\rightarrow%
+    \tt{long}\rightarrow%
+    \tt{float}\rightarrow%
+    \tt{double}$
+  \item $\tt{unsigned char}\rightarrow%
+    \tt{unsigned short}\rightarrow%
+    \tt{unsigned}\rightarrow%
+    \tt{unsigned long}$
+  \item обратната посока може да доведе до \alert{загуба на информация}
+  \item експлицитно преобразуване на типове:\\
+    <преобразуване> ::= \tta(<тип>\tta)<израз>
+%TODO: Примери
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Приоритет на операциите}
+  \begin{enumerate}
+  \item Обръщения към функции
+  \item Скоби
+  \item \tt!, \tt+, \tt- (едноместни)
+  \item \tt*, \tt/, \tt\%
+  \item \tt+, \tt- (двуместни)
+  \item \tt{<{}<}, \tt{>{}>}
+  \item \tt{<}, \tt{<=}, \tt{>}, \tt{>=}
+  \item \tt{==}, \tt{!=}
+  \item \tt{\&\&}
+  \item \tt{||}
+  \end{enumerate}
 \end{frame}
 
 \end{document}
