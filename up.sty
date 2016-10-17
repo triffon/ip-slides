@@ -46,6 +46,7 @@
 \usepackage{listings}
 \lstset{language=c++,
         basicstyle=\ttfamily,
+        columns=fullflexible,
         keywordstyle=\color{blue},
         extendedchars=false,
         texcl=true,
@@ -62,6 +63,9 @@
 
 % зачертан код в червено
 \newcommand{\sta}[1]{\tta{\st{#1}}}
+
+% код с форматиране
+\newcommand{\lst}{\lstinline}
 
 % по-приличен pause (за математика и таблици)
 \newcommand{\nxt}[1]{\visible<+->{#1}}

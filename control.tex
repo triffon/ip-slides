@@ -1,0 +1,379 @@
+\documentclass{beamer}
+\usepackage{up}
+
+\title{Управляващи оператори C++}
+
+\date{18 октомври 2016 г.}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Изчислителни процеси}
+
+\begin{frame}
+  \frametitle{Изчислителни процеси}
+
+  \begin{itemize}
+  \item Алгоритъм: последователност от стъпки за извършване на пресмятане
+  \item Блок-схема
+  \end{itemize}
+  %TBD
+  Пример за линеен процес
+\end{frame}
+
+\begin{frame}
+  \frametitle{Разклоняващи се процеси}
+
+  %TBD
+\end{frame}
+
+\begin{frame}
+  \frametitle{Индуктивни циклични процеси}
+
+  %TBD
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \tt n&\tt i&\tt f\\
+    \hline\hline
+    4&1&1\\
+    \hline
+    4&2&1\\
+    \hline
+    4&3&2\\
+    \hline
+    4&4&6\\
+    \hline
+    4&5&24\\
+    \hline
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Итеративни циклични процеси}
+
+  %TBD
+  \begin{tabular}{|c|c|}
+    \hline
+    \tt a&\tt b\\
+    \hline\hline
+    12&32\\
+    \hline
+    12&20\\
+    \hline
+    12&8\\
+    \hline
+    4&8\\
+    \hline
+    4&4\\
+    \hline
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Структурни езици — разклонение}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{enumerate}
+      \item Въведи \tt a, \tt b
+      \item Ако \tt{a == 0}, към 5
+      \item \tt{x = -b / a}
+      \item Премини към 9
+      \item Ако \tt{b = 0}, към 8
+      \item ``Няма решения''
+      \item Премини към 9
+      \item ``Всяко $x$ е решение''
+      \item Край
+      \end{enumerate}
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item Въведи \tt a, \tt b
+      \item Ако \tt{a == 0}
+        \begin{itemize}
+        \item Ако \tt{b == 0}
+          \begin{itemize}
+          \item ``Всяко $x$ е решение''
+          \end{itemize}
+        \item Иначе
+          \begin{itemize}
+          \item ``Няма решения''
+          \end{itemize}
+        \end{itemize}
+      \item Иначе
+        \begin{itemize}
+        \item \tt{x = -b / a}
+        \end{itemize}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Структурни езици — итеративен цикъл}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{enumerate}
+      \item Въведи \tt n
+      \item \tt{i = 1}
+      \item \tt{f = 1}
+      \item Ако \tt{i > n}, към 8
+      \item \tt{f = f * i}
+      \item \tt{i = i + 1}
+      \item Премини към 4
+      \item Изведи \tt f
+      \item Край
+      \end{enumerate}
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item Въведи \tt n
+      \item \tt{i = 1}
+      \item \tt{f = 1}
+      \item Повтаряй \tt n пъти
+        \begin{itemize}
+        \item \tt{f = f * i}
+        \item \tt{i = i + 1}
+        \end{itemize}
+      \item Изведи \tt f
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Структурни езици — индуктивен цикъл}
+
+  \begin{columns}[t,onlytextwidth]
+    \begin{column}{.5\textwidth}
+      \begin{enumerate}
+      \item Въведи \tt a, \tt b
+      \item Ако \tt{a == b}, към 6.
+      \item Ако \tt{a > b}, към 5.
+      \item \tt{b = b - a}; към 2.
+      \item \tt{a = a - b}; към 2.
+      \item Изведи \tt a
+      \item Край
+      \end{enumerate}
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item Въведи \tt a, \tt b
+      \item Докато \tt{a != b}
+        \begin{itemize}
+        \item Ако \tt{a > b}
+          \begin{itemize}
+          \item \tt{a = a - b}
+          \end{itemize}
+        \item В противен случай
+          \begin{itemize}
+          \item \tt{b = b - a}
+          \end{itemize}
+        \end{itemize}
+      \item Изведи \tt a
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{Основни понятия}
+
+\begin{frame}
+  \frametitle{Основни понятия}
+
+  \begin{itemize}
+  \item Операция (operator)
+  \item Израз (expression)
+  \item Оператор/команда (statement)
+  \item{}
+    \begin{tabular}[t]{@{}rl@{}}
+      <израз> ::= &<константа> | <променлива> |\\
+      &<едноместна\_опeрация> <израз> |\\
+      &<израз> <двуместна\_операция> <израз>
+    \end{tabular}
+  \item{} <оператор> ::= <израз>\tta;
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Оператор за присвояване}
+
+  \begin{itemize}
+  \item{} <променлива> \tta= <израз>\tta;
+  \item{} <lvalue> \tta= <rvalue>\tta;
+  \item{} <lvalue> означава място в паметта със стойност, която може да
+    се променя
+  \item Пример: променлива
+  \item{} <rvalue> означава временна стойност, без специално място в
+    паметта
+  \item стандартно преобразуване на типовете
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[<1-3>]
+  \frametitle{Присвояването като операция}
+  \begin{itemize}
+  \item<1-> \alert{дясноасоциативна} операция
+  \item<2-> \temporal<3>{\tt{a = b = c = 2;}}{\tt{a = (b = (c = 2));}}{$\underbrace{\tt{a = }\underbrace{\tt{(b = }\underbrace{\tt{(c = 2)}}_{\tt c})}_{\tt b}}_{\tt a}$}
+  \item<3> \sta{(((a = b) = c) = 2);}
+  \item<5-> Пример: \lstinline{cout << x + (b = 2);}
+  \item<6-> Пример: \lstinline{(a = b) = a + 3;}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Операция за изброяване}
+
+  \begin{itemize}
+  \item{} <израз1>\tta, <израз2>
+  \item оценява и двата израза, но крайният резултат е оценката на втория израз
+  \item \tt{a, b, c, d} $\Leftrightarrow$ \tt{(a, (b, (c, d)))}
+  \item \alert{дясноасоциативна}
+  \item използва се рядко
+  \item Пример: \lstinline{a = (cout << x, x);}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Съкратени оператори за присвояване}
+
+  \begin{itemize}[<+->]
+  \item \tt{a = a + 2} $\Leftrightarrow$ \tt{a += 2}
+  \item \tt{-=}, \tt{*=}, \tt{/=}, \tt{\%=}
+  \item \tt{a = a + 1}  $\Leftrightarrow$ \tt{++a}
+  \item \tt{a = a - 1}  $\Leftrightarrow$ \tt{--a}
+  \item \tt{a++} увеличава a с 1, но връща предишната стойност на \tt a
+    \begin{itemize}
+    \item \tt{a++} $\Leftrightarrow$ \tt{(a = (tmp = a) + 1, tmp)}
+    \end{itemize}
+  \item \tt{a--} действа аналогично
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Оператор за блок}
+
+  \begin{itemize}[<+->]
+  \item \tta\{ \{ <оператор> \} \tta\}
+  \item \tta\{ <оператор$_1$> <оператор$_2$> \ldots <оператор$_n$> \tta\}
+  \item Вложени блокове\\
+\begin{lstlisting}
+{
+  int x = 2;
+  {
+    x += 2;
+    cout << x;
+  }
+}
+\end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Област на действие (scope)}
+  
+  \begin{itemize}[<+->]
+  \item областта на действие се простира от дефиницията на
+    променливата до края на блока, в който е дефинирана
+  \item дефиниция на променлива със същото име в същия блок е
+    забранена
+  \item дефиниция на променлива във вложен блок покрива всички външни
+    дефиниции със същото име
+  \end{itemize}
+  %TBD: пример
+\end{frame}
+
+\begin{frame}
+  \frametitle{Празен оператор}
+  \begin{itemize}
+  \item \tta;
+  \item \tt; $\Leftrightarrow$ \tt{\{\}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Условен оператор}
+  
+  \begin{itemize}[<+->]
+  \item \tta{if (}<израз>\tta) <оператор> [\tta{else} <оператор>]
+  \item \lst{if ( x < 2 ) y = 2;} $\Leftrightarrow$ \lst{if ( x > 5 ) y = 5; else y = 3;}
+  \item \lst{if (A) X;} $\Leftrightarrow$ \lst{if (A) X; else;}
+  \item \lst{if (!A) X; else Y;} $\Leftrightarrow$ \lst{if (A) Y; else X;}
+  \item \lst{if (A && B) X; else Y;} $\Leftrightarrow$ \lst{if (A) if (B) X; else Y; else Y;}
+  \item \lst{if (A || B) X; else Y;} $\Leftrightarrow$ \lst{if (A) X; else if (B) X; else Y;}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Условна \alert{операция}}
+  \begin{itemize}[<+->]
+  \item{} <булев\_израз> ? <израз> : <израз>
+  \item триместна (тернарна) операция
+  \item Пример: \lst{x = (y < 2) ? y + 1 : y - 2;}
+  \item \lst{A} $\Leftrightarrow$ \lst{A ? true : false}
+  \item \lst{!A} $\Leftrightarrow$ \lst{A ? false : true}
+  \item \lst{A && B} $\Leftrightarrow$ \lst{A ? B : false}
+  \item \lst{A || B} $\Leftrightarrow$ \lst{A ? true : B}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Задачи за условен оператор}
+  
+  \begin{enumerate}
+  \item Да се провери дали три числа образуват растяща редица
+  \item Да се намери най-малкото от три числа
+  \item Да се подредят три числа в растяща редица
+  \item Да се провери дали три числа образуват Питагорова тройка
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Оператор за многозначен избор}
+  
+  \begin{itemize}
+  \item \tta{switch (}<израз>\tta{) \{}\\
+	{ \tta{case }<константен\_израз> \tta: { <оператор> } }\\
+	[ \tta{default :} { <оператор> } ]\\
+      \tta\}
+  \item Пример:
+\begin{lstlisting}
+switch (x) {
+	case 1 : x++;
+	case 2 : x += 2;
+	default : x += 5;
+}
+\end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Оператор за прекъсване}
+  
+  \begin{itemize}
+  \item \tta{break;}
+  \item 
+\begin{lstlisting}
+switch (x) {
+	case 1 : x++; break;
+	case 2 : x += 2; break;
+	default : x += 5;
+}
+\end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Задачи за многозначен избор}
+  
+  \begin{enumerate}
+  \item Да се пресметне избрана от потребителя целочислена аритметична операция
+  \item Да се провери дали дадена буква е гласна или съгласна
+  \end{enumerate}
+\end{frame}
+\end{document}
