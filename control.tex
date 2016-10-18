@@ -3,7 +3,7 @@
 
 \title{Управляващи оператори C++}
 
-\date{18 октомври 2016 г.}
+\date{19 октомври 2016 г.}
 
 \begin{document}
 
@@ -19,21 +19,91 @@
   \begin{itemize}
   \item Алгоритъм: последователност от стъпки за извършване на пресмятане
   \item Блок-схема
-  \end{itemize}
-  %TBD
+  \end{itemize}\ \\[1em]
+  \begin{tikzpicture}
+    [node distance=4ex,font=\small]
+    \node (begin)  [entry]                  {начало};
+    \node (input)  [io,right=of begin]      {%
+      \begin{tabular}{l}
+        въведи \tt a\\
+        въведи \tt b        
+      \end{tabular}
+    };
+    \node (assign) [op,right=of input]      {\tt{x = -b/a}};
+    \node (output) [io,right=of assign]     {изведи \tt x};
+    \node (end)    [entry,right=of output]  {край};
+
+    \graph[use existing nodes,edges=thick]
+    { begin -> input -> assign -> output -> end };
+  \end{tikzpicture}\\[2em]
   Пример за линеен процес
 \end{frame}
 
 \begin{frame}
   \frametitle{Разклоняващи се процеси}
 
-  %TBD
+  \begin{tikzpicture}
+    [node distance=4ex,font=\scriptsize]
+    \node (begin)  [entry]                  {начало};
+    \node (input)  [io,right=of begin]      {%
+      \begin{tabular}{l}
+        въведи \tt a\\
+        въведи \tt b
+      \end{tabular}
+    };
+    \node (a0)     [cond,right=of input]    {\tt{a == 0}};
+    \node (assign) [op,right=of a0]         {\tt{x = -b/a}};
+    \node (output) [io,right=of assign]     {изведи \tt x};
+    \node (p1)     [point,right=of output]  {};
+    \node (b0)     [cond,below=of a0]       {\tt{b == 0}};
+    \node (nosol)  [io,right=of b0]         {
+      \begin{tabular}{l}
+        изведи\\
+        \tt{"няма решение"}
+      \end{tabular}};
+    \node (p2)     [point] at (nosol -| p1) {};
+    \node (allsol) [io,below=of b0]         {
+      \begin{tabular}{l}
+        изведи\\
+        \tt{"всяко x е решение"}
+      \end{tabular}};
+    \node (end)    [entry] at (allsol -| p1){край};    
+
+    \graph[use existing nodes,edges=thick]
+    { begin -> input -> a0 ->[edge label={не}] assign -> output -- p1 -- p2 -> end;
+      a0 ->[edge label=да] b0 ->[edge label={не}] nosol -> p2;
+      b0 ->[edge label=да] allsol -> end;
+    };
+  \end{tikzpicture}
 \end{frame}
 
 \begin{frame}
   \frametitle{Индуктивни циклични процеси}
+  
+  \begin{tikzpicture}
+    [node distance=4ex,font=\scriptsize]
+    \node (begin)  [entry]                  {начало};
+    \node (input)  [io,right=of begin]      {въведи \tt n};
+    \node (init)   [op,right=of input]      {
+      \begin{tabular}{l}
+        \tt{i = 1}\\
+        \tt{f = 1}
+      \end{tabular}};
+    \node (p0)     [point,below=of init]    {};
+    \node (guard)  [cond,below=of p0]       {\tt{i <= n}};
+    \node (body)   [op,below=of guard]      {
+      \begin{tabular}{l}
+        \tt{f = f * i}\\
+        \tt{i = i + 1}
+      \end{tabular}};
+    \node (output) [io,right=of guard]      {изведи \tt f};
+    \node (end)    [entry,right=of output]  {край};
 
-  %TBD
+    \graph[use existing nodes,edges=thick]
+    { begin -> input -> init -- p0 -> guard ->[edge label={не}] output -> end;
+      guard ->[edge label=да] body ->[to path={-- ++(-10ex,0) |- (p0)}] p0; };
+  \end{tikzpicture}\\[-10em]
+  \pause
   \begin{tabular}{|c|c|c|}
     \hline
     \tt n&\tt i&\tt f\\
@@ -54,7 +124,40 @@
 \begin{frame}
   \frametitle{Итеративни циклични процеси}
 
-  %TBD
+  \begin{tikzpicture}
+    [node distance=4ex,font=\scriptsize]
+    \node (begin)  [entry]                  {начало};
+    \node (input)  [io,right=of begin]      {
+      \begin{tabular}{l}
+        въведи \tt a\\
+        въведи \tt b
+      \end{tabular}};
+    \node (guard)   [cond,right=of input,inner sep=-2pt]   {
+      \begin{tabular}{c}
+        \tt{a == 0}\\
+        или\\
+        \tt{b == 0}
+      \end{tabular}};
+    \node (p)       [point,below=of guard] {};
+    \node (nogcd)   [io,right=of guard] {
+      \begin{tabular}{l}
+        изведи\\
+        \tt{"няма НОД"}
+      \end{tabular}};
+    \node (end)     [entry,right=of nogcd] {край};
+    \node (ab)      [cond,below=of p]  {\tt{a == b}};
+    \node (ab1)     [cond,below=of ab]     {\tt{a > b}};
+    \node (output)  [io] at (ab -| end)    {изведи \tt a};
+    \node (a)       [op,left=of ab1]       {\tt{a = a - b}};
+    \node (b)       [op,right=of ab1]       {\tt{b = b - a}};
+
+    \graph[use existing nodes,edges=thick]
+    { begin -> input -> guard ->[edge label=не] nogcd -> end;
+      guard --[edge label=да] p -> ab ->[edge label=да] output -> end;
+      ab ->[edge label=не] ab1 ->[edge label=да] a ->[to path={|- (p)}] p;
+      ab1 ->[edge label=не] b ->[to path={|- (p)}] p;};
+  \end{tikzpicture}\\[-10em]
+  \pause
   \begin{tabular}{|c|c|}
     \hline
     \tt a&\tt b\\
@@ -246,12 +349,12 @@
   \item \tt{a = a + 2} $\Leftrightarrow$ \tt{a += 2}
   \item \tt{-=}, \tt{*=}, \tt{/=}, \tt{\%=}
   \item \tt{a = a + 1}  $\Leftrightarrow$ \tt{++a}
-  \item \tt{a = a - 1}  $\Leftrightarrow$ \tt{--a}
+  \item \tt{a = a - 1}  $\Leftrightarrow$ \tt{-{}-a}
   \item \tt{a++} увеличава a с 1, но връща предишната стойност на \tt a
     \begin{itemize}
     \item \tt{a++} $\Leftrightarrow$ \tt{(a = (tmp = a) + 1, tmp)}
     \end{itemize}
-  \item \tt{a--} действа аналогично
+  \item \tt{a-{}-} действа аналогично
   \end{itemize}
 \end{frame}
 
@@ -325,7 +428,7 @@
 \begin{frame}
   \frametitle{Задачи за условен оператор}
   
-  \begin{enumerate}
+  \begin{enumerate}[<+->]
   \item Да се провери дали три числа образуват растяща редица
   \item Да се намери най-малкото от три числа
   \item Да се подредят три числа в растяща редица
@@ -337,10 +440,11 @@
   \frametitle{Оператор за многозначен избор}
   
   \begin{itemize}
-  \item \tta{switch (}<израз>\tta{) \{}\\
-	{ \tta{case }<константен\_израз> \tta: { <оператор> } }\\
-	[ \tta{default :} { <оператор> } ]\\
-      \tta\}
+  \item
+    \tta{switch (}<израз>\tta{) \{}\\
+    \hspace{3ex}\{ \tta{case }<константен\_израз> \tta: \{ <оператор> \} \}\\
+    \hspace{3ex}[ \tta{default :} \{ <оператор> \} ]\\
+    \tta\}
   \item Пример:
 \begin{lstlisting}
 switch (x) {
@@ -357,7 +461,7 @@ switch (x) {
   
   \begin{itemize}
   \item \tta{break;}
-  \item 
+  \item Пример:
 \begin{lstlisting}
 switch (x) {
 	case 1 : x++; break;
@@ -371,7 +475,7 @@ switch (x) {
 \begin{frame}
   \frametitle{Задачи за многозначен избор}
   
-  \begin{enumerate}
+  \begin{enumerate}[<+->]
   \item Да се пресметне избрана от потребителя целочислена аритметична операция
   \item Да се провери дали дадена буква е гласна или съгласна
   \end{enumerate}

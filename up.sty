@@ -53,6 +53,23 @@
         escapechar=@,
         showstringspaces=false}
 
+% декларативна графика
+\usepackage{tikz}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{positioning}
+\usetikzlibrary{graphs}
+
+% стил за блох-схеми
+\tikzset{
+    base/.style={minimum height=2em,draw=black,fill=diagramblue},
+    entry/.style={base,rounded rectangle},
+    io/.style={base,trapezium,trapezium stretches=true,trapezium left angle=60,trapezium right angle=120,inner sep=0.5ex},
+    op/.style={base,rectangle},
+    cond/.style={base,diamond},
+    point/.style={coordinate}
+}
+
 %%% кратки команди за форматиране
 
 % код
