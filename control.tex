@@ -1,7 +1,7 @@
 \documentclass{beamer}
 \usepackage{up}
 
-\title{Управляващи оператори C++}
+\title{Управляващи оператори в C++}
 
 \date{19 октомври 2016 г.}
 
@@ -109,13 +109,13 @@
     \tt n&\tt i&\tt f\\
     \hline\hline
     4&1&1\\
-    \hline
+    \hline\tpause
     4&2&1\\
-    \hline
+    \hline\tpause
     4&3&2\\
-    \hline
+    \hline\tpause
     4&4&6\\
-    \hline
+    \hline\tpause
     4&5&24\\
     \hline
   \end{tabular}
@@ -142,7 +142,7 @@
     \node (nogcd)   [io,right=of guard] {
       \begin{tabular}{l}
         изведи\\
-        \tt{"няма НОД"}
+        \tt{"грешка"}
       \end{tabular}};
     \node (end)     [entry,right=of nogcd] {край};
     \node (ab)      [cond,below=of p]  {\tt{a == b}};
@@ -152,8 +152,8 @@
     \node (b)       [op,right=of ab1]       {\tt{b = b - a}};
 
     \graph[use existing nodes,edges=thick]
-    { begin -> input -> guard ->[edge label=не] nogcd -> end;
-      guard --[edge label=да] p -> ab ->[edge label=да] output -> end;
+    { begin -> input -> guard ->[edge label=да] nogcd -> end;
+      guard --[edge label=не] p -> ab ->[edge label=да] output -> end;
       ab ->[edge label=не] ab1 ->[edge label=да] a ->[to path={|- (p)}] p;
       ab1 ->[edge label=не] b ->[to path={|- (p)}] p;};
   \end{tikzpicture}\\[-10em]
@@ -163,13 +163,13 @@
     \tt a&\tt b\\
     \hline\hline
     12&32\\
-    \hline
+    \hline\tpause
     12&20\\
-    \hline
+    \hline\tpause
     12&8\\
-    \hline
+    \hline\tpause
     4&8\\
-    \hline
+    \hline\tpause
     4&4\\
     \hline
   \end{tabular}
@@ -216,7 +216,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Структурни езици — итеративен цикъл}
+  \frametitle{Структурни езици — индуктивен цикъл}
 
   \begin{columns}
     \begin{column}{.5\textwidth}
@@ -249,7 +249,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Структурни езици — индуктивен цикъл}
+  \frametitle{Структурни езици — итеративен цикъл}
 
   \begin{columns}[t,onlytextwidth]
     \begin{column}{.5\textwidth}
@@ -289,9 +289,9 @@
   \frametitle{Основни понятия}
 
   \begin{itemize}
-  \item Операция (operator)
-  \item Израз (expression)
-  \item Оператор/команда (statement)
+  \item \textbf{Операция} (operator)
+  \item \textbf{Израз} (expression)
+  \item \textbf{Оператор/команда} (statement)
   \item{}
     \begin{tabular}[t]{@{}rl@{}}
       <израз> ::= &<константа> | <променлива> |\\
@@ -308,17 +308,17 @@
   \begin{itemize}
   \item{} <променлива> \tta= <израз>\tta;
   \item{} <lvalue> \tta= <rvalue>\tta;
-  \item{} <lvalue> означава място в паметта със стойност, която може да
-    се променя
+  \item{} <lvalue> --- място в паметта със стойност, която може да се променя
   \item Пример: променлива
-  \item{} <rvalue> означава временна стойност, без специално място в
-    паметта
-  \item стандартно преобразуване на типовете
+  \item{} <rvalue> --- временна стойност, без специално място в паметта
+  \item Пример: константа, литерал, резултат от пресмятане
+  \item стандартно преобразуване на типовете:\\
+    <rvalue> се преобразува до типа на <lvalue>
   \end{itemize}
 
 \end{frame}
 
-\begin{frame}[<1-3>]
+\begin{frame}
   \frametitle{Присвояването като операция}
   \begin{itemize}
   \item<1-> \alert{дясноасоциативна} операция
@@ -355,6 +355,14 @@
     \item \tt{a++} $\Leftrightarrow$ \tt{(a = (tmp = a) + 1, tmp)}
     \end{itemize}
   \item \tt{a-{}-} действа аналогично
+  \item \tta{a++} връща a, което е \alert{<lvalue>}
+    \begin{itemize}
+    \item Пример: \lst{++a += 5;}
+    \end{itemize}
+  \item \tta{a-{}-} връща предишната стойност на a, което е \alert{<rvalue>}
+    \begin{itemize}
+    \item Пример: \lst{x = a++ * b;} \sta{a++ += 5;}
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -377,7 +385,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<0>
   \frametitle{Област на действие (scope)}
   
   \begin{itemize}[<+->]
@@ -396,6 +404,7 @@
   \begin{itemize}
   \item \tta;
   \item \tt; $\Leftrightarrow$ \tt{\{\}}
+  \item няма никакъв ефект
   \end{itemize}
 \end{frame}
 
@@ -404,13 +413,21 @@
   
   \begin{itemize}[<+->]
   \item \tta{if (}<израз>\tta) <оператор> [\tta{else} <оператор>]
-  \item \lst{if ( x < 2 ) y = 2;} $\Leftrightarrow$ \lst{if ( x > 5 ) y = 5; else y = 3;}
-  \item \lst{if (A) X;} $\Leftrightarrow$ \lst{if (A) X; else;}
-  \item \lst{if (!A) X; else Y;} $\Leftrightarrow$ \lst{if (A) Y; else X;}
-  \item \lst{if (A && B) X; else Y;} $\Leftrightarrow$ \lst{if (A) if (B) X; else Y; else Y;}
-  \item \lst{if (A || B) X; else Y;} $\Leftrightarrow$ \lst{if (A) X; else if (B) X; else Y;}
+  \item Съкратената форма $\Leftrightarrow$ пълна форма с празен оператор
+    \begin{itemize}
+    \item \lst{if (A) X;} $\Leftrightarrow$ \lst{if (A) X; else;}
+    \end{itemize}
+  \item Пример: \lst{if ( x < 2 ) y = 2;}
+  \item Пример: \lst{if ( x > 5 ) y = 5; else y = 3;}
+  \item Представяне на логически операции с вложени \text{if}:
+    \begin{itemize}
+    \item \lst{if (!A) X; else Y;} $\Leftrightarrow$ \lst{if (A) Y; else X;}
+    \item \lst{if (A && B) X; else Y;} $\Leftrightarrow$ \lst{if (A) if (B) X; else Y; else Y;}
+    \item \lst{if (A || B) X; else Y;} $\Leftrightarrow$ \lst{if (A) X; else if (B) X; else Y;}
+    \end{itemize}
   \end{itemize}
 \end{frame}
+\end{document}
 
 \begin{frame}
   \frametitle{Условна \alert{операция}}
