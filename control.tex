@@ -3,7 +3,9 @@
 
 \title{Управляващи оператори в C++}
 
-\date{19 октомври 2016 г.}
+\date{19--26 октомври 2016 г.}
+
+\newcommand{\expsum}{\displaystyle \sum_{i=0}^n \limits \frac{x^i}{i!}}
 
 \begin{document}
 
@@ -385,9 +387,9 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}<0>
+\begin{frame}
   \frametitle{Област на действие (scope)}
-  
+
   \begin{itemize}[<+->]
   \item областта на действие се простира от дефиницията на
     променливата до края на блока, в който е дефинирана
@@ -396,7 +398,46 @@
   \item дефиниция на променлива във вложен блок покрива всички външни
     дефиниции със същото име
   \end{itemize}
-  %TBD: пример
+\end{frame}
+
+\begin{frame}<1-10>
+  \frametitle{Област на действие (scope) --- пример}
+  
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.4\textwidth}
+      \begin{tabular}{|l|l|l|}
+        \hline
+        \multicolumn3{|l|}{\lst{int x = 0;}}\\
+        \multicolumn3{|l|}{\tt\{}\\
+        \multicolumn1{|l}{}&\multicolumn2{l|}{\lst{x++;}}\\
+        \cline{2-3}
+                           &\multicolumn2{l|}{\lst{double y = 2.3;}}\\
+                           &\multicolumn2{l|}{\tt\{}\\
+        \cline{3-3}
+                           &&\multicolumn1{l|}{\lst{double x = 1.6;}}\\
+                           &&\multicolumn1{l|}{\lst{y = x * x;}}\\
+        \cline{3-3}
+                           &\multicolumn2{l|}{\tt\}}\\
+                           &\multicolumn2{l|}{\sta{double y = 2.4;}}\\
+                           &\multicolumn2{l|}{\lst{x += 3;}}\\
+        \cline{2-3}
+        \multicolumn3{|l|}{\tt\}}\\
+        \multicolumn3{|l|}{\lst{x += 4;}}\\
+        \multicolumn3{|l|}{\sta{y /= 2.1;}}\\
+        \hline
+      \end{tabular}
+    \end{column}
+    \pause
+    \begin{column}{.6\textwidth}
+      \begin{tabular}{p{3ex}|p{4ex}|p{8ex}|p{8ex}|p{3ex}}
+        \multicolumn1l{}&\multicolumn1l{\tt x}&\multicolumn1l{\only<4-8>{\tt y}}&\multicolumn1l{\only<5-6>{\tt x}}&\multicolumn1l{}\\
+        \hline
+        \rowcolor{diagramblue}
+        \ldots&\tt{\temporal<3-7>{0}{1}{\alt<8-9>{4}{8}}}&\tt{\temporal<4-5>{}{2.3}{\alt<6-8>{2.56}{}}}&\tt{\only<5-6>{1.6}}&\ldots\\
+        \hline
+      \end{tabular}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -407,6 +448,8 @@
   \item няма никакъв ефект
   \end{itemize}
 \end{frame}
+
+\section{Структури за разклонение}
 
 \begin{frame}
   \frametitle{Условен оператор}
@@ -419,21 +462,94 @@
     \end{itemize}
   \item Пример: \lst{if ( x < 2 ) y = 2;}
   \item Пример: \lst{if ( x > 5 ) y = 5; else y = 3;}
-  \item Представяне на логически операции с вложени \text{if}:
-    \begin{itemize}
-    \item \lst{if (!A) X; else Y;} $\Leftrightarrow$ \lst{if (A) Y; else X;}
-    \item \lst{if (A && B) X; else Y;} $\Leftrightarrow$ \lst{if (A) if (B) X; else Y; else Y;}
-    \item \lst{if (A || B) X; else Y;} $\Leftrightarrow$ \lst{if (A) X; else if (B) X; else Y;}
-    \end{itemize}
   \end{itemize}
 \end{frame}
-\end{document}
+
+\begin{frame}<1-5>[fragile]
+  \frametitle{Вложени условни оператори}
+
+  Какво имаме предвид, когато пишем:
+  \lst{if (a > 0) if (b > 0) cout << 1; else cout << 3;}\\[1em]
+  \pause
+  \begin{tabular}{l@{\hskip 12ex}c@{\hskip 12ex}l}
+\begin{lstlisting}
+if (a > 0) @\only<3->{\{}@
+  if (b > 0)
+@\only<4->{\hskip 4ex// $a > 0$ \&\& $b > 0$}@
+    cout << 1;
+  else
+@\only<4->{\hskip 4ex// $a > 0$ \&\& $b \leq 0$}@
+    cout << 3;
+@\only<3->{\}}@
+\end{lstlisting}%
+\onslide<2-4>
+    &или&%
+\begin{lstlisting}
+if (a > 0) @\only<3->{\{}@
+  if (b > 0)
+@\only<4->{\hskip 4ex// $a > 0$ \&\& $b > 0$}@
+    cout << 1;
+@\only<3->{\}}@
+else
+@\only<4->{\hskip 2ex// $a \leq 0$}@
+  cout << 3;
+\end{lstlisting}
+  \end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Съкратено оценяване на логически операции}
+Представяне на логически операции с вложени условни оператори:\\[1em]
+\begin{tabular}{l@{$\qquad\Leftrightarrow\qquad$}l}
+\begin{lstlisting}
+if (!A) X;
+else    Y;
+\end{lstlisting}
+  &
+\begin{lstlisting}
+if (A) Y;
+else   X;
+\end{lstlisting}\\[1.5em]
+\tpause
+\begin{lstlisting}
+if (A && B) X;
+else        Y;
+\end{lstlisting}
+&
+\begin{lstlisting}
+if (A)
+  if (B) X;
+  else   Y;
+else Y;
+\end{lstlisting}\\[2.5em]
+\tpause
+\begin{lstlisting}
+if (A || B) X;
+else        Y;
+\end{lstlisting}
+&
+\begin{lstlisting}
+if (A) X;
+else
+  if (B) X;
+  else   Y;
+\end{lstlisting}
+\end{tabular}\\[1em]
+\pause
+Пример: \lst{if (x > 0 && log(x) < 5) ...}\\
+Пример: \lst{if (x == 0 || y / x == 1) ...}
+\end{frame}
 
 \begin{frame}
   \frametitle{Условна \alert{операция}}
   \begin{itemize}[<+->]
-  \item{} <булев\_израз> ? <израз> : <израз>
+  \item{} <булев\_израз> ? <израз$_1$> : <израз$_2$>
   \item триместна (тернарна) операция
+  \item пресмята се \tt{<булев\_израз>}
+    \begin{itemize}
+    \item При \tt{true} се пресмята <израз$_1$> и се връща резултатът
+    \item При \tt{false} се пресмята <израз$_2$> и се връща резултатът
+    \end{itemize}
   \item Пример: \lst{x = (y < 2) ? y + 1 : y - 2;}
   \item \lst{A} $\Leftrightarrow$ \lst{A ? true : false}
   \item \lst{!A} $\Leftrightarrow$ \lst{A ? false : true}
@@ -495,6 +611,326 @@ switch (x) {
   \begin{enumerate}[<+->]
   \item Да се пресметне избрана от потребителя целочислена аритметична операция
   \item Да се провери дали дадена буква е гласна или съгласна
+  \end{enumerate}
+\end{frame}
+
+\section{Циклични структури}
+
+\begin{frame}
+  \frametitle{Циклични структури}
+  
+  \begin{itemize}[<+->]
+  \item Да се пресметне $\displaystyle\sum_{i=1}^5\limits i^2$
+    \begin{itemize}
+    \item \lst{x += 1*1; x += 2*2; x += 3*3; x += 4*4; x += 5*5;}
+    \item \lst{x += i*i;} за $i = 1, 2, 3, 4, 5$
+    \item индуктивен цикличен процес
+    \item \lst{for(int i = 1; i <= 5; i++) x += i * i;}
+    \end{itemize}
+  \item Да се намери първата цифра на $x$
+    \begin{itemize}
+    \item \lst{if (x >= 10) x /= 10; if (x >= 10) x /= 10; ...}
+    \item \lst{x /= 10;} докато е вярно, че \lst{x >= 10}
+    \item итеративен цикличен процес
+    \item \lst{while (x >= 10) x /= 10;}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Оператор \tt{for}}
+  
+  \begin{itemize}[<+->]
+  \item \tta{for (}<израз> \tta; <израз> \tta; <израз> \tta) <оператор>
+  \item \tta{for (}<инициализация> \tta; <условие> \tta; <корекция> \tta) <тяло>
+  \item Семантика:
+    \begin{itemize}
+    \item<.-> <инициализация>\tt;
+    \item<.-> \lst{if (}<условие>\tt{) \{} <тяло> <корекция>\tt{;\}}
+    \item<.-> \lst{if (}<условие>\tt{) \{} <тяло> <корекция>\tt{;\}}
+    \item<.-> \lst{if (}<условие>\tt{) \{} <тяло> <корекция>\tt{;\}}
+    \item<.-> \ldots
+    \end{itemize}
+  \item \alert{Изключение:} <начало> може да е не просто израз, а дефиниция на променлива 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,fragile]
+  \frametitle{Оператор \tt{for} --- примери}
+
+\begin{lstlisting}
+double sum = 0, x;
+int n;
+cout << "Въведете брой числа: ";cin >> n;
+for(int i = 1; i <= n; i++) {
+  cout << "Въведете число: ";
+  cin >> x;
+  sum += x;
+}
+cout << "Средно аритметично: " << sum / n << endl;
+\end{lstlisting}
+\pause
+\begin{lstlisting}
+for(int i = 1, x = 0, y = 1; i < 5; i++) {
+  x += i;
+  y *= x;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Задачи за \tt{for}}
+  
+  \begin{enumerate}[<+->]
+  \item Да се пресметне $n!$
+  \item Да се пресметне сумата $\expsum$
+  \item Да се намери броят на тези от числата $x_i = n^3 + 5i^2n -8i$, които са кратни на 3 за $i=1,\ldots,n$
+  \item Да се намери най-голямото число от вида $x_i = n^3 + 5i^2n -8i$ за $i=1,\ldots,n$
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Оператор \tt{while}}
+  
+  \begin{itemize}[<+->]
+  \item \tta{while (}<израз>\tta) <оператор>
+  \item \tta{while (}<условие>\tta) <тяло>
+  \item Семантика:
+    \begin{itemize}
+    \item<.-> \lst{if (}<условие>\tt) <тяло>
+    \item<.-> \lst{if (}<условие>\tt) <тяло>
+    \item<.-> \lst{if (}<условие>\tt) <тяло>
+    \item<.-> \ldots
+    \end{itemize}
+  \item \lst{for} чрез \lst{while}
+    \begin{itemize}
+    \item \lst{while (}<условие>\tt) <тяло> $\quad\Leftrightarrow\quad$
+      \lst{for(;}<условие>\tt{;)}<тяло>
+    \end{itemize}
+  \item \lst{while} чрез \lst{for}
+    \begin{itemize}
+    \item \lst{for(}<инициализация>\tt;<условие>\tt;<корекция>\tt)<тяло>\\
+      $\Leftrightarrow$\\
+      <инициализация>\tt; \lst{while(}<условие>\tt{) \{ }<тяло> <корекция>\tt{;\}}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Оператор \tt{while} --- примери}
+
+\begin{lstlisting}
+cout << "НОД(" << a << ',' << b << ") = ";
+while (a != b)
+  if (a > b) a %= b;
+  else       b %= a;
+cout << a << endl;
+\end{lstlisting}
+\pause
+\begin{lstlisting}
+int n;
+cout << "Въведете n: ";cin >> n;
+int i = 0;
+while (n > 1) {
+  if (n % 2 == 0) n /= 2;
+  else           (n *= 3)++;
+  cout << "n = " << n << endl;
+  i++;
+}
+cout << "Направени " << i << " стъпки" << endl;
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Задачи за \tt{while}}
+  
+  \begin{enumerate}[<+->]
+  \item Да се пресметне $n!$
+  \item Да се намери средното аритметично на поредица от числа
+  \item Да се пресметне сумата $\expsum$ с точност $\varepsilon$
+  \item Да се намери сумата на цифрите на $n$
+  \item Да се провери дали $n$ съдържа цифрата $5$
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Оператор \tt{do/while}}
+  
+  \begin{itemize}[<+->]
+  \item \tta{do} <оператор> \tta{while (}<израз>\tta{);}
+  \item \tta{do} <тяло> \tta{while (}<условие>\tta{);}
+  \item Семантика:
+    \begin{itemize}
+    \item<.-> <тяло>
+    \item<.-> \lst{while (}<израз>\tt) <оператор>
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,fragile]
+  \frametitle{Оператор \tt{do/while} --- пример}
+  
+\begin{lstlisting}
+@\only<4->{\tt{char c;}}@
+do {
+  @\only<1-3>{\alert<2-3>{\tt{char c;}}}@
+  cout << "Въведете символ: ";
+  cin >> c;
+  cout << "ASCII код: " << (int)c;
+} while (@\alert<3>{c != 'q'});
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\tt{while} или \tt{do/while}?}
+  
+  Как да изберем кой от циклите да използваме?
+  \begin{itemize}[<+->]
+  \item Ако допускаме тялото да не се изпълни нито веднъж --- \tt{while}
+  \item Ако искаме тялото да се изпълни поне веднъж --- \tt{do/while}
+  \item \lst{do} <тяло> \lst{while (}<условие>\lst{);}\\
+    $\Leftrightarrow$\\
+    <тяло> \lst{while (}<условие>\tt) <тяло>
+  \item \lst{whlie (}<условие>\tt) <тяло>\\
+    $\Leftrightarrow$\\
+    \lst{do if (}<условие>\tt) <тяло> \lst{while (}<условие>\tt{);}
+    \begin{itemize}
+    \item \alert{стига <условие> да няма странични ефекти...}
+    \item Пример: \lst{while (--i > 0) cout << i << endl;}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Задачи за \tt{do/while}}
+  
+  \begin{enumerate}[<+->]
+  \item Да се провери дали $n$ е просто число
+  \item Да се изчисли приблизително $\sqrt x$ по метода на Нютон:
+    \begin{equation*}
+      \begin{array}{l}
+      y_0 = x\\
+      y_{n+1} = \frac12\left(y_n + \frac x{y_n}\right)\\
+      \lim_{n\to\infty}\limits y_n = \sqrt x
+      \end{array}
+    \end{equation*}
+  \end{enumerate}
+\end{frame}
+
+\section{Вложени цикли}
+
+\begin{frame}
+  \frametitle{Вложени цикли --- примери}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item a = 1
+        \begin{itemize}
+        \item b = 1
+        \item b = 2
+        \item b = 3
+        \end{itemize}
+      \item a = 2
+        \begin{itemize}
+        \item b = 1
+        \item b = 2
+        \item b = 3
+        \end{itemize}
+      \item a = 3
+        \begin{itemize}
+        \item b = 1
+        \item b = 2
+        \item b = 3
+        \end{itemize}
+      \item a = 4
+        \begin{itemize}
+        \item b = 1
+        \item b = 2
+        \item b = 3
+        \end{itemize}
+      \end{itemize}
+    \end{column}
+    \pause
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item i = 1
+        \begin{itemize}
+        \item j = 1
+          \begin{itemize}
+          \item k = 1
+          \item k = 2
+          \end{itemize}
+        \item j = 2
+          \begin{itemize}
+          \item k = 1
+          \item k = 2
+          \end{itemize}
+        \item j = 3
+          \begin{itemize}
+          \item k = 1
+          \item k = 2
+          \end{itemize}
+        \end{itemize}
+      \item i = 2
+        \begin{itemize}
+        \item j = 1
+          \begin{itemize}
+          \item k = 1
+          \item k = 2
+          \end{itemize}
+        \item \ldots
+        \end{itemize}
+      \item \ldots
+      \end{itemize}
+  \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Вложени цикли --- примери}
+  
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+Пирамида\\[1em]
+\begin{verbatim}
+1
+1 2
+1 2 3
+1 2 3 4
+1 2 3 4 5
+1 2 3 4 5 6
+...
+\end{verbatim}
+    \end{column}
+    \pause
+    \begin{column}{.5\textwidth}
+Брояч\\[1em]
+\begin{verbatim}
+2:03
+2:02
+2:01
+2:00
+1:59
+1:58
+...
+1:01
+1:00
+0:59
+...
+0:01
+0:00
+\end{verbatim}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Задачи за вложени цикли}
+
+  \begin{enumerate}[<+->]
+  \item Да се изведат всички плочки за играта домино
+  \item Да се провери дали в едно число има две еднакви цифри
+  \item Да се изведат всички цифри, които се срещат едновременно в числата $m$ и $n$
   \end{enumerate}
 \end{frame}
 \end{document}
