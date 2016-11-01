@@ -3,7 +3,7 @@
 
 \title{Управляващи оператори в C++}
 
-\date{19--26 октомври 2016 г.}
+\date{19 октомври -- 2 ноември 2016 г.}
 
 \newcommand{\expsum}{\displaystyle \sum_{i=0}^n \limits \frac{x^i}{i!}}
 
@@ -650,7 +650,7 @@ switch (x) {
     \item<.-> \lst{if (}<условие>\tt{) \{} <тяло> <корекция>\tt{;\}}
     \item<.-> \ldots
     \end{itemize}
-  \item \alert{Изключение:} <начало> може да е не просто израз, а дефиниция на променлива 
+  \item \alert{Изключение:} <инициализация> може да е не просто израз, а дефиниция на променлива 
   \end{itemize}
 \end{frame}
 
@@ -751,7 +751,7 @@ cout << "Направени " << i << " стъпки" << endl;
   \item Да се провери дали $n$ съдържа цифрата $5$
   \end{enumerate}
 \end{frame}
-\end{document}
+
 \begin{frame}
   \frametitle{Оператор \tt{do/while}}
   
@@ -790,7 +790,7 @@ do {
   \item \lst{do} <тяло> \lst{while (}<условие>\lst{);}\\
     $\Leftrightarrow$\\
     <тяло> \lst{while (}<условие>\tt) <тяло>
-  \item \lst{whlie (}<условие>\tt) <тяло>\\
+  \item \lst{while (}<условие>\tt) <тяло>\\
     $\Leftrightarrow$\\
     \lst{do if (}<условие>\tt) <тяло> \lst{while (}<условие>\tt{);}
     \begin{itemize}
