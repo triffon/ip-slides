@@ -1,0 +1,177 @@
+\documentclass{beamer}
+\usepackage{up}
+
+\title{Функции}
+\subtitle{(част 1)}
+
+\date{2 ноември 2016 г.}
+
+\newcommand{\RR}{\mathbb{R}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Основни понятия}
+
+\begin{frame}
+  \frametitle{Функциите в математиката}
+
+  \begin{itemize}[<+->]
+  \item Какво е функция в математиката?
+  \item $f : Dom \to Ran$
+    \begin{itemize}
+    \item $Dom$ --- дефиниционна област
+    \item $Ran$ --- обхват, област от стойности
+    \end{itemize}
+  \item Нека $F \subseteq Dom \times Ran$
+  \item така че $\forall x \exists ! y (x,y) \in F$ (функционалност)
+  \item еквивалентно: ако $(x,y_1) \in F$ и $(x,y_2) \in F$, тогава $y_1 = y_2$
+  \item Ако $(x,y)\in F$ пишем $f(x) = y$.
+  \item $F$ --- графика на функцията $f$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Какво е програмна функция?}
+
+  \begin{itemize}[<+->]
+  \item Относително независима част от програмата, извършваща определено пресмятане
+  \item Може да бъде използвана многократно
+    \pause
+  \item \textbf{Пример 1}
+    \begin{itemize}
+    \item $f:\RR \to \RR$
+    \item $f(x) = x^2$
+    \item \lstinline!double square(double x) { return x * x; }!
+    \end{itemize}
+  \item \textbf{Пример 2}
+    \begin{itemize}
+    \item $d:\RR\times\RR\times\RR\times\RR \to \RR$
+    \item $d(x_1,y_1,x_2,y_2) = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$
+    \item
+\begin{lstlisting}
+double distance(double x1, double y1, double x2, double y2) {
+  return sqrt(square(x2 - x1) + square(y2 - y1));
+}
+\end{lstlisting}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Какво е подпрограма?}
+
+  \begin{itemize}[<+->]
+  \item Относително независима част от програмата, извършваща определена последователност от действия
+  \item Може да бъде изпълнявана многократно
+  \item Още: процедура, метод
+  \item \textbf{Пример 1}
+\begin{lstlisting}
+void printHello() {
+  cout << "Hello!\n";
+}
+\end{lstlisting}
+  \item \textbf{Пример 2}
+\begin{lstlisting}
+void printReverseDigits(int n) {
+  while (n > 0) {
+    cout << n % 10;
+    n /= 10;
+  }
+}
+\end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Процедури и функции}
+
+  \begin{itemize}[<+->]
+  \item Функцията извършва пресмятане и връша резултат
+  \item Процедурата изпълнява поредица от оператори
+  \item Понякога двете понятия се смесват...
+\begin{lstlisting}
+int readNumber(int from, int to) {
+  int n;
+  do {
+    cout << "n = "; cin >> n;
+  } while (n < from || n > to);
+  return n;
+}
+\end{lstlisting}
+  \item В C++ се наричат просто ``функции''
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Дефиниране на функция}
+
+  \begin{itemize}[<+->]
+  \item{} <сигнатура> \tta\{ <тяло> \tta\}
+  \item{} <сигнатура> ::= [ <тип\_резултат> | \tta{void} ]\\
+    <идентификатор> \tta( <\textbf{формални}\_параметри> \tta)
+    \begin{itemize}
+    \item \tta{void} = празен тип, не връща резултат
+    \item ако типът на резултата се пропусне, подразбира се \tt{int}
+    \end{itemize}
+  \item{} <\textbf{формални}\_параметри> ::=  \\
+    <празно> | \tta{void} | <параметър> \{\tta, <параметър> \}
+  \item{} <параметър> ::= <тип> [<идентификатор>]
+    \begin{itemize}
+    \item ако <идентификатор> се пропусне, параметърът няма име и не се използва
+    \item Пример: $f(x,y) = x + 5$
+    \end{itemize}
+  \item{} <тяло> ::= \tta\{ <оператор> \tta\}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Извикване на функция}
+
+  \begin{itemize}[<+->]
+  \item{} <име>\tta(<\textbf{фактически}\_параметри>\tta)
+  \item{} <\textbf{фактически}\_параметри> ::= \\
+    <празно> | \tta{void} | <израз> \{\tta, <израз> \}
+  \item извикването на функция всъщност е \alert{операция} с много висок приоритет
+  \item типът на фактическия параметър се съпоставя с типа на съответния формален параметър
+    \begin{itemize}
+    \item ако се налага, прави се преобразуване на типовете
+    \item{} <формален\_параметър> = <фактически\_параметър>
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Връщане на резултат}
+
+  \begin{itemize}[<+->]
+  \item \tta{return }[<израз>]\tta;
+  \item оператор за връщане на резултат на функция
+  \item типът на <израз> се съпоставя с типа на резултата на функцията
+    \begin{itemize}
+    \item ако се налага, прави се преобразуване на типовете
+    \end{itemize}
+  \item работата на функцията се прекратява незабавно
+  \item стойността на <израз> е резултатът от извикването на функцията
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Деклариране на функция}
+
+  \begin{itemize}[<+->]
+  \item{} <декларация\_на\_функция> ::= <сигнатура>\tta;
+  \item Декларацията е ``обещание'' за дефиниция на функция
+  \item Декларацията не е задължителна
+  \item Една функция може да бъде декларирана няколко пъти...
+  \item ...но може да бъде дефинирана \alert{само веднъж}
+  \item Неизпълнените обещания водят до проблеми...
+    \begin{itemize}
+    \item ...освен когато никой не разчита на тях
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+\end{document}
