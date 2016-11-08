@@ -1,0 +1,238 @@
+\documentclass{beamer}
+\usepackage{up}
+
+\title{Масиви и низове}
+
+\date{9 ноември 2016 г.}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Масиви}
+
+\begin{frame}
+  \frametitle{Логическо описание}
+
+  Масивът
+  \begin{itemize}
+  \item е съставен тип данни
+  \item представя крайни редици от елементи
+  \item всички елементи са от един и същи тип
+  \item позволява произволен достъп до всеки негов елемент по номер (индекс)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Дефиниция на масив}
+
+  <тип> <идентификатор> \tta[ [<константа] \tta]\\
+  \hspace{5ex} [ \tta= \tta\{ <константа> \{\tta, <константа> \} \tta\} ] \tta;\\[1em]
+  \pause
+  \textbf{Примери:}
+  \begin{itemize}[<+->]
+  \item \lst{bool b[10];}
+  \item \lst{double x[3] = \{ 0.5, 1.5, 2.5 \}, y = 3.8;}
+  \item \lst{int a[] = \{ 3 + 2, 2 * 4 \};} \eqv\ \lst{int a[2] = \{ 5, 8 \};}
+  \item \lst{float f[4] = \{ 2.3, 4.5 \};} \eqv\ \lst{float f[4] = \{ 2.3, 4.5, 0, 0 \};}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Физическо представяне}
+
+  \scriptsize
+  \begin{tabular}{*{11}{|c}|}
+    \multicolumn{11}{l}{\tt a}\\
+    \hline
+    \rowcolor{diagramblue}
+    \tt{a[0]}&\tt{a[1]}&\tt{a[2]}&\tt{a[3]}&\tt{a[4]}&\tt{a[5]}&\tt{a[6]}&\tt{a[7]}&\tt{a[8]}&\tt{a[9]}&\tt{a[10]}\\
+    \hline
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Операции за работа с масиви}
+
+  \begin{itemize}[<+->]
+  \item Достъп до елемент по индекс: <масив>\tta[<цяло\_число>\tta]
+  \item \textbf{Примери}:
+    \begin{itemize}
+    \item \lst{x = a[2];} (\alert{rvalue})
+    \item \lst{a[i] = 7;} (\alert{lvalue!})
+    \item \alert{Внимание: няма проверка за коректност!}
+    \end{itemize}
+  \item Няма присвояване
+    \begin{itemize}
+    \item \sta{a = b}
+    \end{itemize}
+  \item Няма поелементно сравнение
+    \begin{itemize}
+    \item \lst{a == b} винаги връща \lst{false} ако \tta a и \tta b са различни масиви, дори и да имат еднакви елементи
+    \end{itemize}
+  \item Няма операции за вход и изход
+    \begin{itemize}
+    \item \sta{cin >{}> a;}
+    \item \lst{cout << a;} извежда адреса на \tt{a}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Задачи за масиви}
+
+  \begin{itemize}[<+->]
+    \item Да се въведе масив от числа
+    \item Да се изведе масив от числа
+    \item Да се намери сумата на числата в даден масив
+    \item Да се провери дали дадено число се среща в масив
+    \item Да се провери дали числата в масив нарастват монотонно
+    \item Да се провери дали всички числа в даден масив са различни
+    \item Да се подредят числата в даден масив в нарастващ ред
+    \item Да се слеят два масива подредени в нарастващ ред
+  \end{itemize}
+\end{frame}
+
+\section{Низове}
+
+\begin{frame}
+  \frametitle{Низове: описание и представяне}
+
+  \begin{itemize}[<+->]
+  \item \textbf{Описание:} \alert{Низ} наричаме последователност от символи
+    \begin{itemize}
+    \item последователност от 0 символи наричаме \alert{празен низ}
+    \end{itemize}
+  \item \textbf{Представяне в C++:} Масив от символи (\lst{char}), в който след последния символ в низа е записан \alert{терминиращия символ} \term
+    \begin{itemize}
+    \item \term\ е първият символ в ASCII таблицата, с код 0
+    \end{itemize}
+  \item \textbf{Примери:}
+    \begin{itemize}
+    \item \lst{char word[] = \{ 'H', 'e', 'l', 'l', 'o', '\\0' \};}
+    \item \lst{char word[6] = \{ 'H', 'e', 'l', 'l', 'o' \};}
+    \item \lst{char word[100] = \"Hello\";}
+    \item \sta{char word[5] = \quot Hello\quot;}
+    \item \lst{char word[6] = \"Hello\";}
+    \item \sta{char word[] = \quot Hello\quot;}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Операции за работа с низове}
+
+  \begin{itemize}[<+->]
+  \item Вход (\tta{>{}>}, \tta{cin.getline(}<низ>\tta))
+  \item Изход (\tta{<{}<})
+  \item Индексиране (\tta{[]})
+  \item Няма присвоявание! (\sta{a = b})
+  \item Няма поелементно сравнение! (\sta{a == b})
+  \item но...
+  \item ...има вградени функции!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Вградени функции за низове}
+
+  \lst{\#include <cstring>}
+
+  \begin{itemize}[<+->]
+  \item \tta{strlen(}<низ>\tta)
+    \begin{itemize}
+    \item връща дължината на <низ>, т.е. броя символи без \term
+    \end{itemize}
+  \item \tta{strcpy(}<буфер>, <низ>\tta)
+    \begin{itemize}
+    \item прехвърля всички символи от <низ> в <буфер>
+    \item връща <буфер>
+    \item \alert{отговорност на програмиста е да осигури, че в <буфер> да има достатъчно място да поеме всички символи на <низ>}
+    \end{itemize}
+  \item \tta{strcmp(}<низ$_1$>, <низ$_2$>\tta)
+    \begin{itemize}
+    \item сравнява два низа \alert{лексикорафски} (речникова наредба)
+    \item връща -1, ако <низ$_1$> е преди <низ$_2$>
+    \item връща 0, ако <низ$_1$> съвпада с <низ$_2$>
+    \item връща 1, ако <низ$_1$> е след <низ$_2$>
+    \item \textbf{Интуиция:} ``знакът'' на ``разликата'' <низ$_1$> $-$ <низ$_2$>
+    \item \textbf{Свойство:} \lst{strcmp(s1, s2) == -strcmp(s2, s1)}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Вградени функции за низове}
+
+  \begin{itemize}[<+->]
+  \item \tta{strcat(}<низ$_1$>, <низ$_2$>\tta)
+    \begin{itemize}
+    \item \alert{конкатенация} (слепване) на низове
+    \item записва символите на <низ$_2$> в края на <низ$_1$>
+    \item старият терминиращ символ се изтрива и се записва нов
+    \item връща <низ$_1$>
+    \item \alert{отговорност на програмиста е да осигури, че в <низ$_1$> да има достатъчно място да поеме всички символи на <низ$_2$>}
+    \end{itemize}
+  \item \tta{strchr(}<низ>, <символ>\tta)
+    \begin{itemize}
+    \item търсене на <символ> в <низ>
+    \item връща \alert{суфикса} на <низ> от първото срещане на <символ>
+    \item връща 0, ако <символ> не се среща в <низ>
+    \end{itemize}
+  \item \tta{strstr(}<низ>, <подниз>\tta)
+    \begin{itemize}
+    \item търсене на <подниз> в <низ>
+    \item т.е. всички символи на <подниз> да се срещат последователно в <низ>
+    \item връща \alert{суфикса} на <низ> от първото срещане на <подниз>
+    \item връща 0, ако <символ> не се среща в <низ>
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Задачи за низове}
+
+  \begin{itemize}[<+->]
+  \item Да се провери дали даден низ е \alert{палиндром}
+    \begin{itemize}
+    \item чете се еднакво в двете посоки
+    \item \lst{\"abba\"}, \lst{\"racecar\"}, \lst{\"risetovotesir\"}, \lst{\"whasitacaroracatisaw\"}
+    \end{itemize}
+  \item Да се преброят думите в даден низ
+    \begin{itemize}
+    \item Считаме, че за разделители служат всички символи, които не са букви.
+    \end{itemize}
+  \item Да се пресметне аритметичен израз, записан в низ
+    \begin{itemize}
+    \item{} <израз> ::= <число>\{<операция><число>\}\tta=
+    \item{} <число> ::= <цифра>\{<цифра>\}
+    \item{} <операция> ::= \tta+ | \tta- | \tta* | \tta/ | \tta\%
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Проблеми при работа с низове}
+
+  \begin{itemize}[<+->]
+  \item Излизане извън буфера (buffer overflow)
+    \begin{itemize}
+    \item \sta{char a[10] = \quot Hello, world!\quot}
+    \item \lst{char b[] = \"Hello,\", c[] = \" world!\";}
+    \item \sta{strcat(b, c);}
+    \item \sta{strcpy(b, c);}
+    \end{itemize}
+  \item Нетерминирани низове
+    \begin{itemize}
+    \item \lst{char word[5] = \{ 'H', 'e', 'l', 'l', 'o' \};}
+    \item \sta{cout <{}< strlen(a);}
+    \item \lst{char b[10];}
+    \item \sta{strcpy(b, a);}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\end{document}
