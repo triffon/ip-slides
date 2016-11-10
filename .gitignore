@@ -1,5 +1,6 @@
 auto/
 .*
+!.gitignore
 *~
 *.aux
 *.log
@@ -9,3 +10,4 @@ auto/
 *.snm
 *.toc
 *.vrb
+*.xoj
