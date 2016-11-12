@@ -3,7 +3,7 @@
 
 \title{Масиви и низове}
 
-\date{9 ноември 2016 г.}
+\date{9--16 ноември 2016 г.}
 
 
 \begin{document}
@@ -63,7 +63,7 @@
     \begin{itemize}
     \item \lst{x = a[2];} (\alert{rvalue})
     \item \lst{a[i] = 7;} (\alert{lvalue!})
-    \item \alert{Внимание: няма проверка за коректност!}
+    \item \alert{Внимание: няма проверка за коректност на индекса!}
     \end{itemize}
   \item Няма присвояване
     \begin{itemize}
@@ -80,7 +80,6 @@
     \end{itemize}
   \end{itemize}
 \end{frame}
-\end{document}
 
 \begin{frame}
   \frametitle{Задачи за масиви}
@@ -99,6 +98,10 @@
 
 \section{Низове}
 
+\newcommand{\s}{<низ>\xspace}
+\renewcommand{\ss}[1]{<низ$_{#1}$>\xspace}
+\renewcommand{\b}{<буфер>\xspace}
+
 \begin{frame}
   \frametitle{Низове: описание и представяне}
 
@@ -107,7 +110,7 @@
     \begin{itemize}
     \item последователност от 0 символи наричаме \alert{празен низ}
     \end{itemize}
-  \item \textbf{Представяне в C++:} Масив от символи (\lst{char}), в който след последния символ в низа е записан \alert{терминиращия символ} \term
+  \item \textbf{Представяне в C++:} Масив от символи (\lst{char}), в който след последния символ в низа е записан \alert{терминиращият символ} \term
     \begin{itemize}
     \item \term\ е първият символ в ASCII таблицата, с код 0
     \end{itemize}
@@ -118,7 +121,7 @@
     \item \lst{char word[100] = \"Hello\";}
     \item \sta{char word[5] = \quot Hello\quot;}
     \item \lst{char word[6] = \"Hello\";}
-    \item \sta{char word[] = \quot Hello\quot;}
+    \item \sta{char word[5] = \{ 'H', 'e', 'l', 'l', 'o' \};}
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -127,7 +130,7 @@
   \frametitle{Операции за работа с низове}
 
   \begin{itemize}[<+->]
-  \item Вход (\tta{>{}>}, \tta{cin.getline(}<низ>\tta))
+  \item Вход (\tta{>{}>}, \tta{cin.getline(}\s\tta))
   \item Изход (\tta{<{}<})
   \item Индексиране (\tta{[]})
   \item Няма присвоявание! (\sta{a = b})
@@ -143,23 +146,23 @@
   \lst{\#include <cstring>}
 
   \begin{itemize}[<+->]
-  \item \tta{strlen(}<низ>\tta)
+  \item \tta{strlen(}\s\tta)
     \begin{itemize}
-    \item връща дължината на <низ>, т.е. броя символи без \term
+    \item връща дължината на \s, т.е. броя символи без \term
     \end{itemize}
-  \item \tta{strcpy(}<буфер>, <низ>\tta)
+  \item \tta{strcpy(}\b, \s\tta)
     \begin{itemize}
-    \item прехвърля всички символи от <низ> в <буфер>
-    \item връща <буфер>
-    \item \alert{отговорност на програмиста е да осигури, че в <буфер> да има достатъчно място да поеме всички символи на <низ>}
+    \item прехвърля всички символи от \s в \b
+    \item връща \b
+    \item \alert{отговорност на програмиста е да осигури, че в \b да има достатъчно място да поеме всички символи на \s}
     \end{itemize}
-  \item \tta{strcmp(}<низ$_1$>, <низ$_2$>\tta)
+  \item \tta{strcmp(}\ss1, \ss2\tta)
     \begin{itemize}
     \item сравнява два низа \alert{лексикорафски} (речникова наредба)
-    \item връща -1, ако <низ$_1$> е преди <низ$_2$>
-    \item връща 0, ако <низ$_1$> съвпада с <низ$_2$>
-    \item връща 1, ако <низ$_1$> е след <низ$_2$>
-    \item \textbf{Интуиция:} ``знакът'' на ``разликата'' <низ$_1$> $-$ <низ$_2$>
+    \item връща $-1$, ако \ss1 е преди \ss2
+    \item връща 0, ако \ss1 съвпада с \ss2
+    \item връща 1, ако \ss1 е след \ss2
+    \item \textbf{Интуиция:} ``знакът'' на ``разликата'' \ss1 $-$ \ss2
     \item \textbf{Свойство:} \lst{strcmp(s1, s2) == -strcmp(s2, s1)}
     \end{itemize}
   \end{itemize}
@@ -169,26 +172,26 @@
   \frametitle{Вградени функции за низове}
 
   \begin{itemize}[<+->]
-  \item \tta{strcat(}<низ$_1$>, <низ$_2$>\tta)
+  \item \tta{strcat(}\ss1, \ss2\tta)
     \begin{itemize}
     \item \alert{конкатенация} (слепване) на низове
-    \item записва символите на <низ$_2$> в края на <низ$_1$>
+    \item записва символите на \ss2 в края на \ss1
     \item старият терминиращ символ се изтрива и се записва нов
-    \item връща <низ$_1$>
-    \item \alert{отговорност на програмиста е да осигури, че в <низ$_1$> да има достатъчно място да поеме всички символи на <низ$_2$>}
+    \item връща \ss1
+    \item \alert{отговорност на програмиста е да осигури, че в \ss1 да има достатъчно място да поеме всички символи на \ss2}
     \end{itemize}
-  \item \tta{strchr(}<низ>, <символ>\tta)
+  \item \tta{strchr(}\s, <символ>\tta)
     \begin{itemize}
-    \item търсене на <символ> в <низ>
-    \item връща \alert{суфикса} на <низ> от първото срещане на <символ>
-    \item връща 0, ако <символ> не се среща в <низ>
+    \item търсене на <символ> в \s
+    \item връща \alert{суфикса} на \s от първото срещане на <символ>
+    \item връща 0, ако <символ> не се среща в \s
     \end{itemize}
-  \item \tta{strstr(}<низ>, <подниз>\tta)
+  \item \tta{strstr(}\s, <подниз>\tta)
     \begin{itemize}
-    \item търсене на <подниз> в <низ>
-    \item т.е. всички символи на <подниз> да се срещат последователно в <низ>
-    \item връща \alert{суфикса} на <низ> от първото срещане на <подниз>
-    \item връща 0, ако <символ> не се среща в <низ>
+    \item търсене на <подниз> в \s
+    \item т.е. символите на <подниз> да се срещат последователно в \s
+    \item връща \alert{суфикса} на \s от първото срещане на <подниз>
+    \item връща 0, ако <символ> не се среща в \s
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -215,6 +218,8 @@
   \end{itemize}
 \end{frame}
 
+\subsection{Ограничени операции}
+
 \begin{frame}
   \frametitle{Проблеми при работа с низове}
 
@@ -226,7 +231,7 @@
     \item \sta{strcat(b, c);}
     \item \sta{strcpy(b, c);}
     \end{itemize}
-  \item Нетерминирани низове
+  \item Нетерминирани низове (non-terminated strings)
     \begin{itemize}
     \item \lst{char word[5] = \{ 'H', 'e', 'l', 'l', 'o' \};}
     \item \sta{cout <{}< strlen(a);}
@@ -234,6 +239,46 @@
     \item \sta{strcpy(b, a);}
     \end{itemize}
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ограничени операции}
+
+  \begin{itemize}[<+->]
+  \item \tta{strncpy(}\b, \s, $n$\tta)
+    \begin{itemize}
+    \item копира първите $n$ символа на \s в \b
+    \item винаги записва точно $n$ символа в \b, допълвайки с \term\ при нужда
+    \item \alert{ако \s има повече от $n$ символа, не записва \term!}
+    \item връща \b
+    \end{itemize}
+  \item \tta{strncat(}\ss1, \ss2, n\tta)
+    \begin{itemize}
+    \item конкатенира първите $n$ символа на \ss2 след \ss1
+    \item винаги поставя \term на края
+    \item \alert{все още е отговорност на програмиста да осигури достатъчно място в \ss1!}
+    \item връща \ss1
+    \end{itemize}
+  \item \tta{strncmp(}\ss1, \ss2, n\tta)
+    \begin{itemize}
+    \item сравнява първите $n$ символа на \ss1 и \ss2
+    \item връща $-1$, $0$ или $1$, също като \tt{strcmp}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Многомерни масиви}
+
+\begin{frame}
+  \frametitle{Многомерни масиви}
+
+  \begin{tabular}{c|c}
+    Масив, чиито елементи...&наричаме\\
+    \hline
+    ...са масиви,&\alert{многомерен} масив \tpause\\
+    ...\alert{не са} масиви,&\alert{едномерен} масив \tpause\\
+    ...са $n$-мерни масиви,&\alert{$n+1$-мерен} масив
+  \end{tabular}
 \end{frame}
 
 \end{document}
