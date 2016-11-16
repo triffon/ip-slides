@@ -5,7 +5,6 @@
 
 \date{9--16 ноември 2016 г.}
 
-
 \begin{document}
 
 \begin{frame}
@@ -275,10 +274,173 @@
   \begin{tabular}{c|c}
     Масив, чиито елементи...&наричаме\\
     \hline
-    ...са масиви,&\alert{многомерен} масив \tpause\\
-    ...\alert{не са} масиви,&\alert{едномерен} масив \tpause\\
+    ...са масиви,&\alert{многомерен} масив\\
+    \tpause
+    ...\alert{не са} масиви,&\alert{едномерен} масив\\
+    \tpause
     ...са $n$-мерни масиви,&\alert{$n+1$-мерен} масив
   \end{tabular}
+  \pause
+  \begin{itemize}[<+->]
+  \item{} <тип> <идентификатор> \tta[[<константа>]\tta]\{\tta[<константа>\tta]\}\\
+  \hspace{5ex} [ \tta= \tta\{ <константа> \{\tta, <константа> \} \tta\} ] \tta;
+  \item първата размерност може да бъде изпусната, ако е даден инициализиращ списък
+  \item \textbf{Примери:}
+    \begin{itemize}
+    \item \lst{int a[2][3] = \{\{1, 2, 3\}, \{4, 5, 6\}\};}
+    \item \lst{double b[5][6] = \{0.1, 0.2, 0.3, 0.4\};}
+    \item \lst{int c[4][5] = \{\{1, 2\}, \{3, 4, 5, 6\}, \{7, 8, 9\}, \{10\}\};}
+    \item \lst{float f[][2][3] = \{\{\{1.2, 2.3, 3.4\}, \{4.5, 5.6, 6.7\}\},}\\
+        \hspace{22ex}\lst{\{\{7.8, 8.9, 9.1\}, \{1.2, 3.4, 3.4\}\},}\\
+        \hspace{22ex}\lst{\{\{5.6\},\{6.7, 7.8\}\}\};}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Физическо представяне на многомерни масиви}
+
+  \begin{tabular}{|*{12}{@{\hspace{0.2ex}}c@{\hspace{0.2ex}}|}}
+    \hline
+    \multicolumn{12}{|c|}{\tt{a}}\\
+    \hline
+    \multicolumn{6}{|c|}{\tt{a[0]}}&\multicolumn{6}{|c|}{\tt{a[1]}}\\
+    \hline
+    \multicolumn{3}{|c|}{\tt{a[0][0]}}&\multicolumn{3}{|c|}{\tt{a[0][1]}}&\multicolumn{3}{|c|}{\tt{a[1][0]}}&\multicolumn{3}{|c|}{\tt{a[1][1]}}\\
+    \hline
+    \tiny a[0][0][0]&\tiny a[0][0][1]&\tiny a[0][0][2]&\tiny a[0][1][0]&\tiny a[0][1][1]&\tiny a[0][1][2]&\tiny a[1][0][0]&\tiny a[1][0][1]&\tiny a[1][0][2]&\tiny a[1][1][0]&\tiny a[1][1][1]&\tiny a[1][1][2]\\
+    \hline
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Задачи за многомерни масиви}
+  
+  \begin{itemize}[<+->]
+  \item Да се въведе от клавиатурата матрица от числа
+  \item Да се изведе на екрана матрица от числа
+  \item Да се транспонира правоъгълна матрица от числа
+  \item Да се намерят сумите на всяка колона в матрица от числа
+  \item Да се намерят редовете в матрица от числа, в които се среща $x$
+  \item Да се провери дали в матрица от цели числа има колона, чиито най-малък елемент е четно число
+  \item Да се изведат елементите на дадена матрица от числа по диагонали
+  \item Да се слеят ``шахматно'' две матрици от числа с еднакви размерности
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Обхождане на матрици}
+  
+  \tikzset{
+    l/.style={thick,red,->,>=stealth},
+    m/.style={
+      matrix of nodes,
+      ampersand replacement=\&,
+      nodes={
+        rectangle,
+        minimum width=4ex,
+        minimum height=1em,
+        text height=1ex,
+        text depth=0.25ex,
+        draw},
+      nodes in empty cells
+    }
+  }
+  \begin{tikzpicture}
+    \matrix (a) [m] {
+         \&    \&    \&    \& 11 \\
+         \&    \&    \& 7  \& 12 \\
+         \&    \& 4  \& 8  \& 13 \\
+         \& 2  \& 5  \& 9  \& 14 \\
+      1  \& 3  \& 6  \& 10 \& 15 \\
+    };
+   \fill[red] (a-5-1.center) circle [radius=0.3ex];
+   \draw[l] (a-4-2.center) -> (a-5-2.center);
+   \draw[l] (a-3-3.center) -> (a-5-3.center);
+   \draw[l] (a-2-4.center) -> (a-5-4.center);
+   \draw[l] (a-1-5.center) -> (a-5-5.center);
+   \draw[l] (a-5-1.center) -> (a-1-5.center);
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \matrix (a) [m] {
+      1  \& 3  \& 6  \& 10 \& 15 \\
+      2  \& 5  \& 9  \& 14 \&    \\
+      4  \& 8  \& 13 \&    \&    \\
+      7  \& 12 \&    \&    \&    \\
+      11 \&    \&    \&    \&    \\
+    };
+   \fill[red] (a-1-1.center) circle [radius=0.3ex];
+   \draw[l] (a-2-1.center) -> (a-1-2.center);
+   \draw[l] (a-3-1.center) -> (a-1-3.center);
+   \draw[l] (a-4-1.center) -> (a-1-4.center);
+   \draw[l] (a-5-1.center) -> (a-1-5.center);
+   \draw[l] (a-1-1.center) -> (a-5-1.center);
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \matrix (a) [m] {
+      1  \& 3  \& 6  \& 10 \& 15 \\
+      2  \& 5  \& 9  \& 14 \& 19 \\
+      4  \& 8  \& 13 \& 18 \& 22 \\
+      7  \& 12 \& 17 \& 21 \& 24 \\
+      11 \& 16 \& 20 \& 23 \& 25 \\
+    };
+   \fill[red] (a-1-1.center) circle [radius=0.3ex];
+   \draw[l] (a-2-1.center) -> (a-1-2.center);
+   \draw[l] (a-3-1.center) -> (a-1-3.center);
+   \draw[l] (a-4-1.center) -> (a-1-4.center);
+   \draw[l] (a-5-1.center) -> (a-1-5.center);
+   \draw[l] (a-5-2.center) -> (a-2-5.center);
+   \draw[l] (a-5-3.center) -> (a-3-5.center);
+   \draw[l] (a-5-4.center) -> (a-4-5.center);
+   \fill[red] (a-5-5.center) circle [radius=0.3ex];
+   \draw[l] (a-1-1.center) |- (a-5-5.center);
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \matrix (a) [m] {
+      1  \&    \&    \&    \&    \\
+      2  \& 4  \&    \&    \&    \\
+      3  \& 6  \& 9  \&    \&    \\
+      5  \& 8  \& 11 \& 13 \&    \\
+      7  \& 10 \& 12 \& 14 \& 15 \\
+    };
+   \fill[red] (a-1-1.center) circle [radius=0.3ex];
+   \fill[red] (a-2-1.center) circle [radius=0.3ex];
+   \draw[l] (a-3-1.center) -> (a-2-2.center);
+   \draw[l] (a-4-1.center) -> (a-3-2.center);
+   \draw[l] (a-5-1.center) -> (a-3-3.center);
+   \draw[l] (a-5-2.center) -> (a-4-3.center);
+   \draw[l] (a-5-3.center) -> (a-4-4.center);
+   \fill[red] (a-5-4.center) circle [radius=0.3ex];
+   \fill[red] (a-5-5.center) circle [radius=0.3ex];
+   \draw[l] (a-1-1.center) |- (a-5-5.center);
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \matrix (a) [m] {
+      1  \& 4  \& 9  \& 16 \& 25 \\
+      2  \& 3  \& 8  \& 15 \& 24 \\
+      5  \& 6  \& 7  \& 14 \& 23 \\
+      10 \& 11 \& 12 \& 13 \& 22 \\
+      17 \& 18 \& 19 \& 20 \& 21 \\
+    };
+   \fill[red] (a-1-1.center) circle [radius=0.3ex];
+   \draw[l] (a-2-1.center) -| (a-1-2.center);
+   \draw[l] (a-3-1.center) -| (a-1-3.center);
+   \draw[l] (a-4-1.center) -| (a-1-4.center);
+   \draw[l] (a-5-1.center) -| (a-1-5.center);
+   \draw[l] (a-1-1.center) -| (a-5-1.center);
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \matrix (a) [m] {
+      25 \& 10 \& 11 \& 12 \& 13 \\
+      24 \& 9  \& 2  \&  3 \& 14 \\
+      23 \& 8  \& 1  \&  4 \& 15 \\
+      22 \& 7  \& 6  \&  5 \& 16 \\
+      21 \& 20 \& 19 \& 18 \& 17 \\
+    };
+   \draw[l] (a-3-3.center) -- (a-2-3.center) -| (a-4-4.center) -|
+   (a-1-2.center) -| (a-5-5.center) -| (a-1-1.center);
+  \end{tikzpicture}
+  
 \end{frame}
 
 \end{document}
