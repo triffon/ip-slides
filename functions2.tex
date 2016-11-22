@@ -76,8 +76,8 @@
           данни \\
         };
         \arrowto{sbottom.south west}{дъно на стека}{above left}
-        \arrowto{stop.north east}{Връх на стека}{below right}
-        \arrowto{sborder.north east}{Граница на стека}{below right}
+        \arrowto{stop.north east}{връх на стека}{below right}
+        \arrowto{sborder.north east}{граница на стека}{below right}
     \end{tikzpicture}
   \end{center}
 \end{frame}
@@ -254,5 +254,68 @@ int main() {
       \draw (x.east) to [bend left=45] (a.east);
     \end{tikzpicture}
   \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Претоварване на функции (overloading)}
+
+  \begin{itemize}[<+->]
+  \item \textbf{Проблем:} Функцията \tt{swap} работи само за \tt{int}!
+  \item Ако искаме функция за размяна на \tt{double} променливи, трябва да направим нова функция \lst{swap\_double(double\&, double\&);}
+  \item Аналогично за \tt{char}, \tt{long}, \ldots
+  \item Трябва ли да си измисляме нови имена за всяка от тези функции, които всъщност прави едно и също?
+  \item \alert{Не!} Можем да използваме едно и също име за няколко функции!
+  \item Сигнатурата на функцията зависи от:
+    \begin{itemize}[<.->]
+    \item типа на връщане
+    \item типа и реда на параметрите
+    \end{itemize}
+  \item Функции с еднакво име и различна сигнатура са различни
+  \item Казваме, че името е \alert{претоварено} (overloaded)
+  \item \alert{Проблем}: може да възникне нееднозначност при извикването!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Предаване на масиви като параметри}
+
+  \small
+  \begin{itemize}[<+->]
+  \item{} <параметър\_масив> ::= <тип> <име> \tta[[<константен\_израз>]\tta]\\
+    \hspace{26ex}<тип>\tta* <име>
+  \item размерът на масива \alert{се игнорира}!
+    \begin{itemize}
+    \item затова обикновено се подава като допълнителен параметър
+    \end{itemize}
+  \item промените в масива винаги се отразяват в оригинала
+  \item \textbf{Примери:}
+    \begin{itemize}
+    \item \lst{int readArray(int a[]);}
+    \item \lst{void printArray(int* a, int n);}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Примерни функции}
+
+  \begin{enumerate}
+  \item Да се напише функция, която въвежда масив
+  \item Да се напише функция, която извежда масив
+  \item Да се напише функция, която търси елемент в масив
+  \item Да се напише функция, която проверява дали два низа са равни
+  \item Да се напише функция, която намира най-малкия и най-големия елемент на масив
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Връщане на няколко резултата}
+
+  \begin{itemize}[<+->]
+  \item Как да върнем едновременно минимума и максимума?
+  \item \textbf{Идея:} да използваме параметрите за резултат!
+  \item Можем да запишем резултат в параметър, предаден по псевдоним
+  \item \lst{void findMinMax(int a[], int n, int\& min, int\& max);}
+  \end{itemize}
 \end{frame}
 \end{document}
