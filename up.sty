@@ -75,6 +75,12 @@
     point/.style={coordinate}
 }
 
+\newcommand{\arrowto}[3]{
+  \node (x) [#3=of #1] {#2};
+  \draw[l] (x) -> (#1);
+}
+
+
 %%% кратки команди за форматиране
 
 % код
@@ -97,6 +103,9 @@
 
 % син цвят по подразбиране
 \colorlet{diagramblue}{blue!60!green!40}
+
+% синьозелен цвят по подразбиране
+\colorlet{diagramnavy}{blue!40!green!60}
 
 % еквивалентно на
 \newcommand{\eqv}{$\Longleftrightarrow$}
