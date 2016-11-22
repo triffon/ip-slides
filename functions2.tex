@@ -59,11 +59,11 @@
         minimum height=2em,
         fill=diagramblue,
         draw=black
-        }
+      },
+      nodes in empty cells
     }
   }
 
-  % TODO: анимация на стека
   \begin{center}
     \begin{tikzpicture}
         \matrix (a) [m] {
@@ -81,6 +81,77 @@
     \end{tikzpicture}
   \end{center}
 \end{frame}
+
+\begin{frame}
+  \frametitle{Програмен стек}
+
+  \tikzset{
+      l/.style={-{Stealth[length=1.5ex]}},
+      m/.style={
+      matrix of nodes,
+      nodes={
+        rectangle,
+        minimum width=25ex,
+        minimum height=2em,
+        fill=diagramblue,
+        draw=black
+        }
+    }
+  }
+
+  \begin{center}
+    \begin{tikzpicture}
+        \matrix (a) [m] {
+          |(sborder) [minimum height = 6em]| \ldots \\
+          |(stop)|
+          данни \\
+          данни \\
+          данни \\
+          данни \\
+          |(sbottom)|
+          данни \\
+        };
+        \arrowto{sbottom.south west}{дъно на стека}{above left}
+        \arrowto{stop.north east}{връх на стека}{below right}
+        \arrowto{sborder.north east}{граница на стека}{below right}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Програмен стек}
+
+  \tikzset{
+      l/.style={-{Stealth[length=1.5ex]}},
+      m/.style={
+      matrix of nodes,
+      nodes={
+        rectangle,
+        minimum width=25ex,
+        minimum height=2em,
+        fill=diagramblue,
+        draw=black
+        }
+    }
+  }
+
+  % TODO: анимация на стека
+  \begin{center}
+    \begin{tikzpicture}
+        \matrix (a) [m] {
+          |(sborder) [minimum height = 12em]| \ldots \\
+          |(stop)|
+          данни \\
+          |(sbottom)|
+          данни \\
+        };
+        \arrowto{sbottom.south west}{дъно на стека}{above left}
+        \arrowto{stop.north east}{връх на стека}{below right}
+        \arrowto{sborder.north east}{граница на стека}{below right}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
 
 \begin{frame}
   \frametitle{Стекова рамка на функция}
