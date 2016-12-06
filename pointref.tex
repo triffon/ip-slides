@@ -1,0 +1,124 @@
+\documentclass{beamer}
+\usepackage{up}
+
+\title{Указатели и псевдоними}
+
+\date{7 декември 2016 г.}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Указатели}
+
+\begin{frame}
+  \frametitle{Тип указател}
+  
+  \begin{itemize}
+  \item \textbf{Множество от стойности:} всички възможни lvalue от даден тип и специалната стойност \tt{NULL}.
+  \item Интегрален \alert{нечислов} тип
+  \item Параметризиран тип: ако \tt T е тип данни, то \tt{T*} е тип ``указател към елемент от тип \tt T''
+  \item Физическо представяне: цяло число, указващо адреса на указваната lvalue в паметта
+  \item Стойностите от тип ``указател'' са с размера на машинната дума
+    \begin{itemize}
+    \item 32 бита (4 байта) за 32-битови процесорни архитектури
+    \item 64 бита (8 байта) за 64-битови процесорни архитектури
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Операции с указатели}
+
+  \begin{itemize}
+  \item рефериране (\tta\&<lvalue>)
+  \item дерефериране (\tta*<указател>)
+    \begin{itemize}
+    \item \alert{унарна операция!}
+    \end{itemize}
+  \item сравнение (\tt{==}, \tt{!=}, \tt<, \tt>, \tt{<=}, \tt{>=})
+  \item указателна аритметика (\tt+,\tt-,\tt{+=},\tt{-=},\tt{++},\tt{--})
+  \item извеждане (\tt{<{}<})
+  \item \alert{няма извеждане! (\tt{>{}>})}
+  \end{itemize}
+\end{frame}
+
+\tikzset{cell/.style={rectangle,minimum size=3ex,draw,fill=diagramblue}}
+
+\begin{frame}
+  \frametitle{Дефиниране на указателни променливи}
+  
+  <тип> \tta*<име> [ \tta= <израз> ] \{\tta, \tta*<име> [ \tta= <израз> ] \}\tta;\\[1em]
+  \begin{overlayarea}{\textwidth}{10em}
+  \textbf{Примери:}
+  \pause
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.5\textwidth}
+      \begin{itemize}[<+->]
+      \item \lst{int *pi;}
+      \item \lst{double *pd = NULL;}
+      \item \lst{double d = 1.23;}
+      \item \lst{double *qd = \&d;}
+      \item \lst{double **qqd = \&qd;}
+      \end{itemize}      
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \begin{onlyenv}<2->
+        \begin{tikzpicture}
+          \node[label={\tt{pi}},cell] (pi) {};
+          \draw[->,>=stealth] (c.center)
+          .. controls +(4ex,1ex) and +(1ex,4ex) .. ++(6ex,0)
+          .. controls +(0,-1ex) and +(2ex,-2ex) .. +(4ex,0);
+        \end{tikzpicture}
+      \end{onlyenv}
+      \begin{onlyenv}<3->
+        \begin{tikzpicture}
+          \node[label={\tt{pd}},cell] (pd) {};
+          \draw (pd.south west) -- (pd.north east);
+        \end{tikzpicture}
+      \end{onlyenv}\\[2em]
+      \begin{onlyenv}<4>
+        \begin{tikzpicture}
+          \node[label={\tt{d}},cell] (d) {\tt{1.23}};
+        \end{tikzpicture}
+      \end{onlyenv}
+      \begin{onlyenv}<5>
+        \begin{tikzpicture}
+          \node[label={\tt{d}},cell] (d) {\tt{1.23}};
+          \node[label={\tt{qd}},cell,right=of d] (qd) {};
+          \draw[->,>=stealth] (qd.center) -> (d);
+        \end{tikzpicture}
+      \end{onlyenv}
+      \begin{onlyenv}<6>
+        \begin{tikzpicture}
+          \node[label={\tt{d}},cell] (d) {\tt{1.23}};
+          \node[label={\tt{qd}},cell,right=of d] (qd) {};
+          \node[label={\tt{qqd}},cell,right=of qd] (qqd) {};
+          \draw[->,>=stealth] (qd.center) -> (d);
+          \draw[->,>=stealth] (qqd.center) -> (qd);
+        \end{tikzpicture}
+      \end{onlyenv}
+    \end{column}
+  \end{columns}
+  \end{overlayarea}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Рефериране и дерефериране}
+  
+  \begin{itemize}[<+->]
+  \item \tta{\&}<име> --- указател към променливата <име>
+  \item \tta*<указател> --- мястото в паметта, сочено от <указател>
+  \item \textbf{Примери:}
+    \begin{itemize}
+    \item \lst{int x = 5, *p = \&x;}
+    \item \lst{int *q = p, y = *p + 2;}
+    \item \lst{*p++; p = \&y;}
+    \item \lst{*q = 1; *p = *q;}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\end{document}
