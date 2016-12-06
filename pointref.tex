@@ -15,7 +15,7 @@
 
 \begin{frame}
   \frametitle{Тип указател}
-  
+
   \begin{itemize}
   \item \textbf{Множество от стойности:} всички възможни lvalue от даден тип и специалната стойност \tt{NULL}.
   \item Интегрален \alert{нечислов} тип
@@ -47,9 +47,25 @@
 
 \tikzset{cell/.style={rectangle,minimum size=3ex,draw,fill=diagramblue}}
 
+\newcommand{\thedouble}{
+  \node[label={\tt{d}},cell] (d) {\tt{1.23}};
+}
+
+\newcommand{\thepointertodouble}{
+  \thedouble
+  \node[label={\tt{qd}},cell,right=of d] (qd) {};
+  \draw[->,>=stealth] (qd.center) -> (d);
+}
+
+\newcommand{\thepointertopointertodouble}{
+  \thepointertodouble
+  \node[label={\tt{qqd}},cell,right=of qd] (qqd) {};
+  \draw[->,>=stealth] (qqd.center) -> (qd);
+}
+
 \begin{frame}
   \frametitle{Дефиниране на указателни променливи}
-  
+
   <тип> \tta*<име> [ \tta= <израз> ] \{\tta, \tta*<име> [ \tta= <израз> ] \}\tta;\\[1em]
   \begin{overlayarea}{\textwidth}{10em}
   \textbf{Примери:}
@@ -62,13 +78,13 @@
       \item \lst{double d = 1.23;}
       \item \lst{double *qd = \&d;}
       \item \lst{double **qqd = \&qd;}
-      \end{itemize}      
+      \end{itemize}
     \end{column}
     \begin{column}{.5\textwidth}
       \begin{onlyenv}<2->
         \begin{tikzpicture}
           \node[label={\tt{pi}},cell] (pi) {};
-          \draw[->,>=stealth] (c.center)
+          \draw[->,>=stealth] (pi.center)
           .. controls +(4ex,1ex) and +(1ex,4ex) .. ++(6ex,0)
           .. controls +(0,-1ex) and +(2ex,-2ex) .. +(4ex,0);
         \end{tikzpicture}
@@ -77,29 +93,11 @@
         \begin{tikzpicture}
           \node[label={\tt{pd}},cell] (pd) {};
           \draw (pd.south west) -- (pd.north east);
-        \end{tikzpicture}
-      \end{onlyenv}\\[2em]
-      \begin{onlyenv}<4>
-        \begin{tikzpicture}
-          \node[label={\tt{d}},cell] (d) {\tt{1.23}};
-        \end{tikzpicture}
+        \end{tikzpicture}\\[2em]
       \end{onlyenv}
-      \begin{onlyenv}<5>
-        \begin{tikzpicture}
-          \node[label={\tt{d}},cell] (d) {\tt{1.23}};
-          \node[label={\tt{qd}},cell,right=of d] (qd) {};
-          \draw[->,>=stealth] (qd.center) -> (d);
-        \end{tikzpicture}
-      \end{onlyenv}
-      \begin{onlyenv}<6>
-        \begin{tikzpicture}
-          \node[label={\tt{d}},cell] (d) {\tt{1.23}};
-          \node[label={\tt{qd}},cell,right=of d] (qd) {};
-          \node[label={\tt{qqd}},cell,right=of qd] (qqd) {};
-          \draw[->,>=stealth] (qd.center) -> (d);
-          \draw[->,>=stealth] (qqd.center) -> (qd);
-        \end{tikzpicture}
-      \end{onlyenv}
+      \only<4>{\tikz{\thedouble}}
+      \only<5>{\tikz{\thepointertodouble}}
+      \only<6>{\tikz{\thepointertopointertodouble}}
     \end{column}
   \end{columns}
   \end{overlayarea}
@@ -107,7 +105,7 @@
 
 \begin{frame}
   \frametitle{Рефериране и дерефериране}
-  
+
   \begin{itemize}[<+->]
   \item \tta{\&}<име> --- указател към променливата <име>
   \item \tta*<указател> --- мястото в паметта, сочено от <указател>
@@ -118,7 +116,420 @@
     \item \lst{*p++; p = \&y;}
     \item \lst{*q = 1; *p = *q;}
     \end{itemize}
+  \item \tt{\&}<lvalue> връща като резултат <rvalue>!
+    \begin{itemize}
+    \item \sta{\&3}
+    \item \sta{\&x = p;}
+    \end{itemize}
+  \item \tt*<rvalue> връща като резултат <lvalue>!
+    \begin{itemize}
+    \item \tt{*p = x;}
+    \item \tt{**qqd = 3.15;}
+    \end{itemize}
+  \item операциите са дуални една на друга и се унищожават взаимно
+    \begin{itemize}
+    \item \tt{\&(*p)} \eqv \tt{p}
+    \item \tt{*(\&x)} \eqv \tt{x}
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
+\section{Указателна аритметика}
+
+\tikzset{
+  n/.style={
+    rectangle,
+    minimum width=4ex,
+    minimum height=1em,
+    text height=0.75em,
+    text depth=0.25em,
+    fill=diagramblue,
+    draw},
+  m/.style={
+    matrix of nodes,
+    ampersand replacement=\&,
+    nodes=n
+  }
+}
+
+\newcommand{\thearray}[1]{
+  \matrix (a) [m] {
+    \tt{#1} \& \tt{a[1]} \& \tt{a[2]} \& \tt{a[3]} \& \tt{a[4]} \\
+  };
+  \node (pa) [left=of a-1-1] {\tt{a}};
+  \draw[->,>=stealth] (pa) -> (a-1-1);
+}
+
+\newcommand{\thepointer}{
+  \node (p) [below=of a-1-1,label=left:{\tt{p}},n] {};
+  \draw[->,>=stealth] (p) -> (a-1-1);
+}
+
+\begin{frame}[fragile]
+  \frametitle{Указатели и масиви}
+  В C++ има много тясна връзка между указатели и масиви.
+  \begin{afact}
+    Името на масив е \alert{константен указател} към първия му елемент.
+  \end{afact}
+  \pause
+  \textbf{Примери:}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.4\textwidth}
+      \begin{itemize}[<+->]
+      \item \lst{int a[5];}
+      \item \lst{int* p = a;}
+      \item \lst{*p = 15;}
+      \item \lst{cout << a[0];}
+      \item \lst{*a = 20;}\sta{a = p;}
+      \end{itemize}
+    \end{column}
+    \begin{column}{.6\textwidth}
+      \only<2>{\tikz{\thearray{a[0]}}}
+      \only<3-4>{\tikz{\thearray{a[0]}\thepointer}}
+      \only<5-6>{\tikz{\thearray{ 15 }\thepointer}}
+      \only<7>{\tikz{\thearray{ 20 }\thepointer}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Указателна аритметика}
+
+  \begin{itemize}[<+->]
+  \item Указателната аритметика позволява по дадена отправна точка в паметта (указател) да реферираме съседни на нея клетки.
+  \item За целта трябва да укажем колко клетки напред или назад в паметта искаме да прескочим.
+  \item Синтаксис:
+    \begin{itemize}
+    \item{} <указател> [\tta+ | \tta-] <цяло\_число>
+    \item{} <цяло\_число> \tta+ <указател>
+    \end{itemize}
+  \item прескачаме <цяло\_число> клетки напред (\tta+) или назад (\tta-) от адреса, сочен от <указател>
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Големина на тип}
+
+  \begin{itemize}[<+->]
+  \item Но... какво означава ``прескачаме n клетки''?
+  \item \alert{Зависи от типа, който указваме!}
+    \begin{itemize}
+    \item \tt{p + 2} означава ``прескочи 2 байта напред'', ако
+      \lst{char* p;}
+    \item \tt{p + 2} означава ``прескочи 8 байта напред'', ако \lst{int*
+        p;}
+    \item \tt{p + 2} означава ``прескочи 16 байта напред'', ако
+      \lst{double* p;}
+    \end{itemize}
+  \item \tta{sizeof(}<тип>|<израз>\tta) --- размера в байтове, заеман
+    в паметта от <израз> или от стойност от <тип>
+  \item Така, ако имаме \lst{T* p;}...
+  \item ...тогава \lst{p + i} прескача \tt{i * sizeof(T)} байта напред
+  \item \lst{(int)p} --- цялото число, съответстващо на адреса сочен от
+    \tt{p}
+  \item \lst{p + i} \eqv \lst{(T*)((int)p + i * sizeof(T))}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Указателна аритметика за масиви}
+
+  \begin{afact}
+    Името на масив е \alert{константен указател} към първия му елемент.\\
+    \pause
+    Освен това, \tt{a[i]} \eqv \tt{*(a + i)}
+  \end{afact}
+  \pause
+  \textbf{Примери:}
+  \begin{itemize}[<+->]
+  \item \lst{int a[5], x;}\hspace{8ex}\tikz{\thearray{a[0]}}
+  \item \lst{cout << *a;}
+  \item \lst{*(a + 1) = 7;}
+  \item \lst{*(a + 4)--;}
+  \item \sta{a++; a--; a = \&x;}
+  \item Странно, но вярно: \tt{a[i]} \eqv \tt{*(a+i)} \eqv \tt{*(i+a)} \eqv \tt{i[a]}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Указатели и низове}
+
+  Низовете са масиви от символи\\[1em]
+  \begin{tikzpicture}
+    \matrix (a) [m] {
+      \tt{H} \&\tt{e} \&\tt{l} \&\tt{l} \&\tt{o} \&\tt{,} \&\tt{ } \&\tt{w} \&\tt{o} \&\tt{r} \&\tt{l} \&\tt{d} \&\tt{!} \& \tt{\textbackslash 0} \\
+    };
+    \node (s) [left=of a] {s};
+    \draw[->,>=stealth] (s) -> (a-1-1);
+    \node (p) [n,below=of a-1-12,label=left:{\tt{p}}] {};
+    \draw[->,>=stealth] (p) -> (a-1-12);
+  \end{tikzpicture}
+  \pause
+  \textbf{Примери:}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.55\textwidth}
+\begin{lstlisting}
+char s[] = "Hello, world!";
+@\pause@
+void print(char* p) {
+  while (*p) cout << *p++;
+}
+\end{lstlisting}
+    \end{column}
+    \pause
+    \begin{column}{.45\textwidth}
+\begin{lstlisting}
+int strlen(char* p) {
+  int n = 0;
+  while (*p++) n++;
+  return n;
+}
+\end{lstlisting}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{Указатели и константи}
+
+\begin{frame}[fragile]
+  \frametitle{Указатели и константи}
+
+  \begin{itemize}[<+->]
+  \item Константен указател (който е константа)
+    \begin{itemize}
+    \item{} <тип>\tta{* const} \hspace{25ex}
+      \begin{tikzpicture}[>=stealth]
+        \graph { ""[very thick,cell] -> ""[cell] };
+      \end{tikzpicture}
+    \item \lst{int x, *p = &x;}
+    \item \lst{int* const q = p; }\sta{q = p + 2;}\lst{ *q = 5;}
+    \end{itemize}
+  \item Указател към константа (сочещ към константа)
+    \begin{itemize}
+    \item{} \tta{const} <тип>\tta* \eqv <тип> \tta{const*} \hspace{5ex}
+      \begin{tikzpicture}[>=stealth]
+        \graph { ""[cell] ->[very thick] ""[cell] };
+      \end{tikzpicture}
+    \item \lst{int x, *p = &x;}
+    \item \lst{int const* q = &x; q++; }\sta{p = q; *q = 5;}
+    \end{itemize}
+  \item \alert{Ако \tt p е указател към константа, то \tt{*p} е <rvalue>}
+  \item \alert{Ако \tt x е константа, то \tt{\&x} е указател към константа}
+  \end{itemize}
+\end{frame}
+
+\newcommand{\thestringconstant}{
+  \node (p) [cell,label=above:{\tt{p}}] {};
+  \node (pv) [cell,right=of p] {\tt{Hello, world!}};
+  \draw[->,>=stealth,very thick] (p.center) -> (pv);
+}
+
+\newcommand{\thestring}[1]{
+  \node (q) [cell,below=of p,label=above:{\tt{q}}] {};
+  \node (qv) [cell,right=of q] {\tt{H#1 C++!}};
+  \draw[->,>=stealth] (q.center) -> (qv);
+}
+
+\newcommand{\thesecondedge}{
+  \draw[->,>=stealth,very thick] (p.center) -> (qv.north west);
+}
+
+\begin{frame}[fragile]
+  \frametitle{Указатели и низови константи}
+    \small
+
+  \begin{afact}
+    Името на низ е \alert{константен указател} към първия му символ (\lst{char* const}).\\\pause
+    Низовите константи са \alert{указатели към константен символ} (\lst{char const*}).
+  \end{afact}
+  \pause
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.6\textwidth}
+      \begin{itemize}[<+->]
+      \item \lst{char const* p = "Hello, world!";}
+      \item \sta{char* q = \quot Hi C++!\quot;}
+      \item \lst{char q[] = "Hi C++!";}
+      \item \lst{p = q;}
+      \item \lst{q[1] = 'o'; }\sta{p[1] = 'o';}
+      \item \lst{cout << p[4];}
+      \end{itemize}
+    \end{column}
+    \begin{column}{.4\textwidth}
+      \only<3-4>{\tikz{\thestringconstant}}
+      \only<5>{\tikz{\thestringconstant\thestring{i}}}
+      \only<6>{\tikz{\thestringconstant\thestring{i}\thesecondedge}}
+      \only<7->{\tikz{\thestringconstant\thestring{o}\thesecondedge}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Указатели и многомерни масиви}
+
+  \small
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.45\textwidth}
+      \begin{itemize}[<+->]
+      \item \lst{int a[2][2][3];}
+      \item \tt a е от тип \lst{int*const[2][3];}
+      \item \tt{a[i]} е от тип \lst{int*const[3];}
+      \item \tt{a[i][j]} е от тип \lst{int*const;}
+      \end{itemize}
+    \end{column}
+    \begin{column}{.55\textwidth}
+      \begin{itemize}[<+->]
+      \item \tt{a[i] \eqv *(a+i)}
+      \item \tt{a[i][j] \eqv *(*(a+i)+j)}
+      \item \tt{a[i][j][k] \eqv *(*(*(a+i)+j)+k)}
+      \item \tt{a[1][1][1] \eqv *(*(*(a+1)+1)+1)}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \vspace{2em}
+  \begin{tabular}{|*{12}{@{\hspace{0.2ex}}c@{\hspace{0.2ex}}|}}
+    \hline
+    \multicolumn{12}{|c|}{\tt{a}}\\
+    \hline
+    \multicolumn{6}{|c|}{\tt{a[0]}}&\multicolumn{6}{|c|}{\tt{a[1]}}\\
+    \hline
+    \multicolumn{3}{|c|}{\tt{a[0][0]}}&\multicolumn{3}{|c|}{\tt{a[0][1]}}&\multicolumn{3}{|c|}{\tt{a[1][0]}}&\multicolumn{3}{|c|}{\tt{a[1][1]}}\\
+    \hline
+    \tiny a[0][0][0]&\tiny a[0][0][1]&\tiny a[0][0][2]&\tiny a[0][1][0]&\tiny a[0][1][1]&\tiny a[0][1][2]&\tiny a[1][0][0]&\tiny a[1][0][1]&\tiny a[1][0][2]&\tiny a[1][1][0]&\tiny a[1][1][1]&\tiny a[1][1][2]\\
+    \hline
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Указател към неизвестен тип}
+
+  \begin{itemize}[<+->]
+  \item \textbf{Проблем:} Не можем да насочваме един и същ указател към променливи от различен тип!
+  \item \textbf{Решение:} \tta{void*} --- указател към неизвестен тип
+  \item[$\checkmark$] Преобразуваме автоматично от \tt{T*} към \tt{void*}
+    \begin{itemize}
+    \item \lst{int x, *p; void *q = p;}
+    \item \lst{*r = &x; *s = &r;}
+    \end{itemize}
+  \item[$\times$] \alert{Няма} автоматично преобразуване от \tt{void*} към \tt{T*}
+    \begin{itemize}
+    \item \lst{int* p; void* q = p;}
+    \item \sta{int* r = q;}
+    \item \lst{int* s = (int*)q;}
+    \end{itemize}
+  \item[$\times$] \alert{Няма} дерефериране (\tt{void} е празният тип)
+    \begin{itemize}
+    \item \lst{int x; void* p = &x;}
+    \item \sta{*p = 2; void y = *p;}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Псевдоними}
+
+\begin{frame}
+  \frametitle{Псевдоним}
+
+  \begin{itemize}[<+->]
+  \item \textbf{Множество от стойности:} всички възможни lvalue от даден тип
+  \item Параметризиран тип: ако \tt T е тип данни, то \tt{T\&} е тип ``псевдоним на елемент от тип \tt T''
+  \item Физическо представяне:
+    \begin{itemize}
+    \item на теория: както реши компилаторът
+    \item на практика: екиквалентно на \alert{константен указател към T}
+    \item \tt{T\& \eqv T* const}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\newcommand{\labeledcell}[2]{
+  \node [cell,label=above:{\tt{#1}}] {\tt{#2}};
+}
+
+\begin{frame}
+  \frametitle{Дефиниране на псевдоним}
+
+  \begin{itemize}[<+->]
+  \item{} <тип>\tta{\&} <идентификатор> \tta= <обект>\\
+    \hspace{5ex} \{\tta{, \&}<идентификатор> \tta= <обект> \}\tta;
+  \item иницализацията е \alert{задължителна}!
+    \begin{itemize}
+    \item както и на константните указатели
+    \end{itemize}
+  \item псевдонимът \alert{не може} да се пренасочва към друг обект
+    \begin{itemize}
+    \item както и константните указатели
+    \end{itemize}
+  \end{itemize}
+  \onslide<+->
+  \textbf{Пример:}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.5\textwidth}
+      \begin{itemize}[<+->]
+      \item \lst{int x = 3;}
+      \item \lst{int &a = x, b = a;}
+      \item \lst{int &c = b;}
+      \item \lst{a = c + 5;}
+      \end{itemize}
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \only<7>{\tikz{\labeledcell{x\phantom{,a}}3}}
+      \only<8-10>{\tikz{\labeledcell{x,a}3}}
+      \only<11>{\tikz{\labeledcell{x,a}8}}
+      \hspace{5ex}
+      \only<8>{\tikz{\labeledcell{b\phantom{,b}}3}}
+      \only<9->{\tikz{\labeledcell{b,c}3}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Сравнение на псевдоними и указатели}
+
+  \begin{itemize}[<+->]
+  \item Самият псевдоним не е обект, който може да бъде манипулиран
+    \begin{itemize}
+    \item Указателите могат да бъдат насочвани към различни адреси
+    \end{itemize}
+  \item Псевдонимите винаги са закачени за съществуващ обект
+    \begin{itemize}
+    \item Указателите могат да имат стойност \tt{NULL}
+    \end{itemize}
+  \item Псевдонимът не се различава от оригинала
+    \begin{itemize}
+    \item Указателят изисква изрично дерефериране с \tt*
+    \end{itemize}
+  \item Псевдонимите на един и същ обект са взаимнозаменяеми
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Константни псевдоними}
+
+  \begin{itemize}[<+->]
+  \item \tta{const }<тип>\tta\& \eqv <тип>\tta{ const\&}
+  \item Представляват константен ``изглед'' на дадено място в паметта
+  \item Няма разлика между константи псевдоними и псевдоними на константи
+  \end{itemize}
+  \onslide<+->
+  \textbf{Пример:}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.5\textwidth}
+      \begin{itemize}[<+->]
+      \item \lst{int a = 3;}
+      \item \lst{a++;}
+      \item \lst{int\& b = a;}
+      \item \lst{b++;}
+      \item \lst{int const& c = b;}
+      \item \sta{c++;}
+      \end{itemize}
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \only<5>{\tikz{\labeledcell a3}}
+      \only<6>{\tikz{\labeledcell a4}}
+      \only<7>{\tikz{\labeledcell{a,b}4}}
+      \only<8>{\tikz{\labeledcell{a,b}5}}
+      \only<9->{\tikz{\labeledcell{a,b,\alert{c}}5}}
+    \end{column}
+  \end{columns}
+\end{frame}
 \end{document}
