@@ -41,7 +41,7 @@
   \item сравнение (\tt{==}, \tt{!=}, \tt<, \tt>, \tt{<=}, \tt{>=})
   \item указателна аритметика (\tt+,\tt-,\tt{+=},\tt{-=},\tt{++},\tt{--})
   \item извеждане (\tt{<{}<})
-  \item \alert{няма извеждане! (\tt{>{}>})}
+  \item \alert{няма въвеждане! (\tt{>{}>})}
   \end{itemize}
 \end{frame}
 
@@ -246,7 +246,7 @@
   \item \lst{cout << *a;}
   \item \lst{*(a + 1) = 7;}
   \item \lst{*(a + 4)--;}
-  \item \sta{a++; a--; a = \&x;}
+  \item \sta{a++; a-{}-; a = \&x;}
   \item Странно, но вярно: \tt{a[i]} \eqv \tt{*(a+i)} \eqv \tt{*(i+a)} \eqv \tt{i[a]}
   \end{itemize}
 \end{frame}
@@ -321,13 +321,16 @@ int strlen(char* p) {
 \newcommand{\thestringconstant}{
   \node (p) [cell,label=above:{\tt{p}}] {};
   \node (pv) [cell,right=of p] {\tt{Hello, world!}};
-  \draw[->,>=stealth,very thick] (p.center) -> (pv);
 }
 
 \newcommand{\thestring}[1]{
   \node (q) [cell,below=of p,label=above:{\tt{q}}] {};
   \node (qv) [cell,right=of q] {\tt{H#1 C++!}};
   \draw[->,>=stealth] (q.center) -> (qv);
+}
+
+\newcommand{\thefirstedge}{
+  \draw[->,>=stealth,very thick] (p.center) -> (pv);
 }
 
 \newcommand{\thesecondedge}{
@@ -355,13 +358,14 @@ int strlen(char* p) {
       \end{itemize}
     \end{column}
     \begin{column}{.4\textwidth}
-      \only<3-4>{\tikz{\thestringconstant}}
-      \only<5>{\tikz{\thestringconstant\thestring{i}}}
+      \only<3-4>{\tikz{\thestringconstant\thefirstedge}}
+      \only<5>{\tikz{\thestringconstant\thefirstedge\thestring{i}}}
       \only<6>{\tikz{\thestringconstant\thestring{i}\thesecondedge}}
       \only<7->{\tikz{\thestringconstant\thestring{o}\thesecondedge}}
     \end{column}
   \end{columns}
 \end{frame}
+\end{document}
 
 \begin{frame}
   \frametitle{Указатели и многомерни масиви}
