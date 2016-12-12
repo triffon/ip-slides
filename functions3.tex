@@ -1,0 +1,507 @@
+\documentclass{beamer}
+\usepackage{up}
+
+\title{Функции}
+
+\subtitle{(част 3)}
+
+\date{14 декември 2016 г.}
+
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Програмен стек}
+
+\begin{frame}
+  \frametitle{Схема на програмната памет}
+
+  \tikzset{
+      m/.style={
+      matrix of nodes,
+      nodes={
+        rectangle,
+        minimum width=25ex,
+        minimum height=2.5em
+        }
+    }
+  }
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix (a) [m] {
+        \ldots \\
+        |[minimum height=5em,fill=diagramnavy]| Програмен стек \\
+        |[fill=diagramnavy]| Статични данни \\
+        |[fill=diagramblue]| Програмен код \\
+        \ldots \\
+      };
+      \foreach\x in {east,west} { \draw (a-1-1.north \x) -- (a-5-1.south \x); }
+      \foreach\x in {2,...,5} { \draw (a-\x-1.north west) -- (a-\x-1.north east); }
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Програмен стек}
+
+  \tikzset{
+      l/.style={-{Stealth[length=1.5ex]}},
+      m/.style={
+      matrix of nodes,
+      nodes={
+        rectangle,
+        minimum width=25ex,
+        minimum height=2em,
+        fill=diagramblue,
+        draw=black
+      },
+      nodes in empty cells
+    }
+  }
+
+  \begin{center}
+    \begin{tikzpicture}
+        \matrix (a) [m] {
+          |(sborder) [minimum height = 8em]| \ldots \\
+          |(stop)|
+          данни \\
+          данни \\
+          данни \\
+          |(sbottom)|
+          данни \\
+        };
+        \arrowto{sbottom.south west}{дъно на стека}{above left}
+        \arrowto{stop.north east}{връх на стека}{below right}
+        \arrowto{sborder.north east}{граница на стека}{below right}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Програмен стек}
+
+  \tikzset{
+      l/.style={-{Stealth[length=1.5ex]}},
+      m/.style={
+      matrix of nodes,
+      nodes={
+        rectangle,
+        minimum width=25ex,
+        minimum height=2em,
+        fill=diagramblue,
+        draw=black
+        }
+    }
+  }
+
+  \begin{center}
+    \begin{tikzpicture}
+        \matrix (a) [m] {
+          |(sborder) [minimum height = 6em]| \ldots \\
+          |(stop)|
+          данни \\
+          данни \\
+          данни \\
+          данни \\
+          |(sbottom)|
+          данни \\
+        };
+        \arrowto{sbottom.south west}{дъно на стека}{above left}
+        \arrowto{stop.north east}{връх на стека}{below right}
+        \arrowto{sborder.north east}{граница на стека}{below right}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Програмен стек}
+
+  \tikzset{
+      l/.style={-{Stealth[length=1.5ex]}},
+      m/.style={
+      matrix of nodes,
+      nodes={
+        rectangle,
+        minimum width=25ex,
+        minimum height=2em,
+        fill=diagramblue,
+        draw=black
+        }
+    }
+  }
+
+  % TODO: анимация на стека
+  \begin{center}
+    \begin{tikzpicture}
+        \matrix (a) [m] {
+          |(sborder) [minimum height = 12em]| \ldots \\
+          |(stop)|
+          данни \\
+          |(sbottom)|
+          данни \\
+        };
+        \arrowto{sbottom.south west}{дъно на стека}{above left}
+        \arrowto{stop.north east}{връх на стека}{below right}
+        \arrowto{sborder.north east}{граница на стека}{below right}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Стекова рамка на функция}
+
+  \tikzset{
+      l/.style={-{Stealth[length=1.5ex]}},
+      m/.style={
+      matrix of nodes,
+      nodes={
+        rectangle,
+        minimum width=25ex,
+        minimum height=2em,
+        fill=diagramblue,
+        draw=black
+        }
+      },
+      dots/.style={minimum height=5em}
+  }
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix (a) [m] {
+        |[dots]| \ldots \\
+        локални променливи \\
+        адрес за връщане \\
+        фактически параметри \\
+        |[dots]|  \ldots \\
+      };
+      \draw[very thick] (a-2-1.north west) rectangle (a-4-1.south east);
+      \arrowto{a-2-1.south east}{рамков указател}{below right}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Област за програмен код}
+
+  \tikzset{
+    l/.style={-{Stealth[length=1.5ex]}},
+    m/.style={
+      matrix of nodes,
+      nodes={
+        rectangle,
+        minimum width=30ex,
+        minimum height=2em,
+        fill=diagramblue,
+        draw=black
+      }},
+    dots/.style={minimum height=5em}
+  }
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix (a) [m] {
+        |[dots]| \ldots \\
+        \tt{square} \\
+        \tt{heron} \\
+        |(t)| \tt{calculateTriangleArea} \\
+        \tt{distance} \\
+        \tt{main} \\
+      };
+      \arrowto{t.east}{програмен брояч}{below right}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\section{Предаване на параметри}
+
+\begin{frame}
+  \frametitle{Предаване по стойност (call by value)}
+
+  \begin{itemize}[<+->]
+  \item пресмята се стойността на фактическия параметър
+  \item в стековата рамка на функцията се създава \alert{копие} на стойността
+  \item всяка промяна на стойността остава локална за функцията
+  \item при завършване на функцията, предадената стойност и всички промени над нея \alert{изчезват}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Предаване по псевдоним (call by reference)}
+
+  \begin{itemize}[<+->]
+  \item Понякога искаме промените във \textbf{формалните} параметри
+    да се отразят във \textbf{фактическите} параметри
+  \item Тогава трябва да обявим, че искаме фактическите параметри да могат да бъдат променяни
+  \item{} <параметър> ::= <тип>\tta{\&} <идентификатор>
+  \item \textbf{Примери:}
+    \begin{itemize}
+    \item \lst{int add5(int\& x) \{ x += 5; return x; \}}
+    \item \alert{фактическият параметър трябва да е lvalue!}
+    \item \sta{add5(3);}
+    \item \lst{int a = 3; cout << add5(a) << ' ' << a;}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Пример за предаване по псевдоним}
+
+  Размяна на две променливи
+\begin{lstlisting}
+void swap(int& x, int& y) {
+  int tmp = x;
+  x = y;
+  y = tmp;
+}
+\end{lstlisting}
+\pause
+\begin{lstlisting}
+int main() {
+  int a = 5, b = 8;
+  swap(a, b);
+  cout << a << ' ' << b << endl;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Стекова рамка при предаване по псевдоним}
+
+  \tikzset{
+    m/.style={
+      matrix of nodes,
+      nodes={
+        text height=1ex,
+        text depth=0.25ex,
+        minimum height=1em,
+        minimum width=8ex
+      },
+      nodes in empty cells,
+      ampersand replacement=\&
+    },
+    dots/.style={minimum height=5em},
+    table/.style={
+      rectangle,
+      very thin,
+      minimum width=25ex,
+      fill=diagramblue,
+      draw=black
+    }
+  }
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix [m] {
+       |(swap)| \tt{swap} \& \tt{tmp} \& |(tmp) [table]| \\
+       \& \& |[table]| адрес на връщане \\
+       \& \tt y \& |(y) [table]| \\
+       \& \tt x \& |(x) [table]| \\
+       |(main)| \tt{main} \& \tt b \& |(b) [table]|\\
+       \& \tt a \& |(a) [table]| \\
+       \& \& |(bottom) [table]| адрес на връщане \\
+      };
+      \draw[very thick] (swap.north west) -- (tmp.north west) rectangle (b.north east);
+      \draw[very thick] (main.north west) -- (b.north west) rectangle (bottom.south east);
+      \draw (y.east) to [bend left=45] (b.east);
+      \draw (x.east) to [bend left=45] (a.east);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Предаване по указател/адрес (call by pointer)}
+
+  \begin{itemize}[<+->]
+  \item Предава се \alert{адрес} вместо стойност
+  \item Фактическите параметри трябва да са от тип ``указател към нещо''
+  \item Функцията може да променя стойности на външни за функцията променливи \alert{през подадените ѝ указатели}
+  \item \textbf{Примери:}
+    \begin{itemize}
+    \item \lst{int add5(int* px) \{ *px += 5; return *px; \}}
+    \item \sta{add5(3);} \sta{add5(\&3);}
+    \item \lst{int a = 3; cout << add5(&a) << ' ' << a;}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Пример за предаване по указател}
+
+  Размяна на две променливи
+\begin{lstlisting}
+void swap(int* p, int* q) {
+  int tmp = *p;
+  *p = *q;
+  *q = tmp;
+}
+\end{lstlisting}
+\pause
+\begin{lstlisting}
+int main() {
+  int a = 5, b = 8;
+  swap(&a, &b);
+  cout << a << ' ' << b << endl;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Стекова рамка при предаване по указател}
+
+  \tikzset{
+    m/.style={
+      matrix of nodes,
+      nodes={
+        text height=1ex,
+        text depth=0.25ex,
+        minimum height=1em,
+        minimum width=8ex
+      },
+      nodes in empty cells,
+      ampersand replacement=\&
+    },
+    dots/.style={minimum height=5em},
+    table/.style={
+      rectangle,
+      very thin,
+      minimum width=25ex,
+      fill=diagramblue,
+      draw=black
+    }
+  }
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix [m] {
+       |(swap)| \tt{swap} \& \tt{tmp} \& |(tmp) [table]| \\
+       \& \& |[table]| адрес на връщане \\
+       \& \tt q \& |(q) [table]| \\
+       \& \tt p \& |(p) [table]| \\
+       |(main)| \tt{main} \& \tt b \& |(b) [table]|\\
+       \& \tt a \& |(a) [table]| \\
+       \& \& |(bottom) [table]| адрес на връщане \\
+      };
+      \draw[very thick] (swap.north west) -- (tmp.north west) rectangle (b.north east);
+      \draw[very thick] (main.north west) -- (b.north west) rectangle (bottom.south east);
+      \draw[->,>=Stealth] (q.east) to [bend left=60] (b.east);
+      \draw[->,>=Stealth] (p.east) to [bend left=60] (a.east);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Предаване на масиви като параметри}
+
+  \small
+  \begin{itemize}[<+->]
+  \item{} <параметър\_масив> ::= <тип> <име> \tta[[<константен\_израз>]\tta]\\
+    \hspace{26ex}<тип>\tta* <име>
+  \item всъщност...
+  \item ...масивите се предават \alert{по указател}!
+  \item ...затова размерът на масива в скобите се игнорира!
+  \item ...затова промените в винаги се отразяват в оригинала!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Предаване на многомерни масиви като параметри}
+
+  \small
+  \begin{itemize}[<+->]
+  \item{} <параметър\_многомерен\_масив> ::= \\
+    \hspace{10ex}<тип> <име> \tta[[<константа>]\tta]\{\tta[<константа>\tta]\} |\\
+    \hspace{10ex}<тип> \tta{(*}<име>\tta)\{\tta[<константа\tta]\}
+    \item многомерните масиви също се предават по указател
+    \item първата размерност се игнорира
+      \begin{itemize}
+      \item останалите трябва да се укажат, за да работи правилно указателната аритметика
+      \end{itemize}
+    \item (поне) първата размерност трябва да се подава като параметър
+    \item \alert{Внимание:} \lst{int* a[10]} \alert{е различно от}
+      \lst{int (*a)[10]}!
+      \begin{itemize}
+      \item \lst{int* a[10]} \eqv масив от 10 указателя към цели числа
+      \item \lst{int (*a)[10]} \eqv указател към масив от десет цели
+        числа
+      \item ...но понеже масивите от тип T могат да се разглеждат като
+        указатели към тип T...
+      \item \lst{int (*a)[10]} \eqv масив от масив от десет цели числа
+      \item \lst{int (*a)[10]} \eqv двумерен масив от цели числа с 10
+        колони
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Примерни функции}
+
+  \begin{enumerate}[<+->]
+  \item Да се напише функция, която извежда матрица от числа
+  \item Да се напише функция, която въвежда масив от низове
+  \item Да се напише функция, която проверява дали дадена дума се съдържа в масив от низове
+  \item Да се напише функция, която умножава две правоъгълни матрици
+  \end{enumerate}
+\end{frame}
+
+\section{Връщане на резултати}
+
+\begin{frame}[fragile]
+  \frametitle{Указателите като върнат резултат}
+
+  \textbf{Основно правило:} трябва да осигурим, че винаги връщаме указатели към обекти, които ще продължат да съществуват след като функцията приключи работа.\\[2em]
+  \pause
+  \textbf{Пример:}
+\begin{lstlisting}
+int* pointMax(int* p, int* q) {
+  if (*p > *q)
+    return p;
+  return q;
+}
+...
+int* r = pointMax(&a, &b); (*r)--;
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Псевдонимите като върнат резултат}
+
+  Ваши същото правило като за указателите: връщаме псевдоними към обекти, които ще останат ``живи''.\\[2em]
+  \pause
+  \textbf{Пример:}
+\begin{lstlisting}
+int& middle(int& x, int& y, int& z) {
+  if (x <= y && y <= z || z <= y && y <= x)
+    return y;
+  if (y <= z && z <= x || x <= z && z <= y)
+    return z;
+  return x;
+}
+...
+middle(a, b, c) = 5;
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Масивите като върнат резултат}
+
+  \begin{itemize}[<+->]
+  \item Функциие \alert{не могат} да имат ``масив от T'' като тип на резултата
+  \item ...но могат да имат тип на резултата ``указател към T''
+  \item по този начин функциите могат да връщат като резултат \alert{едномерни масиви}
+  \item \alert{Внимание:} връщат се само масиви, които ще продължат да съществуват след като функцията завърши
+  \item \textbf{Примери:}
+    \begin{itemize}
+    \item Да се реализира \tt{strchr}
+    \item Да се реализира \tt{strstr}
+    \item Да се реализира функция, която връща позицията на първото различие между два низа
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\end{document}
