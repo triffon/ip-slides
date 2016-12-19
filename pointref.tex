@@ -411,7 +411,7 @@ int strlen(char* p) {
   \item[$\checkmark$] Преобразуваме автоматично от \tt{T*} към \tt{void*}
     \begin{itemize}
     \item \lst{int x, *p; void *q = p;}
-    \item \lst{*r = &x; *s = &r;}
+    \item \lst{void *r = &x, *pr = &r, *s = &r;}
     \end{itemize}
   \item[$\times$] \alert{Няма} автоматично преобразуване от \tt{void*} към \tt{T*}
     \begin{itemize}
