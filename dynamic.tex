@@ -3,7 +3,7 @@
 
 \title{Динамична памет}
 
-\date{14 декември 2016 г.}
+\date{21 декември 2016 г.}
 
 \usetikzlibrary{arrows.meta}
 
@@ -102,7 +102,7 @@
 
 \begin{frame}
   \frametitle{Свойства на програмния стек}
-  
+
   \begin{itemize}[<+->]
   \item Паметта се заделя в момента на дефиниция
   \item Всеки заделен блок памет носи името на променливата
@@ -124,7 +124,7 @@
 
 \begin{frame}
   \frametitle{Област за динамична памет (heap)}
-  
+
   \begin{itemize}[<+->]
   \item Динамичната памет може да бъде заделена и освободена по всяко време на изпълнение на програмата
   \item Областта за динамична памет е набор от свободни блокове памет
@@ -137,7 +137,7 @@
     \end{itemize}
   \end{itemize}
 \end{frame}
-  
+
 \begin{frame}
   \frametitle{Схема на динамичната памет}
 
@@ -165,7 +165,7 @@
 
 \begin{frame}
   \frametitle{Заделяне на динамична памет}
-  
+
   \begin{itemize}[<+->]
   \item Заделянето на динамична памет става с операциите \tta{new} и \tta{new[]}
   \item \tta{new }<тип> --- заделя блок от памет за една променлива от <тип>
@@ -223,7 +223,7 @@
             \draw[l] (ss) to [bend left=30] (ssc.north west);
             \draw[l] (ssc) to (sc.south west);
           \end{tikzpicture}
-        \end{onlyenv}        
+        \end{onlyenv}
       \end{overlayarea}
   \end{column}
   \end{columns}
@@ -231,7 +231,7 @@
 
 \begin{frame}
   \frametitle{Освобождаване на памет}
-  
+
   \begin{itemize}[<+->]
   \item Динамична памет се освобождава с операциите \tta{delete} и \tta{delete[]}
   \item \tta{delete }<указател> --- освобождава блок от памет с начало, сочено от <указател>
@@ -246,7 +246,7 @@
 
 \begin{frame}[fragile]
   \frametitle{Ограничения при освобождаването на памет}
-  
+
   \begin{itemize}[<+->]
   \item На \lst{delete} може да се подаде само указател, върнат от \lst{new}
   \item Не е позволено освобождаването на памет в програмния стек или областта за програмен код
