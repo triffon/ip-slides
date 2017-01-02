@@ -3,7 +3,7 @@
 
 \title{Рекурсия}
 
-\date{21 декември 2016 г.}
+\date[21.12.16 г. -- 4.01.17 г.]{21 декември 2016 г. -- 4 януари 2017 г.}
 
 \usetikzlibrary{arrows.meta}
 
@@ -133,7 +133,7 @@
   \end{theorem}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<1>
   \frametitle{Примери за рекурсивни функции}
 
   Да се напише функция, която пресмята рекурсивно:
@@ -152,10 +152,60 @@
   \end{enumerate}
 \end{frame}
 
-% \begin{frame}
-%   \frametitle{Стекови рамки на рекурсивни функции}
-%   % TODO
-% \end{frame}
+\begin{frame}<1-11>[label=current]
+  \frametitle{Стекови рамки на рекурсивни функции}
+
+    \tikzset{
+    m/.style={
+      matrix of nodes,
+      nodes={
+        text height=1ex,
+        text depth=0.25ex,
+        minimum height=1em,
+        minimum width=8ex
+      },
+      nodes in empty cells,
+      ampersand replacement=\&
+    },
+    table/.style={
+      rectangle,
+      very thin,
+      minimum width=25ex,
+      fill=diagramblue,
+      draw=black
+    }
+  }
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix [m,
+         row 1/.style={row 2},row 2/.style={visible on=<6>},
+         row 3/.style={row 4},row 4/.style={visible on=<5-7>},
+         row 5/.style={row 6},row 6/.style={visible on=<4-8>},
+         row 7/.style={row 8},row 8/.style={visible on=<3-9>},
+         row 9/.style={row 10},row 10/.style={visible on=<2-10>}] {
+       |(fact0)| \tt{fact} \& \& |(r0) [table]| адрес на връщане \& \lst{return 1;}\\
+       \& \tt{n} \& |(n0) [table]| 0 \& \\
+       |(fact1)| \tt{fact} \& \& |(r1) [table]| адрес на връщане \& \alt<-6>{\lst{return 1 * fact(0);}}{\lst{return 1 * 1;}}\\
+       \& \tt{n} \& |(n1) [table]| 1 \& \\
+       |(fact2)| \tt{fact} \& \& |(r2) [table]| адрес на връщане \& \alt<-7>{\lst{return 2 * fact(1);}}{\lst{return 1 * 2;}}\\
+       \& \tt{n} \& |(n2) [table]| 2 \& \\
+       |(fact3)| \tt{fact} \& \& |(r3) [table]| адрес на връщане \& \alt<-8>{\lst{return 3 * fact(2);}}{\lst{return 3 * 2;}}\\
+       \& \tt{n} \& |(n3) [table]| 3 \& \\
+       |(fact4)| \tt{fact} \& \& |(r4) [table]| адрес на връщане \& \alt<-9>{\lst{return 4 * fact(3);}}{\lst{return 4 * 6;}}\\
+       \& \tt{n} \& |(n4) [table]| 4 \& \\
+       |(main)| \tt{main} \& \tt n \& |(nmain) [table]| 4 \& \alt<-10>{\lst{cout << fact(4);}}{\lst{cout << 24;}}\\
+      };
+      \foreach \i in {0,...,4} { 
+        \FPeval{from}{clip(6-\i)}
+        \FPeval{to}{clip(6+\i)}
+        \draw[very thick, draw on=<\from-\to>] (fact\i.north west) -- (r\i.north west) rectangle (n\i.south east);
+      }
+      \draw[very thick] (main.north west) -- (nmain.north west) rectangle (nmain.south east);
+    \end{tikzpicture}
+  \end{center}
+
+\end{frame}
 
 \begin{frame}
   \frametitle{Рекурсивни функции за масиви}
