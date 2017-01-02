@@ -133,7 +133,7 @@
   \end{theorem}
 \end{frame}
 
-\begin{frame}<1>
+\begin{frame}<1>[label=probrec]
   \frametitle{Примери за рекурсивни функции}
 
   Да се напише функция, която пресмята рекурсивно:
@@ -152,7 +152,7 @@
   \end{enumerate}
 \end{frame}
 
-\begin{frame}<1-11>[label=current]
+\begin{frame}<1-11>
   \frametitle{Стекови рамки на рекурсивни функции}
 
     \tikzset{
@@ -196,7 +196,7 @@
        \& \tt{n} \& |(n4) [table]| 4 \& \\
        |(main)| \tt{main} \& \tt n \& |(nmain) [table]| 4 \& \alt<-10>{\lst{cout << fact(4);}}{\lst{cout << 24;}}\\
       };
-      \foreach \i in {0,...,4} { 
+      \foreach \i in {0,...,4} {
         \FPeval{from}{clip(6-\i)}
         \FPeval{to}{clip(6+\i)}
         \draw[very thick, draw on=<\from-\to>] (fact\i.north west) -- (r\i.north west) rectangle (n\i.south east);
@@ -204,8 +204,9 @@
       \draw[very thick] (main.north west) -- (nmain.north west) rectangle (nmain.south east);
     \end{tikzpicture}
   \end{center}
-
 \end{frame}
+
+\againframe<2->{probrec}
 
 \begin{frame}
   \frametitle{Рекурсивни функции за масиви}
@@ -297,7 +298,51 @@
   \end{itemize}
 \end{frame}
 
-%TODO анимация на търсене с връщане назад в лабиринт
+\newcommand{\wall}{\includegraphics[width=6.5ex]{images/wall-cell.jpg}}
+\newcommand{\hero}{\includegraphics[height=5ex]{images/adventurer.png}}
+\newcommand{\step}{\includegraphics[height=3ex]{images/footsteps.png}}
+\newcommand{\rstep}{\includegraphics[height=3ex]{images/footsteps-red.png}}
+\newcommand{\gold}{\includegraphics[height=5ex]{images/treasure.png}}
+\newcommand{\go}[1]{\temporal<#1>{}\hero\step}
+\newcommand{\gor}[1]{\temporal<#1>{}\hero\rstep}
+\newcommand{\goback}[2]{\temporal<#1>{}\hero{\alt<#2>\hero\step}}
+\newcommand{\gobackr}[2]{\temporal<#1>{}\hero{\temporal<#2>\step\hero\rstep}}
+
+\begin{frame}
+  \frametitle{Търсене на съкровище в лабиринт}
+
+  \tikzset{
+    m/.style={
+      matrix of nodes,
+      ampersand replacement=\&,
+      column sep=-\pgflinewidth,
+      row sep=-\pgflinewidth,
+      nodes={
+        rectangle,
+        minimum width=8ex,
+        minimum height=1em,
+        text height=5ex,
+        text depth=0.25ex,
+        draw},
+      nodes in empty cells
+    }
+  }
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix (a) [m] {
+       \wall   \& \gor{11}     \& \wall        \& \wall        \& \gor{16}  \\
+       \go9    \& \goback{10}{12}  \& \go{13}  \& \go{14}      \& \goback{15}{17}  \\
+       \go8    \& \wall        \& \wall        \& \wall        \& \gold    \\
+       \go7    \& \goback26    \& \gobackr35   \& \gor4        \& \wall    \\
+               \& \go1         \& \wall        \& \wall        \&          \\
+      };
+      \node[visible on=<18>] at (a-3-5.center) {\hero};
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\section{Заключение}
 
 \begin{frame}
   \frametitle{Рекурсията: предимства и недостатъци}
