@@ -1,0 +1,470 @@
+\documentclass{beamer}
+\usepackage{up}
+
+\title{Функции от по-висок ред}
+
+\usetikzlibrary{arrows.meta}
+
+\date{11 януари 2017 г.}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Преговор: програмна памет}
+
+\begin{frame}
+  \frametitle{Схема на програмната памет}
+
+  \tikzset{
+      m/.style={
+      matrix of nodes,
+      nodes={
+        rectangle,
+        minimum width=25ex,
+        minimum height=2.5em
+        }
+    }
+  }
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix (a) [m] {
+        \ldots \\
+        |[minimum height=5em,fill=diagramnavy]| Програмен стек \\
+        |[fill=diagramnavy]| Статични данни \\
+        |[fill=diagramblue]| Програмен код \\
+        \ldots \\
+      };
+      \foreach\x in {east,west} { \draw (a-1-1.north \x) -- (a-5-1.south \x); }
+      \foreach\x in {2,...,5} { \draw (a-\x-1.north west) -- (a-\x-1.north east); }
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Област за програмен код}
+
+  \tikzset{
+    l/.style={-{Stealth[length=1.5ex]}},
+    m/.style={
+      matrix of nodes,
+      nodes={
+        rectangle,
+        minimum width=30ex,
+        minimum height=2em,
+        fill=diagramblue,
+        draw=black
+      }},
+    dots/.style={minimum height=5em}
+  }
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix (a) [m] {
+        |[dots]| \ldots \\
+        \tt{square} \\
+        \tt{heron} \\
+        |(t)| \tt{calculateTriangleArea} \\
+        \tt{distance} \\
+        \tt{main} \\
+      };
+      \arrowto{t.east}{програмен брояч}{below right}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\section{Указатели към функции}
+
+\begin{frame}
+  \frametitle{Указател към функция}
+
+  \begin{itemize}[<+->]
+  \item Кодът на всяка функция на C++ се превежда до машинен код
+  \item Машинният код на функциите е разположен в областта за програмен код
+  \item \alert{Адресът на функцията} наричаме адресът на първата инструкция във функцията
+  \item Можем да създаваме \alert{указатели към функции}
+  \item Името на всяка функция може да се раглежда като константен указател към кода ѝ
+  \item Стойността на указателя към функцията e адресът на нейния код
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Дефиниране на указатели към функции}
+
+  {\small
+    <тип> \tta{(*}<идентификатор>\tta)\tta(<формални параметри>\tta) [\tta= <указател> ]\tta;}
+  \pause
+  \begin{itemize}
+  \item имената на параметрите могат да се пропуснат
+  \end{itemize}
+  \pause
+  \textbf{Примери:}
+  \begin{itemize}[<+->]
+  \item \lst{void (*f)(int&, int&);}
+  \item f = swap;
+  \item \lst{double (*op)(double) = sin;}
+  \item \lst{op = cos;}
+  \item \lst{op = NULL;}
+  \item \sta{void (*p)(int, int\&) = f;}
+  \item \sta{sin = op;}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Извикване на функция през указател}
+
+\begin{lstlisting}
+void (*f)(int&, int&) = swap;
+int x = 5, y = 8;
+\end{lstlisting}
+  \pause
+  Три еквивалентни начина за извикване на функията:
+  \begin{itemize}
+  \item \lst{swap(x, y);}
+  \item \lst{(*f)(x, y);}
+  \item \lst{f(x, y);}
+  \end{itemize}
+\end{frame}
+
+\section{Потребителски типове}
+
+\begin{frame}
+  \frametitle{Дефиниране на потребителски типове}
+
+  В C++ е позволено дефиниране на потребителски типове:\\
+  \alt<+>{
+    \tta{typedef} <декларация\_на\_променлива>}{
+    \tta{typedef} <тип> <име>}
+  \onslide<+->
+  \begin{itemize}
+  \item създава се нов тип <име>, който е еквивалентен на <тип>
+  \end{itemize}
+  \onslide<+->
+  \textbf{Примери:}
+  \begin{itemize}[<+->]
+  \item \lst{typedef int number;}
+  \item \lst{number x;} \eqv \lst{int x;}
+  \item \lst{number f(number y) \{ ... \}} \eqv \lst{int f(int y) \{ ... \}}
+  \item \lst{typedef double matrix[5][10];}
+  \item \lst{matrix a;} \eqv \lst{double a[5][10];}
+  \item \lst{typedef int** pointer2;}
+  \item \lst{int x; int* p = &x; pointer2 q = &p;}
+  \item \lst{typedef int& ref;}
+  \item \lst{ref y = x;}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Потребителски типове за указатели към функции}
+
+  \begin{itemize}[<+->]
+  \item \lst{typedef double (*mathfun)(double);}
+  \item \lst{mathfun p = exp; p = log;}
+  \item \lst{typedef void (*procedure)();}
+  \item \lst{void h() \{ cout << "h()\n"; \}}
+  \item \lst{procedure q = h; q();}
+  \item \lst{void (*r)() = q;}
+  \end{itemize}
+\end{frame}
+
+\section{Функции от по-висок ред}
+
+\begin{frame}[fragile]
+  \frametitle{Примерна сума 1}
+
+  \textbf{Задача 1.}\\
+  Да се пресметне сумата $\sin(1) + \sin(2) + \sin(3) + \ldots + \sin(n)$.\\[1em]
+  \pause
+  \textbf{Решение:}
+\begin{lstlisting}
+double sum_sin(int n) {
+  double s = 0;
+  for(int i = 1; i <= n; i++)
+    s += sin(i);
+  return s;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Примерна сума 2}
+
+  \textbf{Задача 2.}\\
+  Да се пресметне сумата $\cos(1) + \cos(2) + \cos(4) + \ldots + \cos(n)$.\\[1em]
+  \pause
+  \textbf{Решение:}
+\begin{lstlisting}
+double sum_cos(int n) {
+  double s = 0;
+  for(int i = 1; i <= n; i *= 2)
+    s += cos(i);
+  return s;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Открийте разликите!}
+
+\begin{lstlisting}
+double @\alert<2>{sum\_sin}@(int n) {
+  double s = 0;
+  for(int i = 1; i <= n; i@\alert<2>{++}@)
+    s += @\alert<2>{sin}@(i);
+  return s;
+}
+
+double @\alert<2>{sum\_cos}@(int n) {
+  double s = 0;
+  for(int i = 1; i <= n; i @\alert<2>{*= 2}@)
+    s += @\alert<2>{cos}@(i);
+  return s;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Общият шаблон}
+
+\begin{lstlisting}
+double @\alert{<name>}@(int n) {
+  double s = 0;
+  for(int i = 1; i <= n; i = @\alert{<next>}@(i)})
+    s += @\alert{<f>}@(i);
+  return s;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Функциите като параметри}
+
+\begin{lstlisting}
+double sum(int n, double (*f)(double), int (*next)(int)) {
+  double s = 0;
+  for(int i = 1; i <= n; i = next(i))
+    s += f(i);
+  return s;
+}
+\end{lstlisting}
+  \pause
+  \begin{itemize}[<+->]
+  \item \lst!int plus1(int i) { return i + 1; }!
+  \item \lst{sum_sin(n)} \eqv \lst{sum(n, sin, plus1)}
+  \item \lst!int mult2(int i) { return i * 2; }!
+  \item \lst{sum_cos(n)} \eqv \lst{sum(n, cos, mult2)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Произведение от по-висок ред}
+
+\begin{lstlisting}
+double product(int n, double (*f)(double), int (*next)(int)) {
+  double s = 1;
+  for(int i = 1; i <= n; i = next(i))
+    s *= f(i);
+  return s;
+}
+\end{lstlisting}
+  \pause
+  \textbf{Примери:}
+  \begin{itemize}[<+->]
+  \item \textbf{Задача.} Да се пресметне произведението $\tan(1)\tan(2)\tan(3)\ldots\tan(n)$.
+  \item \textbf{Решение.} \lst{product(n, tan, plus1);}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Откийте разликите 2.0}
+
+\begin{lstlisting}
+double @\alert<2>{sum}@(int n, double (*f)(double), int (*next)(int)) {
+  double s = @\alert<2>0@;
+  for(int i = 1; i <= n; i = next(i))
+    s @\alert<2>+@= f(i);
+  return s;
+}
+
+double @\alert<2>{product}@(int n, double (*f)(double), int (*next)(int)) {
+  double s = @\alert<2>1@;
+  for(int i = 1; i <= n; i = next(i))
+    s @\alert<2>*@= f(i);
+  return s;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Натрупване от по-висок ред (accumulate)}
+    Да се напише функция, която пресмята натрупването
+  \begin{equation*}
+    f(a) \oplus \bigg(f\big(next(a)\big) \oplus \Big(\ldots \oplus \big(f(b) \oplus \bot\big) \ldots\Big)\bigg),
+  \end{equation*}
+  където $\oplus$ е двуместна операция,\\
+  а $\bot$ е нейната ``нулева стойност'', т.е. $x\oplus\bot = x$.\\[1em]
+  \pause
+  \textbf{Решение:}
+  \begin{itemize}
+  \item \lst{typedef int (*nextfun)(int);}
+  \item \lst{typedef double (*mathfun)(double);}
+  \item \lst{typedef double (*mathop)(double, double);}
+  \end{itemize}
+  \pause
+
+\begin{lstlisting}
+double accumulate (mathop op, double base_value,
+                   double a,  double b,
+                   mathfun f, nextfun  next);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Натрупване от по-висок ред (accumulate)}
+\begin{lstlisting}
+double accumulate (mathop op, double base_value,
+                   double a,  double b,
+                   mathfun f, nextfun next) {
+  double s = base_value;
+  for(int i = a; i <= b; i = next(i))
+    s = op(s, f(i));
+  return s;
+}
+\end{lstlisting}
+  \pause
+  \textbf{Примери:}
+  \small
+  \begin{itemize}[<+->]
+  \item \lst!double plus(double a, double b) { return a + b; }!
+  \item \lst{sum(n, f, next)} \eqv \lst{accumulate(plus, 0, 1, n, f, next)}
+  \item \lst!double mult(double a, double b) { return a * b; }!
+  \item \lst{product(n, f, next)} \eqv \lst{accumulate(mult, 1, 1, n, f, next)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Задачи за accumulate}
+  С помощта на \tt{accumulate} да се пресметнат:
+
+  \begin{itemize}[<+->]
+  \item $n!$
+  \item $x^n$
+  \item $\displaystyle\sum_{i=0}^n \frac{x^i}{i!}$
+  \item $\displaystyle\left(\begin{array}{@{}c@{}}n\\k\end{array}\right)$
+  \item $\displaystyle x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \ldots + (-1)^n\frac{x^{2n+1}}{(2n+1)!}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Анонимни функции в C++14}
+  \begin{itemize}[<+->]
+  \item \tta{[](}<параметри>\tta{) -> }<тип> \tta{\{}<тяло>\tta{\}}
+  \item създава анонимна ($\lambda$) функция, дефинирана като:\\
+    <тип> $\lambda$\tt(<параметри>\tt{) \{}<тяло>\tt\}
+  \item ако <тяло> е от вида \lst{return }<израз>\tt; можем да пропуснем <тип>:
+  \item<.-> \tta{[](}<параметри>\tta{) \{}<тяло>\tta{\}}
+  \item \textbf{Примери:}
+  \item \lst!sum(n, sin, [](int n) { return n + 1; })!
+  \item \lst!accumulate([](double a, double b) { return a * b;}, 1,!\\
+    \hspace{13ex}\lst!1, n, [](double x) {return x;},!\\
+    \hspace{13ex}\lst![](int n) { return n + 1;})!
+  \end{itemize}
+\end{frame}
+
+\section{Функциите като върнат резултат}
+
+\begin{frame}[fragile]
+  \frametitle{Функциите като върнат резултат}
+
+  \textbf{Задача.} Да се напише функция, която по зададен числов код 1, 2, 3 или 4, връща съответно една от функциите $\sin$, $\cos$, $e^x$, $\log$.\\[1em]
+  \pause\onslide<+->
+  \textbf{Решение:}
+  \temporal<+>{\lst{? choose_function(int n)}}{\lst{double (*choose_function(double))(int n);}}{\lst{mathfun choose_function(int n);}}
+  \onslide<+(1)->
+\begin{lstlisting}
+mathfun choose_function(int n) {
+  switch(n) {
+    case 1 : return sin;
+    case 2 : return cos;
+    case 3 : return exp;
+    case 4 : return log;
+    default : return NULL;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Производна}
+
+  \textbf{Задача.}
+  Да се напише функция, която по дадена едноаргументна функция $f$ връща нейната производна.\\[1em]
+  \pause
+  \textbf{Преговор:}
+  \begin{equation*}
+    f'(x) \alt<+>{= \lim_{x\to\infty} \frac{f(x+\Delta x) - f(x)}{\Delta x}}{\approx\frac{f(x+\Delta x) - f(x)}{\Delta x}\;\text{ за малки }\Delta x}
+  \end{equation*}
+  \pause
+  \textbf{Решение.}
+\begin{lstlisting}
+  matfun derive(matfun f) {
+    return ?
+  }
+\end{lstlisting}
+  \pause
+  \alert{Проблем:} За различни \tt{f}, трябва да връщаме различна функция, но предварително не знаем коя!
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Намиране на производна}
+
+  \alert{Идея №1.} Ще използваме помощна функция.\pause
+\begin{lstlisting}
+const double EPS = 1E-10;
+double derivative(double x) {
+  return (function(x + EPS) - function(x)) / EPS;
+}
+\end{lstlisting}
+  \pause
+  \alert{Проблем №2:} Как да подадем \tt{function}?\\
+  \pause
+  \alert{Идея №3}: Да използваме глобална променлива.\\
+  \pause
+\begin{lstlisting}
+matfun function = NULL;
+matfun derive(mathfun f) {
+  function = f;
+  return derivative;
+}
+\end{lstlisting}
+  \pause
+  \alert{Проблем №3.} Грозно е.\\
+  \pause
+  \alert{Проблем №4.} Може да работи само с една производна в даден момент.
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Намиране на производна с анонимни функции}
+  \alert{Идея №4:} Да използваме анонимни функции!
+  \pause
+\begin{lstlisting}
+auto derive(mathfun f) {
+  return [=](double x) { return (f(x + EPS) - f(x)) / EPS; };
+}
+\end{lstlisting}
+  \pause
+  \begin{itemize}[<+->]
+  \item \tt{[=]} означава, че позволяваме на анонимната функция да използва копие на указателя \tt{f}.
+  \item\lst{auto} означава, че искаме C++14 сам да се сети за типа на връщания резултат (\alert{\tt{mathfun} вече не върши работа})\\
+  \end{itemize}
+  \onslide<+->
+  \textbf{Примери:}
+  \begin{itemize}[<+->]
+  \item \lst{auto mycos = derive(sin);}
+  \item \lst{cout << mycos(0) << ' ' << cos(0);}
+  \item \lst{cout << exp(1) << ' ' << derive(exp)(1);}
+  \end{itemize}
+\end{frame}
+\end{document}
