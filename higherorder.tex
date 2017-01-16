@@ -104,7 +104,7 @@
   \textbf{Примери:}
   \begin{itemize}[<+->]
   \item \lst{void (*f)(int&, int&);}
-  \item f = swap;
+  \item \lst{f = swap;}
   \item \lst{double (*op)(double) = sin;}
   \item \lst{op = cos;}
   \item \lst{op = NULL;}
@@ -136,8 +136,8 @@ int x = 5, y = 8;
 
   В C++ е позволено дефиниране на потребителски типове:\\
   \alt<+>{
-    \tta{typedef} <декларация\_на\_променлива>}{
-    \tta{typedef} <тип> <име>}
+    \tta{typedef} <декларация\_на\_променлива>\tta;}{
+    \tta{typedef} <тип> <име>\tta;}
   \onslide<+->
   \begin{itemize}
   \item създава се нов тип <име>, който е еквивалентен на <тип>
@@ -164,7 +164,7 @@ int x = 5, y = 8;
   \item \lst{typedef double (*mathfun)(double);}
   \item \lst{mathfun p = exp; p = log;}
   \item \lst{typedef void (*procedure)();}
-  \item \lst{void h() \{ cout << "h()\n"; \}}
+  \item \lst{void h() \{ cout << "h()\\n"; \}}
   \item \lst{procedure q = h; q();}
   \item \lst{void (*r)() = q;}
   \end{itemize}
@@ -302,7 +302,7 @@ double @\alert<2>{product}@(int n, double (*f)(double), int (*next)(int)) {
   \frametitle{Натрупване от по-висок ред (accumulate)}
     Да се напише функция, която пресмята натрупването
   \begin{equation*}
-    f(a) \oplus \bigg(f\big(next(a)\big) \oplus \Big(\ldots \oplus \big(f(b) \oplus \bot\big) \ldots\Big)\bigg),
+    \bot \oplus f(a) \oplus f(next(a)) \oplus f(next(next(a))) \oplus \ldots \oplus f(b)
   \end{equation*}
   където $\oplus$ е двуместна операция,\\
   а $\bot$ е нейната ``нулева стойност'', т.е. $x\oplus\bot = x$.\\[1em]
@@ -357,6 +357,7 @@ double accumulate (mathop op, double base_value,
   \item $\displaystyle x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \ldots + (-1)^n\frac{x^{2n+1}}{(2n+1)!}$
   \end{itemize}
 \end{frame}
+\end{document}
 
 \begin{frame}[fragile]
   \frametitle{Анонимни функции в C++14}
@@ -451,7 +452,7 @@ matfun derive(mathfun f) {
   \pause
 \begin{lstlisting}
 auto derive(mathfun f) {
-  return [=](double x) { return (f(x + EPS) - f(x)) / EPS; };
+  return [f](double x) { return (f(x + EPS) - f(x)) / EPS; };
 }
 \end{lstlisting}
   \pause
