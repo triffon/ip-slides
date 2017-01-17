@@ -5,7 +5,7 @@
 
 \usetikzlibrary{arrows.meta}
 
-\date{11 януари 2017 г.}
+\date{11--18 януари 2017 г.}
 
 \begin{document}
 
@@ -357,7 +357,6 @@ double accumulate (mathop op, double base_value,
   \item $\displaystyle x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \ldots + (-1)^n\frac{x^{2n+1}}{(2n+1)!}$
   \end{itemize}
 \end{frame}
-\end{document}
 
 \begin{frame}[fragile]
   \frametitle{Анонимни функции в C++14}
@@ -457,7 +456,7 @@ auto derive(mathfun f) {
 \end{lstlisting}
   \pause
   \begin{itemize}[<+->]
-  \item \tt{[=]} означава, че позволяваме на анонимната функция да използва копие на указателя \tt{f}.
+  \item \tt{[f]} означава, че позволяваме на анонимната функция да използва копие на указателя \tt{f}.
   \item\lst{auto} означава, че искаме C++14 сам да се сети за типа на връщания резултат (\alert{\tt{mathfun} вече не върши работа})\\
   \end{itemize}
   \onslide<+->
