@@ -349,13 +349,13 @@ double accumulate (mathop op, double base_value,
   \frametitle{Задачи за accumulate}
   С помощта на \tt{accumulate} да се пресметнат:
 
-  \begin{itemize}[<+->]
+  \begin{enumerate}[<+->]
   \item $n!$
   \item $x^n$
   \item $\displaystyle\sum_{i=0}^n \frac{x^i}{i!}$
   \item $\displaystyle\left(\begin{array}{@{}c@{}}n\\k\end{array}\right)$
   \item $\displaystyle x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \ldots + (-1)^n\frac{x^{2n+1}}{(2n+1)!}$
-  \end{itemize}
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -404,7 +404,7 @@ mathfun choose_function(int n) {
   \pause
   \textbf{Преговор:}
   \begin{equation*}
-    f'(x) \alt<+>{= \lim_{x\to\infty} \frac{f(x+\Delta x) - f(x)}{\Delta x}}{\approx\frac{f(x+\Delta x) - f(x)}{\Delta x}\;\text{ за малки }\Delta x}
+    f'(x) \alt<+>{= \lim_{\Delta x\to 0} \frac{f(x+\Delta x) - f(x)}{\Delta x}}{\approx\frac{f(x+\Delta x) - f(x)}{\Delta x}\;\text{ за малки }\Delta x}
   \end{equation*}
   \pause
   \textbf{Решение.}
