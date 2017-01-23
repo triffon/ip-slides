@@ -1,0 +1,394 @@
+\documentclass{beamer}
+\usepackage{up}
+
+\title{Записи}
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{patterns}
+
+\tikzset{
+  l/.style={-{Stealth}},
+  n/.style={
+    rectangle,
+    minimum width=3ex,
+    minimum height=1em,
+    text height=0.75em,
+    text depth=0.25em,
+    fill=diagramblue,
+    draw},
+  cell/.style={n,very thick},
+  m/.style={
+    matrix of nodes,
+    ampersand replacement=\&,
+    nodes=n,
+    nodes in empty cells,
+    column sep=-\pgflinewidth
+  }
+}
+
+\date{18 януари 2017 г.}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Тип данни запис}
+
+% TODO: мотивиращ пример
+
+\begin{frame}
+  \frametitle{Логическо описание}
+
+Записът е:
+\begin{itemize}[<+->]
+\item съставен тип данни
+\item представя крайна редица от елементи
+\item редицата е с \alert<6>{фиксирана дължина}
+\item елементите могат да са от \alert<6>{различни типове}
+\item произволен достъп до всеки елемент
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Дефиниция на запис}
+
+  \begin{itemize}[<+->]
+  \item \tta{struct }<име> \tta\{ <поле> \{ <поле> \} \tta{\};}
+  \item{} <поле> ::= <тип> <идентификатор> \{\tta, <идентификатор> \}\tta;
+  \item \textbf{Примери:}
+  \item \lst@struct Point { double x, y; };@
+  \item
+\begin{lstlisting}
+struct Student {
+  char name[45];
+  int fn;
+  double grade;
+};
+\end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Физическо представяне}
+
+  \begin{center}
+    \begin{onlyenv}<1-6>
+      \begin{tikzpicture}
+        \matrix [m] {
+          \ldots \&
+          |[minimum width=24ex,label={\tt{name}}] (name) | {}
+          \&
+          |[minimum width=8ex,label={\tt{fn}}] (fn) | {}
+          \&
+          |[minimum width=16ex,label={\tt{grade}}] (grade) | {}
+          \& \ldots\\
+        };
+        \draw[very thick] (name.north west) rectangle (grade.south east);
+      \end{tikzpicture}
+    \end{onlyenv}
+    \begin{onlyenv}<7->
+      \begin{tikzpicture}
+        \matrix [m] {
+          \ldots \&
+          |[minimum width=24ex,label={\tt{name}}] (name) | {}
+          \&
+          |[minimum width=2ex,preaction={fill, diagramblue}, pattern=crosshatch] (padding) | {}
+          \&
+          |[minimum width=8ex,label={\tt{fn}}] (fn) | {}
+          \&
+          |[minimum width=8ex,preaction={fill, diagramblue}, pattern=crosshatch] (padding) | {}
+          \&
+          |[minimum width=16ex,label={\tt{grade}}] (grade) | {}
+          \& \ldots\\
+        };
+        \draw[very thick] (name.north west) rectangle (grade.south east);
+      \end{tikzpicture}
+    \end{onlyenv}
+  \end{center}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.3\textwidth}
+\begin{lstlisting}
+struct Student {
+  char name[45];
+  int fn;
+  double grade;
+};
+\end{lstlisting}
+    \end{column}
+    \begin{column}{.7\textwidth}
+      \begin{itemize}[<+->]
+      \item \lst{sizeof(S)} --- големина на структурата \tt S
+      \item \lst{sizeof(Point)} = \alt<+->{16}?
+      \item \lst{sizeof(Student)} = \alt<+->{\alert{64}}?
+      \item \alert{Защо?}
+      \item Полетата в структурите се подравняват до адрес кратен на големината им
+      \item Улеснява обработката от процесора
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Променливи от тип запис}
+
+  [\tta{struct}] <тип\_запис> <име> [ \tta{= \{} <израз> \{\tta, <израз> \} \tta\} ]\\
+  \hspace{20ex} \{\tta, <име> [ \tta{= \{} <израз> \{\tta, <израз> \} \tta\} ] \}\tta;\\[2em]
+  \pause
+  \textbf{Примери:}
+  \begin{itemize}[<+->]
+  \item \lst!Point p1, p2 = { 1.2, 3.4 };!
+  \item \lst!Student s1 = { "Иван Колев", 61234, 5.75 };!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Операции над записи}
+
+  \begin{itemize}[<+->]
+  \item Присвояване (\tt=)
+    \begin{itemize}
+    \item Могат да се присвояват само структури от един и същи тип
+    \item \lst{Point p3 = p1; p3 = p2;}
+    \item \sta{Student s1 = p1;}
+    \end{itemize}
+  \item Достъп до поле (\tt.)
+    \begin{itemize}
+    \item{} <променлива>\tta.<име\_на\_поле>
+    \item \lst{p1.x = 1.3; p2 = p1; p2.y = -p2.y;}
+    \item \lst{s1.fn = 41000; cout << s1.grade;}
+    \item \lst{cin.getline(s1.name, 45); s2 = s1;}
+    \item \lst{int* p = &s1.fn;}
+    \item \lst{char* s = s1.name;}
+    \end{itemize}
+  \item Няма операции за вход и изход
+    \begin{itemize}
+    \item \sta{cin >{}> s1;}
+    \item \sta{cout <{}< p1;}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Съставни типове данни}
+
+\begin{frame}[fragile]
+  \frametitle{Масив от записи}
+
+  Можем да комбинираме свободно съставните типове данни, за да създаваме произволно сложни потребителски типове данни.\\
+  \pause
+  \begin{itemize}[<+->]
+  \item \lst!Student s[10] = { { "Петър Петров", 80000, 5.5},!\\
+      \hspace{21ex}\lst!{ "Стефани Стефанова", 60000, 6 } };!
+  \item \lst!strcpy(s[2].name, "Иван Иванов");!
+  \item \lst!cout << s[1].fn;!
+  \item \lst!for(int i = 0; i < n; i++)!\\
+    \hspace{2ex}\lst!cin >> s[i].grade;!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Запис от записи}
+
+\begin{lstlisting}
+struct Team {
+  Student s1, s2;
+  char name[30];
+};
+\end{lstlisting}
+\pause
+  \begin{itemize}[<+->]
+  \item \lst!Team team = { { "Диана", 80003, 5 },!\\
+      \hspace{16ex}\lst!{ "Радослав", 60004, 6}, "Дислав"};!
+  \item \lst!cout << team.name << ' ' << team.s2.name;!
+  \item \lst!double teamGrade = (team.s1.grade + team.s2.grade) / 2;!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Записи и функции}
+
+  \begin{itemize}[<+->]
+  \item Записите като параметри
+    \begin{itemize}
+    \item Предават се \alert{по стойност}, като простите типове данни
+      \begin{itemize}
+      \item за разлика от масивите!
+      \end{itemize}
+    \item промените във функциите са локални
+    \end{itemize}
+  \item Записите като върнат резултат
+    \begin{itemize}
+    \item Връщат се \alert{по стойност}, като простите типове данни
+    \item Връща се копие на записа
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Задачи за записи}
+
+  \begin{enumerate}[<+->]
+  \item Да се въведе масив от студенти
+  \item Да се изведат студентите в таблица
+  \item Да се намери средния успех на всички студенти
+  \item Да се подредят студентите по Ф№
+  \end{enumerate}
+\end{frame}
+
+\section{Рекурсивни типове данни}
+
+\begin{frame}
+  \frametitle{Указатели и псевдоними на записи}
+
+  Можем да правим указатели и псевдоними на записите и техните полета
+
+  \begin{itemize}[<+->]
+  \item \lst{Student* ps1 = &s1, *ps2 = NULL;}
+  \item \lst{ps2 = ps1; *ps2 = s2;}
+  \item \lst{Student& s3 = s1;}
+  \item \lst{cout << s3.name;}
+  \item \lst{s3 = s2;}
+  \item Записите могат да се предават като параметри на функции по стойност, указател и псевдоним
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Достъп до поле на запис чрез указател}
+
+  <указател\_към\_запис> \tta{->} <поле>\\[2em]
+  \begin{itemize}[<+->]
+  \item еквивалентно на \tta{(*}<указател\_към\_запис>\tta{).}<поле>
+  \item \lst{ps1->grade += 0.5;}
+  \item \lst{cout << ps2->fn;}
+  \item \lst{Team* pteam = &team; cout << pteam->s1.name;}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Рекурсивни записи}
+
+\begin{lstlisting}
+struct Employee {
+  char name[64];
+  @\alert<4>{Employee boss;}@
+};
+\end{lstlisting}
+  \pause
+  \begin{itemize}[<+->]
+  \item записът се дефинира чрез себе си
+  \item \lst{sizeof(Employee)} = ?
+  \item \alert{забранена рекурсия!}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Рекурсивни записи --- правилният начин}
+\begin{lstlisting}
+struct Employee {
+  char name[64];
+  Employee* boss;
+};
+\end{lstlisting}
+  \pause
+  \begin{itemize}[<+->]
+  \item записът се дефинира чрез себе си...
+  \item ... но съдържа \alert{указател към себе си}
+  \item \lst{sizeof(Employee)} = \alt<+->{72}?
+  \item \lst!Employee rector = { "Герджиков", NULL },!\\
+    \hspace{10ex}\lst!dean = { "Великова", &rector },!\\
+    \hspace{10ex}\lst!chair = { "Нишева", &dean },!\\
+    \hspace{10ex}\lst!lector = { "Трифонов", &chair };!
+  \item \lst{cout << lector.boss->boss->boss->name;}
+  \end{itemize}
+\end{frame}
+
+\section{Абстракция със структури от данни}
+
+\begin{frame}
+  \frametitle{Абстракция със структури от данни}
+
+  Записите позволяват дефиниране на потребителски типове данни и операции над тях.\\[1em]
+  \pause
+  \textbf{Пример:} Тип ``рационално число''
+  \pause
+  \begin{itemize}[<+->]
+  \item \textbf{Логическо описание:} обикновена дроб
+  \item \textbf{Физическо представяне:} запис с числител и знаменател
+  \item \textbf{Базови операции:}
+    \begin{itemize}[<.->]
+    \item конструиране на рационално число
+    \item получаване на числител
+    \item получаване на знаменател
+    \end{itemize}
+  \item \textbf{Аритметични операции:}
+    \begin{itemize}[<.->]
+    \item събиране, изваждане
+    \item умножение, деление
+    \item сравнение
+    \end{itemize}
+  \item \textbf{Приложни програми}
+  \end{itemize}
+  \onslide<+->
+  \textbf{Идея:} да изолираме вътрешното представяне на типа данни от операциите над него
+\end{frame}
+
+\begin{frame}
+  \frametitle{Нива на абстракция}
+
+  \renewcommand{\bua}{\bigg\uparrow}
+
+  \begin{center}
+    \begin{tabular}{|c|}
+      \hline
+      \textbf{приложни програми}\\
+      \\
+      \hline
+      \multicolumn 1c\bua\\
+      \hline
+      \textbf{аритметични операции}\\
+      (+, -, *, /, =, <, >, <=, >=)\\
+      \hline
+      \multicolumn 1c\bua\\
+      \hline
+      \textbf{базови операции}\\
+      (конструктор, селектори за числител и знаменател)\\
+      \hline
+      \multicolumn 1c\bua\\
+      \hline
+      \textbf{физическо представяне}\\
+      (запис от две цели числа)\\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Обектно-ориентирано програмиране}
+
+  \begin{itemize}
+  \item структуриране на данните на концептуално ниво като ``обекти''
+  \item обектите имат \textbf{свойства и методи} за работа с тях
+  \item могат да се дефинират \textbf{нива на достъп} до компоненти на обекта
+  \item представянето на обекта обикновено се \textbf{капсулира}
+  \item еднотипни обекти се описват чрез \textbf{класове} от обекти
+  \item възможностите на обект могат да се разширяват (\textbf{наследяване})
+  \item един обект може да има различни проявления (\textbf{полиморфизъм})
+  \end{itemize}
+\end{frame}
+
+\section*{Предстои}
+
+
+\begin{frame}
+  \begin{center}
+    \Huge
+    \alert{\textbf{ООП}}\\[0.5em]
+    \Large
+    февруари 2017\\[2em]
+    \pause
+    \small
+    скоро на проектор около вас
+  \end{center}
+\end{frame}
+\end{document}
