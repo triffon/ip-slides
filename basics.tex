@@ -3,7 +3,7 @@
 
 \title{Основни елементи на C++}
 
-\date{12--19 октомври 2016 г.}
+\date{11 октомври 2018 г.}
 
 \begin{document}
 
@@ -116,7 +116,7 @@
 \begin{frame}[fragile]
   \frametitle{Коментари}
   \begin{itemize}[<+->]
-  \item\ <коментар> ::= \tta{//}<текст\_без\_нов\_ред> |  \tta{/*} <текст> \tta{*/}
+  \item\ <коментар> ::= \tta{//}<текст\_на\_един\_ред> |  \tta{/*} <текст> \tta{*/}
   \item Компилаторът игнорира:
     \begin{itemize}
     \item коментари
@@ -182,7 +182,9 @@ int sum = 0; // нулираме сумата
 
   \begin{itemize}
   \item \tta{cout <{}<} <израз> \{\tta{<{}<} <израз>\}\tta;
-  \item \temporal<2>{\tt{cout <{}< a <{}< b <{}< c;}}{\tt{((cout <{}< a) <{}< b) <{}< c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cout <{}< a)}}_{\tt{cout}} \tt{<{}< b)}}_{\tt{cout}}\tt{ <{}< c}}_{\tt{cout}}\tt;$}
+    \begin{overlayarea}{\textwidth}{7em}
+    \item \temporal<2>{\tt{cout <{}< a <{}< b <{}< c;}}{\tt{((cout <{}< a) <{}< b) <{}< c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cout <{}< a)}}_{\tt{cout}} \tt{<{}< b)}}_{\tt{cout}}\tt{ <{}< c}}_{\tt{cout}}\tt;$}
+    \end{overlayarea}
   \item<4-> \lstinline{cout << "a + b = "} \lstinline{<< a + b << endl;}
   \item<5-> \sta{cout <{}< \quot a = \quot{} 2;}
   \end{itemize}
@@ -193,7 +195,9 @@ int sum = 0; // нулираме сумата
 
   \begin{itemize}
   \item \tta{cin >{}>} <идентификатор> \{\tta{>{}>} <идентификатор>\}\tta;
-  \item \temporal<2>{\tt{cin >{}> a >{}> b >{}> c;}}{\tt{((cin >{}> a) >{}> b) >{}> c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cin >{}> a)}}_{\tt{cin}} \tt{>{}> b)}}_{\tt{cin}}\tt{ >{}> c}}_{\tt{cin}}\tt;$}
+    \begin{overlayarea}{\textwidth}{7em}
+    \item \temporal<2>{\tt{cin >{}> a >{}> b >{}> c;}}{\tt{((cin >{}> a) >{}> b) >{}> c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cin >{}> a)}}_{\tt{cin}} \tt{>{}> b)}}_{\tt{cin}}\tt{ >{}> c}}_{\tt{cin}}\tt;$}
+    \end{overlayarea}
   \item<4-> \sta{cin >{}> a + b;}
   \item<5-> \sta{cin >{}> 15;}
   \end{itemize}
@@ -272,7 +276,7 @@ int sum = 0; // нулираме сумата
   \begin{center}
     \small
     \begin{tabular}{c@{\hskip 3ex}c@{\hskip 3ex}c}
-      Конюкнция & Дизюкнция & Отрицание\\[1em]
+      Конюнкция & Дизюнкция & Отрицание\\[1em]
       \begin{tabular}{c|c|c}
         \tt{\&\&}&\tt{false}&\tt{true}\\
         \hline
