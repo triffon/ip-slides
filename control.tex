@@ -3,7 +3,7 @@
 
 \title{Управляващи оператори в C++}
 
-\date[19.10--2.11.2016 г.]{19 октомври -- 2 ноември 2016 г.}
+\date{18 октомври 2018 г.}
 
 \newcommand{\expsum}{\displaystyle \sum_{i=0}^n \limits \frac{x^i}{i!}}
 
@@ -306,13 +306,17 @@
 \begin{frame}
   \frametitle{Оператор за присвояване}
 
-  \begin{itemize}
+  \begin{itemize}[<+->]
   \item{} <променлива> \tta= <израз>\tta;
   \item{} <lvalue> \tta= <rvalue>\tta;
   \item{} <lvalue> --- място в паметта със стойност, която може да се променя
-  \item Пример: променлива
+    \begin{itemize}[<.->]
+    \item  \exa променлива
+  \end{itemize}
   \item{} <rvalue> --- временна стойност, без специално място в паметта
-  \item Пример: константа, литерал, резултат от пресмятане
+    \begin{itemize}[<.->]
+    \item \exa константа, литерал, резултат от пресмятане
+  \end{itemize}
   \item стандартно преобразуване на типовете:\\
     <rvalue> се преобразува до типа на <lvalue>
   \end{itemize}
@@ -325,21 +329,21 @@
   \item<1-> \alert{дясноасоциативна} операция
   \item<2-> \temporal<3>{\tt{a = b = c = 2;}}{\tt{a = (b = (c = 2));}}{$\underbrace{\tt{a = }\underbrace{\tt{(b = }\underbrace{\tt{(c = 2)}}_{\tt c})}_{\tt b}}_{\tt a}$}
   \item<3> \sta{(((a = b) = c) = 2);}
-  \item<5-> Пример: \lstinline{cout << x + (b = 2);}
-  \item<6-> Пример: \lstinline{(a = b) = a + 3;}
+  \item<5-> \exa \lstinline{cout << x + (b = 2);}
+  \item<6-> \exa \lstinline{(a = b) = a + 3;}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Операция за изброяване}
 
-  \begin{itemize}
+  \begin{itemize}[<+->]
   \item{} <израз1>\tta, <израз2>
-  \item оценява и двата израза, но крайният резултат е оценката на втория израз
+  \item<.-> оценява и двата израза, но крайният резултат е оценката на втория израз
   \item \tt{a, b, c, d} $\Leftrightarrow$ \tt{(a, (b, (c, d)))}
-  \item \alert{дясноасоциативна}
-  \item използва се рядко
-  \item Пример: \lstinline{a = (cout << x, x);}
+  \item<.-> \alert{дясноасоциативна}
+  \item<.-> използва се рядко
+  \item \exa \lstinline{a = (cout << x, x);}
   \end{itemize}
 \end{frame}
 
@@ -358,11 +362,11 @@
   \item \tt{a-{}-} действа аналогично
   \item \tta{a++} връща a, което е \alert{<lvalue>}
     \begin{itemize}
-    \item Пример: \lst{++a += 5;}
+    \item \exa \lst{++a += 5;}
     \end{itemize}
   \item \tta{a-{}-} връща предишната стойност на a, което е \alert{<rvalue>}
     \begin{itemize}
-    \item Пример: \lst{x = a++ * b;} \sta{a++ += 5;}
+    \item \exa \lst{x = a++ * b;} \sta{a++ += 5;}
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -459,8 +463,8 @@
     \begin{itemize}
     \item \lst{if (A) X;} $\Leftrightarrow$ \lst{if (A) X; else;}
     \end{itemize}
-  \item Пример: \lst{if ( x < 2 ) y = 2;}
-  \item Пример: \lst{if ( x > 5 ) y = 5; else y = 3;}
+  \item \exa \lst{if ( x < 2 ) y = 2;}
+  \item \exa \lst{if ( x > 5 ) y = 5; else y = 3;}
   \end{itemize}
 \end{frame}
 
@@ -535,8 +539,8 @@ else
 \end{lstlisting}
 \end{tabular}\\[1em]
 \pause
-Пример: \lst{if (x > 0 && log(x) < 5) ...}\\
-Пример: \lst{if (x == 0 || y / x == 1) ...}
+\exa \lst{if (x > 0 && log(x) < 5) ...}\\
+\exa \lst{if (x == 0 || y / x == 1) ...}
 \end{frame}
 
 \begin{frame}
@@ -549,7 +553,7 @@ else
     \item При \tt{true} се пресмята <израз$_1$> и се връща резултатът
     \item При \tt{false} се пресмята <израз$_2$> и се връща резултатът
     \end{itemize}
-  \item Пример: \lst{x = (y < 2) ? y + 1 : y - 2;}
+  \item \exa \lst{x = (y < 2) ? y + 1 : y - 2;}
   \item \lst{A} $\Leftrightarrow$ \lst{A ? true : false}
   \item \lst{!A} $\Leftrightarrow$ \lst{A ? false : true}
   \item \lst{A && B} $\Leftrightarrow$ \lst{A ? B : false}
@@ -577,7 +581,7 @@ else
     \hspace{3ex}\{ \tta{case }<константен\_израз> \tta: \{ <оператор> \} \}\\
     \hspace{3ex}[ \tta{default :} \{ <оператор> \} ]\\
     \tta\}
-  \item Пример:
+  \item \exa
 \begin{lstlisting}
 switch (x) {
 	case 1 : x++;
@@ -593,7 +597,7 @@ switch (x) {
   
   \begin{itemize}
   \item \tta{break;}
-  \item Пример:
+  \item \exa
 \begin{lstlisting}
 switch (x) {
 	case 1 : x++; break;
@@ -795,7 +799,7 @@ do {
     \lst{do if (}<условие>\tt) <тяло> \lst{while (}<условие>\tt{);}
     \begin{itemize}
     \item \alert{стига <условие> да няма странични ефекти...}
-    \item Пример: \lst{while (--i > 0) cout << i << endl;}
+    \item \exa \lst{while (--i > 0) cout << i << endl;}
     \end{itemize}
   \end{itemize}
 \end{frame}
