@@ -11,3 +11,4 @@ auto/
 *.toc
 *.vrb
 *.xoj
+out/
