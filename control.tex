@@ -360,11 +360,11 @@
     \item \tt{a++} $\Leftrightarrow$ \tt{(a = (tmp = a) + 1, tmp)}
     \end{itemize}
   \item \tt{a-{}-} действа аналогично
-  \item \tta{a++} връща a, което е \alert{<lvalue>}
+  \item \tta{++a} връща a, което е \alert{<lvalue>}
     \begin{itemize}
     \item \exa \lst{++a += 5;}
     \end{itemize}
-  \item \tta{a-{}-} връща предишната стойност на a, което е \alert{<rvalue>}
+  \item \tta{a++} връща предишната стойност на a, което е \alert{<rvalue>}
     \begin{itemize}
     \item \exa \lst{x = a++ * b;} \sta{a++ += 5;}
     \end{itemize}
@@ -542,6 +542,7 @@ else
 \exa \lst{if (x > 0 && log(x) < 5) ...}\\
 \exa \lst{if (x == 0 || y / x == 1) ...}
 \end{frame}
+\end{document}
 
 \begin{frame}
   \frametitle{Условна \alert{операция}}
