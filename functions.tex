@@ -4,7 +4,7 @@
 \title{Функции}
 \subtitle{(част 1)}
 
-\date{9 ноември 2016 г.}
+\date{30 октомври 2018 г.}
 
 \newcommand{\RR}{\mathbb{R}}
 
@@ -53,7 +53,8 @@
     \item $d(x_1,y_1,x_2,y_2) = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$
     \item
 \begin{lstlisting}
-double distance(double x1, double y1, double x2, double y2) {
+double distance(double x1, double y1,
+                double x2, double y2) {
   return sqrt(square(x2 - x1) + square(y2 - y1));
 }
 \end{lstlisting}
@@ -122,7 +123,7 @@ int readNumber(int from, int to) {
   \item{} <параметър> ::= <тип> [<идентификатор>]
     \begin{itemize}
     \item ако <идентификатор> се пропусне, параметърът няма име и не се използва
-    \item Пример: $f(x,y) = x + 5$
+    \item \exa $f(x,y) = x + 5$
     \end{itemize}
   \item{} <тяло> ::= \tta\{ <оператор> \tta\}
   \end{itemize}
@@ -148,7 +149,7 @@ int readNumber(int from, int to) {
   \frametitle{Връщане на резултат}
 
   \begin{itemize}[<+->]
-  \item \tta{return }[<израз>]\tta;
+  \item \tta{return} [<израз>]\tta;
   \item оператор за връщане на резултат на функция
   \item типът на <израз> се съпоставя с типа на резултата на функцията
     \begin{itemize}
