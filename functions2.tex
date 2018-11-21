@@ -5,7 +5,7 @@
 
 \subtitle{(част 2)}
 
-\date{30 ноември 2016 г.}
+\date{22 ноември 2018 г.}
 
 \usetikzlibrary{arrows.meta}
 
@@ -245,7 +245,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Предаване по псевдоним (call by reference)}
+  \frametitle{Предаване с препратка (call by reference)}
 
   \begin{itemize}[<+->]
   \item Понякога искаме промените във \textbf{формалните} параметри
@@ -263,7 +263,7 @@
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Пример за предаване по псевдоним}
+  \frametitle{Пример за предаване с препратка}
 
   Размяна на две променливи
 \begin{lstlisting}
@@ -284,7 +284,7 @@ int main() {
 \end{frame}
 
 \begin{frame}
-  \frametitle{Стекова рамка при предаване по псевдоним}
+  \frametitle{Стекова рамка при предаване с препратка}
 
   \tikzset{
     m/.style={
@@ -385,7 +385,7 @@ int main() {
   \begin{itemize}[<+->]
   \item Как да върнем едновременно минимума и максимума?
   \item \textbf{Идея:} да използваме параметрите за резултат!
-  \item Можем да запишем резултат в параметър, предаден по псевдоним
+  \item Можем да запишем резултат в параметър, предаден с препратка
   \item \lst{void findMinMax(int a[], int n, int\& min, int\& max);}
   \end{itemize}
 \end{frame}
