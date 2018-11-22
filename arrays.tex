@@ -129,10 +129,15 @@
   \frametitle{Операции за работа с низове}
 
   \begin{itemize}[<+->]
-  \item Вход (\tta{>{}>}, \tta{cin.getline(}\s\tta))
+  \item Вход (\tta{>{}>}, \tta{cin.getline(}\s, <число>\tta))
+    \begin{itemize}
+    \item \tta{>{}>} въвежда до разделител (интервал, табулация, нов ред)
+    \item \tta{cin.getline(}\s, <число>\tta) въвежда до нов ред, но не повече от <число>$-1$ символа
+    \end{itemize}
+
   \item Изход (\tta{<{}<})
   \item Индексиране (\tta{[]})
-  \item Няма присвоявание! (\sta{a = b})
+  \item Няма присвояване! (\sta{a = b})
   \item Няма поелементно сравнение! (\sta{a == b})
   \item но...
   \item ...има вградени функции!
@@ -158,14 +163,15 @@
   \item \tta{strcmp(}\ss1, \ss2\tta)
     \begin{itemize}
     \item сравнява два низа \alert{лексикорафски} (речникова наредба)
-    \item връща $-1$, ако \ss1 е преди \ss2
+    \item връща число $<0$, ако \ss1 е преди \ss2
     \item връща 0, ако \ss1 съвпада с \ss2
-    \item връща 1, ако \ss1 е след \ss2
+    \item връща число $>0$, ако \ss1 е след \ss2
     \item \textbf{Интуиция:} ``знакът'' на ``разликата'' \ss1 $-$ \ss2
     \item \textbf{Свойство:} \lst{strcmp(s1, s2) == -strcmp(s2, s1)}
     \end{itemize}
   \end{itemize}
 \end{frame}
+\end{document}
 
 \begin{frame}
   \frametitle{Вградени функции за низове}
@@ -261,7 +267,7 @@
   \item \tta{strncmp(}\ss1, \ss2, n\tta)
     \begin{itemize}
     \item сравнява първите $n$ символа на \ss1 и \ss2
-    \item връща $-1$, $0$ или $1$, също като \tt{strcmp}
+    \item връща $<0$, $0$ или $>0$, също като \tt{strcmp}
     \end{itemize}
   \end{itemize}
 \end{frame}
