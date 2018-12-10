@@ -1,6 +1,7 @@
 auto/
 .*
 !.gitignore
+!.latexmkrc
 *~
 *.aux
 *.log

@@ -1,9 +1,15 @@
-\documentclass{beamer}
+\documentclass[alsotrans]{beamerswitch}
 \usepackage{up}
 
 \title{Масиви и низове}
 
 \date[15.11-6.12.2018 г.]{15 ноември--6 декември 2018 г.}
+
+\newcommand{\s}{<низ>\xspace}
+\renewcommand{\ss}[1]{<низ$_{#1}$>\xspace}
+% do not add space before syntactic element marked by \tta
+\xspaceaddexceptions{\tta}
+\renewcommand{\b}{<буфер>\xspace}
 
 \begin{document}
 
@@ -97,12 +103,6 @@
 
 \section{Низове}
 
-\newcommand{\s}{<низ>\xspace}
-\renewcommand{\ss}[1]{<низ$_{#1}$>\xspace}
-% do not add space before syntactic element marked by \tta
-\xspaceaddexceptions{\tta}
-\renewcommand{\b}{<буфер>\xspace}
-
 \begin{frame}
   \frametitle{Низове: описание и представяне}
 
@@ -164,7 +164,7 @@
     \end{itemize}
   \item \tta{strcmp(}\ss1, \ss2\tta)
     \begin{itemize}
-    \item сравнява два низа \alert{лексикорафски} (речникова наредба)
+    \item сравнява два низа \alert{лексикографски} (речникова наредба)
     \item връща число $<0$, ако \ss1 е преди \ss2
     \item връща 0, ако \ss1 съвпада с \ss2
     \item връща число $>0$, ако \ss1 е след \ss2
