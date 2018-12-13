@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[alsotrans]{beamerswitch}
 \usepackage{up}
 
 \title{Функции}
@@ -82,7 +82,7 @@
   \end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<beamer>
   \frametitle{Програмен стек}
 
   \tikzset{
@@ -118,7 +118,7 @@
   \end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<beamer>
   \frametitle{Програмен стек}
 
   \tikzset{
@@ -327,13 +327,13 @@ int main() {
   \end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Претоварване на функции (overloading)}
 
   \begin{itemize}[<+->]
-  \item \textbf{Проблем:} Функцията \tt{swap} работи само за \tt{int}!
-  \item Ако искаме функция за размяна на \tt{double} променливи, трябва да направим нова функция \lst{swap\_double(double\&, double\&);}
-  \item Аналогично за \tt{char}, \tt{long}, \ldots
+  \item \textbf{Проблем:} Функцията \tt{swap} работи само за \lst{int}!
+  \item Ако искаме функция за размяна на \lst{double} променливи, трябва да направим нова функция \lst!swap_double(double&, double&);!
+  \item Аналогично за \lst{char}, \lst{long}, \ldots
   \item Трябва ли да си измисляме нови имена за всяка от тези функции, които всъщност прави едно и също?
   \item \alert{Не!} Можем да използваме едно и също име за няколко функции!
   \item Сигнатурата на функцията зависи от:
@@ -352,7 +352,7 @@ int main() {
 
   \small
   \begin{itemize}[<+->]
-  \item{} <параметър\_масив> ::= <тип> <име> \tta[[<константен\_израз>]\tta] \bnor\\
+  \item{} <параметър\_масив> ::= <тип> <име> \tta[[<константен\_израз>]\tta]\,|\\
     \hspace{26ex}<тип>\tta* <име>
   \item размерът на масива \alert{се игнорира}!
     \begin{itemize}
