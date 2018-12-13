@@ -103,7 +103,7 @@
 \begin{frame}
   \frametitle{Тип указател}
 
-  \begin{itemize}
+  \begin{itemize}[<+->]
   \item \textbf{Множество от стойности:} всички възможни lvalue от даден тип и специалната стойност \lst{nullptr}.
   \item Интегрален \alert{нечислов} тип
   \item Параметризиран тип: ако \tt T е тип данни, то \tt{T*} е тип ``указател към елемент от тип \tt T''
@@ -119,10 +119,10 @@
 \begin{frame}
   \frametitle{Операции с указатели}
 
-  \begin{itemize}
+  \begin{itemize}[<+->]
   \item рефериране (\tta\&<lvalue>)
   \item дерефериране (\tta*<указател>)
-    \begin{itemize}
+    \begin{itemize}[<.->]
     \item \alert{унарна операция!}
     \end{itemize}
   \item сравнение (\tt{==}, \tt{!=}, \tt<, \tt>, \tt{<=}, \tt{>=})
@@ -202,7 +202,7 @@
     \end{itemize}
   \end{itemize}
 \end{frame}
-
+\end{document}
 \section{Указателна аритметика}
 
 \begin{frame}[fragile]
