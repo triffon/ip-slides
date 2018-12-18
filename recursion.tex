@@ -1,11 +1,21 @@
-\documentclass{beamer}
+\documentclass[alsotrans]{beamerswitch}
 \usepackage{up}
 
 \title{Рекурсия}
 
-\date[21.12.16 г. -- 11.01.17 г.]{21 декември 2016 г. -- 11 януари 2017 г.}
+\date{20 декември 2018 г.}
 
 \usetikzlibrary{arrows.meta}
+
+\newcommand{\wall}{\includegraphics[width=6.5ex]{images/wall-cell.jpg}}
+\newcommand{\hero}{\includegraphics[height=5ex]{images/adventurer.png}}
+\newcommand{\step}{\includegraphics[height=3ex]{images/footsteps.png}}
+\newcommand{\rstep}{\includegraphics[height=3ex]{images/footsteps-red.png}}
+\newcommand{\gold}{\includegraphics[height=5ex]{images/treasure.png}}
+\newcommand{\go}[1]{\temporal<#1>{}\hero\step}
+\newcommand{\gor}[1]{\temporal<#1>{}\hero\rstep}
+\newcommand{\goback}[2]{\temporal<#1>{}\hero{\alt<#2>\hero\step}}
+\newcommand{\gobackr}[2]{\temporal<#1>{}\hero{\temporal<#2>\step\hero\rstep}}
 
 \begin{document}
 
@@ -176,6 +186,7 @@
     }
   }
 
+  \begin{overprint}[\textwidth]
   \begin{center}
     \begin{tikzpicture}
       \matrix [m,
@@ -204,6 +215,7 @@
       \draw[very thick] (main.north west) -- (nmain.north west) rectangle (nmain.south east);
     \end{tikzpicture}
   \end{center}
+\end{overprint}
 \end{frame}
 
 \againframe<2->{probrec}
@@ -297,16 +309,6 @@
   \item ако се върнем обратно в началото: \alert{провал!}
   \end{itemize}
 \end{frame}
-
-\newcommand{\wall}{\includegraphics[width=6.5ex]{images/wall-cell.jpg}}
-\newcommand{\hero}{\includegraphics[height=5ex]{images/adventurer.png}}
-\newcommand{\step}{\includegraphics[height=3ex]{images/footsteps.png}}
-\newcommand{\rstep}{\includegraphics[height=3ex]{images/footsteps-red.png}}
-\newcommand{\gold}{\includegraphics[height=5ex]{images/treasure.png}}
-\newcommand{\go}[1]{\temporal<#1>{}\hero\step}
-\newcommand{\gor}[1]{\temporal<#1>{}\hero\rstep}
-\newcommand{\goback}[2]{\temporal<#1>{}\hero{\alt<#2>\hero\step}}
-\newcommand{\gobackr}[2]{\temporal<#1>{}\hero{\temporal<#2>\step\hero\rstep}}
 
 \begin{frame}
   \frametitle{Търсене на съкровище в лабиринт}
