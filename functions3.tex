@@ -232,7 +232,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Предаване по псевдоним (call by reference)}
+  \frametitle{Предаване с препратка (call by reference)}
 
   \begin{itemize}[<+->]
   \item Понякога искаме промените във \textbf{формалните} параметри
@@ -250,7 +250,7 @@
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Пример за предаване по псевдоним}
+  \frametitle{Пример за предаване с препратка}
 
   Размяна на две променливи
 \begin{lstlisting}
@@ -271,7 +271,7 @@ int main() {
 \end{frame}
 
 \begin{frame}
-  \frametitle{Стекова рамка при предаване по псевдоним}
+  \frametitle{Стекова рамка при предаване с препратки}
 
   \tikzset{
     m/.style={
@@ -400,7 +400,7 @@ int main() {
 
   \small
   \begin{itemize}[<+->]
-  \item{} <параметър\_масив> ::= <тип> <име> \tta[[<константен\_израз>]\tta]\\
+  \item{} <параметър\_масив> ::= <тип> <име> \tta[[<константен\_израз>]\tta] |\\
     \hspace{26ex}<тип>\tta* <име>
   \item всъщност...
   \item ...масивите се предават \alert{по указател}!
@@ -448,7 +448,7 @@ int main() {
   \item Да се напише функция, която умножава две правоъгълни матрици
   \end{enumerate}
 \end{frame}
-
+\end{document}
 \section{Връщане на резултати}
 
 \begin{frame}[fragile]
@@ -469,9 +469,9 @@ int* r = pointMax(&a, &b); (*r)--;
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Псевдонимите като върнат резултат}
+  \frametitle{Препратките като върнат резултат}
 
-  Ваши същото правило като за указателите: връщаме псевдоними към обекти, които ще останат ``живи''.\\[2em]
+  Ваши същото правило като за указателите: връщаме препратки към обекти, които ще останат ``живи''.\\[2em]
   \pause
   \textbf{Пример:}
 \begin{lstlisting}
