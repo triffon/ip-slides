@@ -392,16 +392,18 @@ int strlen(char* p) {
 
   \small
   \begin{columns}[T,onlytextwidth]
-    \begin{column}{.45\textwidth}
+    \begin{column}{.48\textwidth}
       \begin{itemize}[<+->]
+        \setlength{\itemindent}{-1em}
       \item \lst{int a[2][2][3];}
-      \item \tt a е от тип \lst{int*const[2][3];}
-      \item \tt{a[i]} е от тип \lst{int*const[3];}
-      \item \tt{a[i][j]} е от тип \lst{int*const;}
+      \item \tt a е от тип \lst{int (*const)[2][3];}
+      \item \tt{a[i]} е от тип \lst{int (*const)[3];}
+      \item \tt{a[i][j]} е от тип \lst{int *const;}
       \end{itemize}
     \end{column}
-    \begin{column}{.55\textwidth}
+    \begin{column}{.52\textwidth}
       \begin{itemize}[<+->]
+        \setlength{\itemindent}{-1em}
       \item \tt{a[i] \eqv *(a+i)}
       \item \tt{a[i][j] \eqv *(*(a+i)+j)}
       \item \tt{a[i][j][k] \eqv *(*(*(a+i)+j)+k)}
