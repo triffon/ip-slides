@@ -3,7 +3,7 @@
 
 \title{Рекурсия}
 
-\date{20 декември 2018 г.}
+\date{3 януари 2019 г.}
 
 \usetikzlibrary{arrows.meta}
 
@@ -199,7 +199,7 @@
        \& \tt{n} \& |(n0) [table]| 0 \& \\
        |(fact1)| \tt{fact} \& \& |(r1) [table]| адрес на връщане \& \alt<-6>{\lst{return 1 * fact(0);}}{\lst{return 1 * 1;}}\\
        \& \tt{n} \& |(n1) [table]| 1 \& \\
-       |(fact2)| \tt{fact} \& \& |(r2) [table]| адрес на връщане \& \alt<-7>{\lst{return 2 * fact(1);}}{\lst{return 1 * 2;}}\\
+       |(fact2)| \tt{fact} \& \& |(r2) [table]| адрес на връщане \& \alt<-7>{\lst{return 2 * fact(1);}}{\lst{return 2 * 1;}}\\
        \& \tt{n} \& |(n2) [table]| 2 \& \\
        |(fact3)| \tt{fact} \& \& |(r3) [table]| адрес на връщане \& \alt<-8>{\lst{return 3 * fact(2);}}{\lst{return 3 * 2;}}\\
        \& \tt{n} \& |(n3) [table]| 3 \& \\
@@ -219,6 +219,7 @@
 \end{frame}
 
 \againframe<2->{probrec}
+\end{document}
 
 \begin{frame}
   \frametitle{Рекурсивни функции за масиви}
