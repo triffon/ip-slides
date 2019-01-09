@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[alsotrans]{beamerswitch}
 \usepackage{up}
 
 \title{Записи}
@@ -26,7 +26,7 @@
   }
 }
 
-\date{18 януари 2017 г.}
+\date{10--18 януари 2019 г.}
 
 \begin{document}
 
@@ -55,7 +55,7 @@
   \frametitle{Дефиниция на запис}
 
   \begin{itemize}[<+->]
-  \item \tta{struct }<име> \tta\{ <поле> \{ <поле> \} \tta{\};}
+  \item \tta{struct} <име> \tta\{ <поле> \{ <поле> \} \tta{\};}
   \item{} <поле> ::= <тип> <идентификатор> \{\tta, <идентификатор> \}\tta;
   \item \textbf{Примери:}
   \item \lst@struct Point { double x, y; };@
@@ -244,7 +244,7 @@ struct Team {
   Можем да правим указатели и псевдоними на записите и техните полета
 
   \begin{itemize}[<+->]
-  \item \lst{Student* ps1 = &s1, *ps2 = NULL;}
+  \item \lst{Student* ps1 = &s1, *ps2 = nullptr;}
   \item \lst{ps2 = ps1; *ps2 = s2;}
   \item \lst{Student& s3 = s1;}
   \item \lst{cout << s3.name;}
@@ -295,8 +295,8 @@ struct Employee {
   \item записът се дефинира чрез себе си...
   \item ... но съдържа \alert{указател към себе си}
   \item \lst{sizeof(Employee)} = \alt<+->{72}?
-  \item \lst!Employee rector = { "Герджиков", NULL },!\\
-    \hspace{10ex}\lst!dean = { "Великова", &rector },!\\
+  \item \lst!Employee rector = { "Герджиков", nullptr },!\\
+    \hspace{10ex}\lst!dean = { "Първанов", &rector },!\\
     \hspace{10ex}\lst!chair = { "Нишева", &dean },!\\
     \hspace{10ex}\lst!lector = { "Трифонов", &chair };!
   \item \lst{cout << lector.boss->boss->boss->name;}
@@ -385,7 +385,7 @@ struct Employee {
     \Huge
     \alert{\textbf{ООП}}\\[0.5em]
     \Large
-    февруари 2017\\[2em]
+    февруари 2019\\[2em]
     \pause
     \small
     скоро на проектор около вас
