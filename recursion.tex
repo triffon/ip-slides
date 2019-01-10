@@ -12,10 +12,10 @@
 \newcommand{\step}{\includegraphics[height=3ex]{images/footsteps.png}}
 \newcommand{\rstep}{\includegraphics[height=3ex]{images/footsteps-red.png}}
 \newcommand{\gold}{\includegraphics[height=5ex]{images/treasure.png}}
-\newcommand{\go}[1]{\temporal<#1>{}\hero\step}
-\newcommand{\gor}[1]{\temporal<#1>{}\hero\rstep}
-\newcommand{\goback}[2]{\temporal<#1>{}\hero{\alt<#2>\hero\step}}
-\newcommand{\gobackr}[2]{\temporal<#1>{}\hero{\temporal<#2>\step\hero\rstep}}
+\newcommand{\go}[1]{\temporal<all:#1>{}\hero\step}
+\newcommand{\gor}[1]{\temporal<all:#1>{}\hero\rstep}
+\newcommand{\goback}[2]{\temporal<all:#1>{}\hero{\alt<all:#2>\hero\step}}
+\newcommand{\gobackr}[2]{\temporal<all:#1>{}\hero{\temporal<all:#2>\step\hero\rstep}}
 
 \begin{document}
 
@@ -29,12 +29,12 @@
   \frametitle{Какво е рекурсия?}
 
   \begin{center}
-    \temporal<2>{
+    \temporal<2| trans:0>{
       \includegraphics[width=.8\textwidth]{images/matroska.jpg}
     }{
       \includegraphics[width=.8\textwidth]{images/knuth.png}\\
       \imgcite{N. Wirth, Algorithms and Data Structures, Fig 3.1}
-    }{ \only<3>{
+    }{ \only<3| trans:0>{
         \vspace{5em}
         \includegraphics[width=.8\textwidth]{images/sierpinski.png}
       }}
@@ -310,7 +310,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<1-18| trans:1>
   \frametitle{Търсене на съкровище в лабиринт}
 
   \tikzset{
@@ -339,7 +339,7 @@
        \go7    \& \goback26    \& \gobackr35   \& \gor4        \& \wall    \\
                \& \go1         \& \wall        \& \wall        \&          \\
       };
-      \node[visible on=<18>] at (a-3-5.center) {\hero};
+      \node[visible on=<all:18>] at (a-3-5.center) {\hero};
     \end{tikzpicture}
   \end{center}
 \end{frame}
