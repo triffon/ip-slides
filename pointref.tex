@@ -1,5 +1,5 @@
 \documentclass[alsotrans]{beamerswitch}
-\usepackage{up}
+\usepackage{iprog}
 
 \title{Указатели и препратки}
 
@@ -120,13 +120,13 @@
   \frametitle{Операции с указатели}
 
   \begin{itemize}[<+->]
-  \item рефериране (\tta\&<lvalue>)
-  \item дерефериране (\tta*<указател>)
-    \begin{itemize}[<.->]
-    \item \alert{унарна операция!}
-    \end{itemize}
-  \item сравнение (\tt{==}, \tt{!=}, \tt<, \tt>, \tt{<=}, \tt{>=})
-  \item указателна аритметика (\tt+,\tt-,\tt{+=},\tt{-=},\tt{++},\tt{-{}-})
+   \item рефериране (\tta\&<lvalue>)
+   \item дерефериране (\tta*<указател>)
+     \begin{itemize}[<.->]
+     \item \alert{унарна операция!}
+     \end{itemize}
+   \item сравнение (\tt{==}, \tt{!=}, \tt{<}, \tt{>}, \tt{<=}, \tt{>=})
+   \item указателна аритметика (\tt+,\tt-,\tt{+=},\tt{-=},\tt{++},\tt{-{}-})
   \item извеждане (\tt{<{}<})
   \item \alert{няма въвеждане! (\tt{>{}>})}
   \end{itemize}
@@ -473,7 +473,7 @@ int strlen(char* p) {
   \begin{itemize}[<+->]
   \item{} <тип>\tta{\&} <идентификатор> \tta= <обект>\\
     \hspace{5ex} \{\tta{, \&}<идентификатор> \tta= <обект> \}\tta;
-  \item иницализацията е \alert{задължителна}!
+  \item инициализацията е \alert{задължителна}!
     \begin{itemize}
     \item както и на константните указатели
     \end{itemize}
@@ -520,7 +520,7 @@ int strlen(char* p) {
     \begin{itemize}
     \item Указателят изисква изрично дерефериране с \tt*
     \end{itemize}
-  \item Препратките на един и същ обект са взаимнозаменяеми
+  \item Препратките на един и същ обект са взаимозаменяеми
   \end{itemize}
 \end{frame}
 

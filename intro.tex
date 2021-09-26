@@ -1,5 +1,5 @@
 \documentclass{beamer}
-\usepackage{up}
+\usepackage{iprog}
 
 \title{Уводна лекция}
 
@@ -13,54 +13,54 @@
 
 \begin{frame}
   \frametitle{Какво е компютър?}
-  
+
   Архитектура на von Neumann\\
-  
+
   \begin{center}
     % TODO: диаграмата да се направи с TikZ
-    \renewcommand{\arraystretch}{1.5}
+    \renewcommand{\arraystretch}{1.2}
     \begin{tabular}{c*4{@{}c}}
       \hhline{~~-~~}
-      \multicolumn 2r{\onslide<2->{\includegraphics[width=12ex]{images/cpu.png}}}&
+      \multicolumn 2{@{}m{16ex}}{\multirow 2*[2ex]{\onslide<2->{%
+      \basedOnImageWithAttr[1em]{12ex}{images/cpu.jpg}{CPU}{Dāvis Mosāns}{https://flic.kr/p/eKGQPJ}{\CCBY{2.0}}}}}&
       \multicolumn 1{|c|}{\cellcolor{diagramblue}процесор}&&
-      \multirow 2*{\onslide<4->{\includegraphics[width=12ex]{images/speakers.png}}}\\
+      \multirow 2*[1ex]{\onslide<4->{%
+      \untitledImageWithAttr{12ex}{images/speakers.png}{Evan-Amos}{https://commons.wikimedia.org/wiki/File:Logitech-usb-speakers.jpg}{\PDWC}}}\\
       \hhline{~~-~~}
       &&\bua\hspace{1em}\bda&&\\
       \hhline{-~-~-}
       \multicolumn 1{|c|}{\cellcolor{diagramblue}
-      \renewcommand{\arraystretch}{1.2}
       \begin{tabular}c входно\\устройство\end{tabular}}&
       $\bra$&
       \multicolumn 1{|c|}{\cellcolor{diagramblue}памет}&
       $\bra$&
       \multicolumn 1{|c|}{\cellcolor{diagramblue}
-      \renewcommand{\arraystretch}{1.2}
       \begin{tabular}c изходно\\устройство\end{tabular}}\\
-      \hhline{-~-~-}
-      \onslide<3->{\includegraphics[width=7ex]{images/mouse.png}}&&
-      \onslide<2->{\includegraphics[width=15ex]{images/ram.png}}&&
-      \multirow 2*{\onslide<4->{\includegraphics[width=12ex]{images/monitor.png}}}\\
-      \onslide<3->{\includegraphics[width=12ex]{images/keyboard.png}}
+      \hhline{-~-~-}\\[-2ex]
+      \onslide<3->{%
+      \imageWithAttr[7ex]{7ex}{images/mouse.jpg}{Day Two Hundred and Sixty Nine - Computer Mouse}{Yortw}{https://flic.kr/p/arTW21}{\CCBYNC{2.0}}}&&
+      \onslide<2->{\imageWithAttr{15ex}{images/ram.jpg}{DDR3 SD-RAM SO-DIMM}{Felix5413}{https://flic.kr/p/hwYL3W}{\CCBY{2.0}}}%
+      &&
+      \multirow[t]2*[-7ex]{\onslide<4->{\imageWithAttr{12ex}{images/monitor.jpg}{A flat panel LCD computer monitor}{Zzubnik}{https://commons.wikimedia.org/wiki/File:Computer_monitor.jpg}{\PDWC}}}\\
+      \onslide<3->{\imageWithAttr[5ex]{12ex}{images/keyboard.jpg}{A Lenovo Keyboard}{Raysonho @ Open Grid Scheduler / Grid Engine}{https://commons.wikimedia.org/wiki/File:LenovoKeyboard.jpg}{\CCZWC}}
     \end{tabular}
   \end{center}
-  \ \\[-0.5em]
-  \onslide<2->{\wiki}
 \end{frame}
 
 \begin{frame}
   \frametitle{Входно-изходни устройства}
 
-  Аналогова и цифрова информация\\[1em]
-  \includegraphics[width=28ex]{images/odometer.png}
-  \hspace{5ex}
-  \includegraphics[width=28ex]{images/chip.png}\\[1em]
-  \includegraphics[width=40ex]{images/quanterr.png}\\
-  \wiki
+  Аналогова и цифрова информация
+  \begin{tabular}{cc}
+    \imageWithAttr{28ex}{images/odometer.jpg}{Odometer in 1991 Toyota Camry as sold in Australia}{Ant75}{https://commons.wikimedia.org/wiki/File:Camry_Speed_Odometer.jpg}{\PDWC}&
+    \imageWithAttr{28ex}{images/chip.jpg}{Atari custom chip GTIA for PAL-computers}{Knurrikowski}{https://commons.wikimedia.org/wiki/File:Atari_GTIA_chip_(PAL).jpg}{\CCBYSA{4.0}}\\[1ex]
+    \multicolumn2c{\imageWithAttr{40ex}{images/quanterr.png}{Plot of a quantized signal and its error}{Atropos235}{https://commons.wikimedia.org/wiki/File:Quanterr.png}{\PDWC}}
+  \end{tabular}
 \end{frame}
 
 \begin{frame}
   \frametitle{Памет}
-  
+
   \begin{center}
     \begin{tabular}{|*{15}{c|}}
       \hline
@@ -143,7 +143,7 @@
   \item Отговорът е $a$.
   \end{enumerate}
   \pause\ \\[2em]
-  Алгоритъм на Евклид за намирне на най-голям общ делител (НОД)
+  Алгоритъм на Евклид за намиране на най-голям общ делител (НОД)
 \end{frame}
 
 \begin{frame}

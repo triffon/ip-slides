@@ -1,5 +1,5 @@
 \documentclass{beamer}
-\usepackage{up}
+\usepackage{iprog}
 
 \title{Управляващи оператори в C++}
 
@@ -27,7 +27,7 @@
     \node (input)  [io,right=of begin]      {%
       \begin{tabular}{l}
         въведи \tt a\\
-        въведи \tt b        
+        въведи \tt b
       \end{tabular}
     };
     \node (assign) [op,right=of input]      {\tt{x = -b/a}};
@@ -68,7 +68,7 @@
         изведи\\
         \tt{"всяко x е решение"}
       \end{tabular}};
-    \node (end)    [entry] at (allsol -| p1){край};    
+    \node (end)    [entry] at (allsol -| p1){край};
 
     \graph[use existing nodes,edges=thick]
     { begin -> input -> a0 ->[edge label={не}] assign -> output -- p1 -- p2 -> end;
@@ -80,7 +80,7 @@
 
 \begin{frame}
   \frametitle{Индуктивни циклични процеси}
-  
+
   \begin{tikzpicture}
     [node distance=4ex,font=\scriptsize]
     \node (begin)  [entry]                  {начало};
@@ -296,7 +296,7 @@
   \item{}
     \begin{tabular}[t]{@{}rl@{}}
       <израз> ::= &<константа> | <променлива> |\\
-      &<едноместна\_опeрация> <израз> |\\
+      &<едноместна\_операция> <израз> |\\
       &<израз> <двуместна\_операция> <израз>
     \end{tabular}
   \item{} <оператор> ::= <израз>\tta;
@@ -405,7 +405,7 @@
 
 \begin{frame}<1-10>
   \frametitle{Област на действие (scope) --- пример}
-  
+
   \begin{columns}[T,onlytextwidth]
     \begin{column}{.4\textwidth}
       \begin{tabular}{|l|l|l|}
@@ -456,7 +456,7 @@
 
 \begin{frame}
   \frametitle{Условен оператор}
-  
+
   \begin{itemize}[<+->]
   \item \tta{if (}<израз>\tta) <оператор> [\tta{else} <оператор>]
   \item Съкратената форма $\Leftrightarrow$ пълна форма с празен оператор
@@ -563,7 +563,7 @@ else
 
 \begin{frame}
   \frametitle{Задачи за условен оператор}
-  
+
   \begin{enumerate}[<+->]
   \item Да се провери дали три числа образуват растяща редица
   \item Да се намери най-малкото от три числа
@@ -574,7 +574,7 @@ else
 
 \begin{frame}[fragile]
   \frametitle{Оператор за многозначен избор}
-  
+
   \begin{itemize}
   \item
     \tta{switch (}<израз>\tta{) \{}\\
@@ -594,7 +594,7 @@ switch (x) {
 
 \begin{frame}[fragile]
   \frametitle{Оператор за прекъсване}
-  
+
   \begin{itemize}
   \item \tta{break;}
   \item \exa
@@ -610,7 +610,7 @@ switch (x) {
 
 \begin{frame}
   \frametitle{Задачи за многозначен избор}
-  
+
   \begin{enumerate}[<+->]
   \item Да се пресметне избрана от потребителя целочислена аритметична операция
   \item Да се провери дали дадена буква е гласна или съгласна
@@ -621,7 +621,7 @@ switch (x) {
 
 \begin{frame}
   \frametitle{Циклични структури}
-  
+
   \begin{itemize}[<+->]
   \item Да се пресметне $\displaystyle\sum_{i=1}^5\limits i^2$
     \begin{itemize}
@@ -642,7 +642,7 @@ switch (x) {
 
 \begin{frame}
   \frametitle{Оператор \tt{for}}
-  
+
   \begin{itemize}[<+->]
   \item \tta{for (}<израз> \tta; <израз> \tta; <израз> \tta) <оператор>
   \item \tta{for (}<инициализация> \tta; <условие> \tta; <корекция> \tta) <тяло>
@@ -654,7 +654,7 @@ switch (x) {
     \item<.-> \lst{if (}<условие>\tt{) \{} <тяло> <корекция>\tt{;\}}
     \item<.-> \ldots
     \end{itemize}
-  \item \alert{Изключение:} <инициализация> може да е не просто израз, а дефиниция на променлива 
+  \item \alert{Изключение:} <инициализация> може да е не просто израз, а дефиниция на променлива
   \end{itemize}
 \end{frame}
 
@@ -683,7 +683,7 @@ for(int i = 1, x = 0, y = 1; i < 5; i++) {
 
 \begin{frame}
   \frametitle{Задачи за \tt{for}}
-  
+
   \begin{enumerate}[<+->]
   \item Да се пресметне $n!$
   \item Да се пресметне сумата $\expsum$
@@ -694,7 +694,7 @@ for(int i = 1, x = 0, y = 1; i < 5; i++) {
 
 \begin{frame}
   \frametitle{Оператор \tt{while}}
-  
+
   \begin{itemize}[<+->]
   \item \tta{while (}<израз>\tta) <оператор>
   \item \tta{while (}<условие>\tta) <тяло>
@@ -746,7 +746,7 @@ cout << "Направени " << i << " стъпки" << endl;
 
 \begin{frame}<1-3>
   \frametitle{Задачи за \tt{while}}
-  
+
   \begin{enumerate}[<+->]
   \item Да се пресметне $n!$
   \item Да се намери средното аритметично на поредица от числа
@@ -758,7 +758,7 @@ cout << "Направени " << i << " стъпки" << endl;
 
 \begin{frame}
   \frametitle{Оператор \tt{do/while}}
-  
+
   \begin{itemize}[<+->]
   \item \tta{do} <оператор> \tta{while (}<израз>\tta{);}
   \item \tta{do} <тяло> \tta{while (}<условие>\tta{);}
@@ -772,7 +772,7 @@ cout << "Направени " << i << " стъпки" << endl;
 
 \begin{frame}[fragile,fragile]
   \frametitle{Оператор \tt{do/while} --- пример}
-  
+
 \begin{lstlisting}
 @\only<4->{\tt{char c;}}@
 do {
@@ -786,7 +786,7 @@ do {
 
 \begin{frame}
   \frametitle{\tt{while} или \tt{do/while}?}
-  
+
   Как да изберем кой от циклите да използваме?
   \begin{itemize}[<+->]
   \item Ако допускаме тялото да не се изпълни нито веднъж --- \tt{while}
@@ -806,7 +806,7 @@ do {
 
 \begin{frame}
   \frametitle{Задачи за \tt{do/while}}
-  
+
   \begin{enumerate}[<+->]
   \item Да се провери дали $n$ е просто число
   \item Да се изчисли приблизително $\sqrt x$ по метода на Нютон:
@@ -891,7 +891,7 @@ do {
 
 \begin{frame}[fragile]
   \frametitle{Вложени цикли --- примери}
-  
+
   \begin{columns}
     \begin{column}{.5\textwidth}
 Пирамида\\[1em]

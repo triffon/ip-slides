@@ -1,5 +1,5 @@
 \documentclass[alsotrans]{beamerswitch}
-\usepackage{up}
+\usepackage{iprog}
 
 \title{Рекурсия}
 
@@ -7,11 +7,11 @@
 
 \usetikzlibrary{arrows.meta}
 
-\newcommand{\wall}{\includegraphics[width=6.5ex]{images/wall-cell.jpg}}
-\newcommand{\hero}{\includegraphics[height=5ex]{images/adventurer.png}}
-\newcommand{\step}{\includegraphics[height=3ex]{images/footsteps.png}}
-\newcommand{\rstep}{\includegraphics[height=3ex]{images/footsteps-red.png}}
-\newcommand{\gold}{\includegraphics[height=5ex]{images/treasure.png}}
+\newcommand{\wall}{\href{https://flic.kr/p/aEAC6c}{\includegraphics[width=6.5ex]{images/wall-cell.jpg}}}
+\newcommand{\hero}{\href{https://commons.wikimedia.org/wiki/File:Jungle_explorer.svg}{\includegraphics[height=5ex]{images/explorer.png}}}
+\newcommand{\step}{\href{https://commons.wikimedia.org/wiki/File:Footsteps_icon2.svg}{\includegraphics[height=3ex]{images/footsteps.png}}}
+\newcommand{\rstep}{\href{https://commons.wikimedia.org/wiki/File:Footsteps_icon2.svg}{\includegraphics[height=3ex]{images/footsteps-red.png}}}
+\newcommand{\gold}{\href{https://commons.wikimedia.org/wiki/File:Treasurchest.svg}{\includegraphics[height=5ex]{images/treasure.png}}}
 \newcommand{\go}[1]{\temporal<all:#1>{}\hero\step}
 \newcommand{\gor}[1]{\temporal<all:#1>{}\hero\rstep}
 \newcommand{\goback}[2]{\temporal<all:#1>{}\hero{\alt<all:#2>\hero\step}}
@@ -29,17 +29,15 @@
   \frametitle{Какво е рекурсия?}
 
   \begin{center}
-    \temporal<2| trans:0>{
-      \includegraphics[width=.8\textwidth]{images/matroska.jpg}
-    }{
-      \includegraphics[width=.8\textwidth]{images/knuth.png}\\
-      \imgcite{N. Wirth, Algorithms and Data Structures, Fig 3.1}
-    }{ \only<3| trans:0>{
-        \vspace{5em}
-        \includegraphics[width=.8\textwidth]{images/sierpinski.png}
+    \alt<1| trans:0>{
+      \imageWithAttr{0.7\textwidth}{images/matroska.jpg}{Matryoshka dolls}{User:Fanghong (оригинал) и User:Gnomz007 (производна)}{https://commons.wikimedia.org/wiki/File:Russian-Matroshka_no_bg.jpg}{\CCBYSA{3.0}}
+    }{ \only<2| trans:0>{
+        \vspace{10ex}
+        % TODO: да се нарисува с TikZ и foreach
+        \imageWithAttr{.9\textwidth}{images/sierpinski.png}{Sierpinski triangle, the evolution in five iterations}{Solkoll}{https://commons.wikimedia.org/wiki/File:Sierpinsky_triangle_(evolution).png}{\PDWC}
       }}
   \end{center}
-  \begin{itemize}[<+(3)->]
+  \begin{itemize}[<+(2)->]
   \item Повторение чрез позоваване на себе си
   \item ``приятелите на моите приятели са и мои приятели''
   \item директориите съдържат файлове и директории
@@ -342,6 +340,9 @@
       \node[visible on=<all:18>] at (a-3-5.center) {\hero};
     \end{tikzpicture}
   \end{center}
+  \fontseries{ul}\fontsize{3}{3}\selectfont
+  \color{gray!40}
+  Изображения: ``\href{https://flic.kr/p/aEAC6c}{brick, wall, textura}'' от Bart Lumber, обществено достояние чрез Flickr; ``\href{https://commons.wikimedia.org/wiki/File:Footsteps_icon2.svg}{Plain black footsteps icon}'' от Waldir, \CCBYSA{3.0}; ``\href{https://commons.wikimedia.org/wiki/File:Treasurchest.svg}{A treasure chest}'' от hextrust, \CCZWC\ ; героят е базиран на \href{https://commons.wikimedia.org/wiki/File:Jungle_explorer.svg}{изображение от Juhele}, \CCZWC\ .
 \end{frame}
 
 \section{Заключение}

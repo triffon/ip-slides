@@ -1,5 +1,5 @@
 \documentclass{beamer}
-\usepackage{up}
+\usepackage{iprog}
 
 \title{Функции от по-висок ред}
 
@@ -86,7 +86,7 @@
   \item Машинният код на функциите е разположен в областта за програмен код
   \item \alert{Адресът на функцията} наричаме адресът на първата инструкция във функцията
   \item Можем да създаваме \alert{указатели към функции}
-  \item Името на всяка функция може да се раглежда като константен указател към кода ѝ
+  \item Името на всяка функция може да се разглежда като константен указател към кода ѝ
   \item Стойността на указателя към функцията e адресът на нейния код
   \end{itemize}
 \end{frame}
@@ -121,7 +121,7 @@ void (*f)(int&, int&) = swap;
 int x = 5, y = 8;
 \end{lstlisting}
   \pause
-  Три еквивалентни начина за извикване на функията:
+  Три еквивалентни начина за извикване на функцията:
   \begin{itemize}
   \item \lst{swap(x, y);}
   \item \lst{(*f)(x, y);}
@@ -279,7 +279,7 @@ double product(int n, double (*f)(double), int (*next)(int)) {
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Откийте разликите 2.0}
+  \frametitle{Открийте разликите 2.0}
 
 \begin{lstlisting}
 double @\alert<2>{sum}@(int n, double (*f)(double), int (*next)(int)) {
