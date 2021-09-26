@@ -262,6 +262,7 @@ double sum(int n, double (*f)(double), int (*next)(int)) {
 \begin{frame}[fragile]
   \frametitle{Произведение от по-висок ред}
 
+\lstsmall
 \begin{lstlisting}
 double product(int n, double (*f)(double), int (*next)(int)) {
   double s = 1;
@@ -281,6 +282,7 @@ double product(int n, double (*f)(double), int (*next)(int)) {
 \begin{frame}[fragile]
   \frametitle{Открийте разликите 2.0}
 
+\lstsmall
 \begin{lstlisting}
 double @\alert<2>{sum}@(int n, double (*f)(double), int (*next)(int)) {
   double s = @\alert<2>0@;
@@ -449,6 +451,7 @@ matfun derive(mathfun f) {
   \frametitle{Намиране на производна с анонимни функции}
   \alert{Идея №4:} Да използваме анонимни функции!
   \pause
+\lstsmall
 \begin{lstlisting}
 auto derive(mathfun f) {
   return [f](double x) { return (f(x + EPS) - f(x)) / EPS; };

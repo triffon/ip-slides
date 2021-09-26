@@ -136,7 +136,7 @@
   \frametitle{Дефиниране на указателни променливи}
 
   <тип> \tta*<име> [ \tta= <израз> ] \{\tta, \tta*<име> [ \tta= <израз> ] \}\tta;\\[1em]
-  \begin{overlayarea}{\textwidth}{10em}
+  \begin{overlayarea}{\textwidth}{23ex}
   \textbf{Примери:}
   \pause
   \begin{columns}[T,onlytextwidth]
@@ -412,17 +412,20 @@ int strlen(char* p) {
     \end{column}
   \end{columns}
   \vspace{2em}
-  \begin{tabular}{|*{12}{@{\hspace{0.2ex}}c@{\hspace{0.2ex}}|}}
-    \hline
-    \multicolumn{12}{|c|}{\tt{a}}\\
-    \hline
-    \multicolumn{6}{|c|}{\tt{a[0]}}&\multicolumn{6}{|c|}{\tt{a[1]}}\\
-    \hline
-    \multicolumn{3}{|c|}{\tt{a[0][0]}}&\multicolumn{3}{|c|}{\tt{a[0][1]}}&\multicolumn{3}{|c|}{\tt{a[1][0]}}&\multicolumn{3}{|c|}{\tt{a[1][1]}}\\
-    \hline
-    \tiny a[0][0][0]&\tiny a[0][0][1]&\tiny a[0][0][2]&\tiny a[0][1][0]&\tiny a[0][1][1]&\tiny a[0][1][2]&\tiny a[1][0][0]&\tiny a[1][0][1]&\tiny a[1][0][2]&\tiny a[1][1][0]&\tiny a[1][1][1]&\tiny a[1][1][2]\\
-    \hline
-  \end{tabular}
+  \begin{center}
+    \scalebox{.95}{
+      \begin{tabular}{|*{12}{@{\hspace{0.2ex}}c@{\hspace{0.2ex}}|}}
+        \hline
+        \multicolumn{12}{|c|}{\tt{a}}\\
+        \hline
+        \multicolumn{6}{|c|}{\tt{a[0]}}&\multicolumn{6}{|c|}{\tt{a[1]}}\\
+        \hline
+        \multicolumn{3}{|c|}{\tt{a[0][0]}}&\multicolumn{3}{|c|}{\tt{a[0][1]}}&\multicolumn{3}{|c|}{\tt{a[1][0]}}&\multicolumn{3}{|c|}{\tt{a[1][1]}}\\
+        \hline
+        \tiny a[0][0][0]&\tiny a[0][0][1]&\tiny a[0][0][2]&\tiny a[0][1][0]&\tiny a[0][1][1]&\tiny a[0][1][2]&\tiny a[1][0][0]&\tiny a[1][0][1]&\tiny a[1][0][2]&\tiny a[1][1][0]&\tiny a[1][1][1]&\tiny a[1][1][2]\\
+        \hline
+      \end{tabular}}
+  \end{center}
 \end{frame}
 
 \begin{frame}

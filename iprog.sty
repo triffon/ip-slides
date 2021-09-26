@@ -67,6 +67,13 @@
 % слага се в преамбюла
 \newcommand{\crronly}{\includeonlyframes{current}}
 
+% смаляване на шрифта в листинг
+\newcommand{\lstsize}[1]{\lstset{basicstyle=#1\ttfamily}}
+\newcommand{\lstsmall}{\lstsize\small}
+\newcommand{\lstscriptsize}{\lstsize\scriptsize}
+\newcommand{\lstfootnotesize}{\lstsize\footnotesize}
+\newcommand{\lsttiny}{\lstsize\tiny}
+
 % декларативна графика
 \usepackage{tikz}
 \usetikzlibrary{shapes.misc}
@@ -155,6 +162,12 @@
 % факт
 \theoremstyle{definition}
 \newtheorem{afact}{Факт}
+
+% overlayarea, която по подразбиране изпълва цялата област за текст за текущата тема
+% може да се зададе като опционален параметър друга част от височината
+\newenvironment{fixedarea}[1][.87]{%
+  \begin{overlayarea}\textwidth{#1\textheight}}{%
+  \end{overlayarea}}
 
 %%% макроси
 

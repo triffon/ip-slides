@@ -148,7 +148,7 @@ int sum = 0; // нулираме сумата
 \end{itemize}
 \pause
 \begin{center}
-  \begin{tabular}{|p{2ex}|p{8ex}|p{8ex}|p{2ex}|p{4ex}|p{16ex}|}
+  \begin{tabular}{|p{1.5em}|p{4em}|p{4em}|p{1em}|p{2em}|p{8em}|}
     \multicolumn 1c{}&\multicolumn2l{\tt{fn}}&\multicolumn2l{\tt c}&\multicolumn1l{\tt{pi}}\\
     \hline
     \rowcolor{diagramblue}
@@ -180,27 +180,27 @@ int sum = 0; // нулираме сумата
 \begin{frame}<1-5>[fragile]
   \frametitle{Изход на екрана}
 
-  \begin{itemize}
-  \item \tta{cout <{}<} <израз> \{\tta{<{}<} <израз>\}\tta;
-    \begin{overlayarea}{\textwidth}{7em}
+  \begin{fixedarea}[.5]
+    \begin{itemize}
+    \item \tta{cout <{}<} <израз> \{\tta{<{}<} <израз>\}\tta;
     \item \temporal<2>{\tt{cout <{}< a <{}< b <{}< c;}}{\tt{((cout <{}< a) <{}< b) <{}< c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cout <{}< a)}}_{\tt{cout}} \tt{<{}< b)}}_{\tt{cout}}\tt{ <{}< c}}_{\tt{cout}}\tt;$}
-    \end{overlayarea}
-  \item<4-> \lstinline{cout << "a + b = "} \lstinline{<< a + b << endl;}
-  \item<5-> \sta{cout <{}< \quot a = \quot{} 2;}
-  \end{itemize}
+    \item<4-> \lstinline{cout << "a + b = "} \lstinline{<< a + b << endl;}
+    \item<5-> \sta{cout <{}< \quot a = \quot{} 2;}
+    \end{itemize}
+  \end{fixedarea}
 \end{frame}
 
 \begin{frame}
   \frametitle{Вход от клавиатурата}
 
-  \begin{itemize}
-  \item \tta{cin >{}>} <идентификатор> \{\tta{>{}>} <идентификатор>\}\tta;
-    \begin{overlayarea}{\textwidth}{7em}
+  \begin{fixedarea}[.5]
+    \begin{itemize}
+    \item \tta{cin >{}>} <идентификатор> \{\tta{>{}>} <идентификатор>\}\tta;
     \item \temporal<2>{\tt{cin >{}> a >{}> b >{}> c;}}{\tt{((cin >{}> a) >{}> b) >{}> c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cin >{}> a)}}_{\tt{cin}} \tt{>{}> b)}}_{\tt{cin}}\tt{ >{}> c}}_{\tt{cin}}\tt;$}
-    \end{overlayarea}
-  \item<4-> \sta{cin >{}> a + b;}
-  \item<5-> \sta{cin >{}> 15;}
-  \end{itemize}
+    \item<4-> \sta{cin >{}> a + b;}
+    \item<5-> \sta{cin >{}> 15;}
+    \end{itemize}
+  \end{fixedarea}
 \end{frame}
 
 \begin{frame}[fragile]
