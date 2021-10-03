@@ -1,7 +1,9 @@
 auto/
 .*
+!.github
 !.gitignore
 !.latexmkrc
+!images/*.pdf
 *~
 *.aux
 *.log
