@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[alsotrans]{beamerswitch}
 \usepackage{iprog}
 
 \title{Основни елементи на C++}
@@ -149,10 +149,10 @@ int sum = 0; // нулираме сумата
 \pause
 \begin{center}
   \begin{tabular}{|p{1.5em}|p{4em}|p{4em}|p{1em}|p{2em}|p{8em}|}
-    \multicolumn 1c{}&\multicolumn2l{\tt{fn}}&\multicolumn2l{\tt c}&\multicolumn1l{\tt{pi}}\\
+    \multicolumn 1c{}&\multicolumn2l{\tt{group}}&\multicolumn2l{\tt c}&\multicolumn1l{\tt{pi}}\\
     \hline
     \rowcolor{diagramblue}
-    \ldots&\tt{81111}&\ldots&\tt{F}&\ldots&\tt{3.14159}\\
+    \ldots&\tt{4}&\ldots&\tt{F}&\ldots&\tt{3.14159}\\
     \hline
     \multicolumn 1c{}&\multicolumn2l{\tt{int}}&\multicolumn2l{\tt{char}}&\multicolumn1l{\tt{double}}\\
   \end{tabular}
@@ -183,7 +183,7 @@ int sum = 0; // нулираме сумата
   \begin{fixedarea}[.5]
     \begin{itemize}
     \item \tta{cout <{}<} <израз> \{\tta{<{}<} <израз>\}\tta;
-    \item \temporal<2>{\tt{cout <{}< a <{}< b <{}< c;}}{\tt{((cout <{}< a) <{}< b) <{}< c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cout <{}< a)}}_{\tt{cout}} \tt{<{}< b)}}_{\tt{cout}}\tt{ <{}< c}}_{\tt{cout}}\tt;$}
+    \item \temporal<2>{\tt{cout <{}< a <{}< b <{}< c;}}{\tt{((cout <{}< a) <{}< b) <{}< c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cout <{}< a)}}_{\tt{cout}}\tt{ <{}< b)}}_{\tt{cout}}\tt{ <{}< c}}_{\tt{cout}}\tt;$}
     \item<4-> \lstinline{cout << "a + b = "} \lstinline{<< a + b << endl;}
     \item<5-> \sta{cout <{}< \quot a = \quot{} 2;}
     \end{itemize}
@@ -196,7 +196,7 @@ int sum = 0; // нулираме сумата
   \begin{fixedarea}[.5]
     \begin{itemize}
     \item \tta{cin >{}>} <идентификатор> \{\tta{>{}>} <идентификатор>\}\tta;
-    \item \temporal<2>{\tt{cin >{}> a >{}> b >{}> c;}}{\tt{((cin >{}> a) >{}> b) >{}> c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cin >{}> a)}}_{\tt{cin}} \tt{>{}> b)}}_{\tt{cin}}\tt{ >{}> c}}_{\tt{cin}}\tt;$}
+    \item \temporal<2>{\tt{cin >{}> a >{}> b >{}> c;}}{\tt{((cin >{}> a) >{}> b) >{}> c;}}{$\underbrace{\underbrace{\tt(\underbrace{\tt{(cin >{}> a)}}_{\tt{cin}}\tt{ >{}> b)}}_{\tt{cin}}\tt{ >{}> c}}_{\tt{cin}}\tt;$}
     \item<4-> \sta{cin >{}> a + b;}
     \item<5-> \sta{cin >{}> 15;}
     \end{itemize}
@@ -250,7 +250,7 @@ int sum = 0; // нулираме сумата
       \begin{itemize}
       \item числа с плаваща запетая (\tt{float}, \tt{double})
       \item указател (\tt{T*})
-      \item псевдоним (\tt{T\&})
+      \item препратка (\tt{T\&})
       \end{itemize}
     \end{itemize}
   \item Съставни
@@ -259,7 +259,7 @@ int sum = 0; // нулираме сумата
       \begin{itemize}
       \item низ (\tt{char[]})
       \end{itemize}
-    \item структура (\tt{struct})
+    \item запис (\tt{struct})
     \item клас (\tt{class})
     \item обединение (\tt{union})
     \end{itemize}
