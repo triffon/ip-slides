@@ -1,9 +1,10 @@
+
 \documentclass{beamer}
 \usepackage{iprog}
 
 \title{Управляващи оператори в C++}
 
-\date{18 октомври 2021 г.}
+\date{18--25 октомври 2021 г.}
 
 \newcommand{\expsum}{\displaystyle \sum_{i=0}^n \limits \frac{x^i}{i!}}
 
@@ -20,7 +21,7 @@
   \begin{itemize}
   \item Алгоритъм: последователност от стъпки за извършване на пресмятане
   \item Блок-схема
-  \end{itemize}\ \\[1em]
+  \end{itemize}\ \\[2ex]
   \begin{tikzpicture}
     [node distance=4ex,font=\small]
     \node (begin)  [entry]                  {начало};
@@ -36,7 +37,7 @@
 
     \graph[use existing nodes,edges=thick]
     { begin -> input -> assign -> output -> end };
-  \end{tikzpicture}\\[2em]
+  \end{tikzpicture}\\[4ex]
   Пример за линеен процес
 \end{frame}
 
@@ -103,7 +104,7 @@
     \graph[use existing nodes,edges=thick]
     { begin -> input -> init -- p0 -> guard ->[edge label={не}] output -> end;
       guard ->[edge label=да] body ->[to path={-- ++(-10ex,0) |- (p0)}] p0; };
-  \end{tikzpicture}\\[-10em]
+  \end{tikzpicture}\\[-20ex]
   \pause
   \begin{tabular}{|c|c|c|}
     \hline
@@ -157,7 +158,7 @@
       guard --[edge label=не] p -> ab ->[edge label=да] output -> end;
       ab ->[edge label=не] ab1 ->[edge label=да] a ->[to path={|- (p)}] p;
       ab1 ->[edge label=не] b ->[to path={|- (p)}] p;};
-  \end{tikzpicture}\\[-10em]
+  \end{tikzpicture}\\[-20ex]
   \pause
   \begin{tabular}{|c|c|}
     \hline
@@ -325,13 +326,15 @@
 
 \begin{frame}
   \frametitle{Присвояването като операция}
-  \begin{itemize}
-  \item<1-> \alert{дясноасоциативна} операция
-  \item<2-> \temporal<3>{\tt{a = b = c = 2;}}{\tt{a = (b = (c = 2));}}{$\underbrace{\tt{a = }\underbrace{\tt{(b = }\underbrace{\tt{(c = 2)}}_{\tt c})}_{\tt b}}_{\tt a}$}
-  \item<3> \sta{(((a = b) = c) = 2);}
-  \item<5-> \exa \lstinline{cout << x + (b = 2);}
-  \item<6-> \exa \lstinline{(a = b) = a + 3;}
-  \end{itemize}
+  \begin{fixedarea}[.6]
+    \begin{itemize}
+    \item<1-> \alert{дясноасоциативна} операция
+    \item<2-> \temporal<3>{\tt{a = b = c = 2;}}{\tt{a = (b = (c = 2));}}{$\underbrace{\tt{a = }\underbrace{\tt{(b = }\underbrace{\tt{(c = 2)}}_{\tt c})}_{\tt b}}_{\tt a}$}
+    \item<3> \sta{(((a = b) = c) = 2);}
+    \item<5-> \exa \lst{cout << x + (b = 2);}
+    \item<6-> \exa \lst{(a = b) = a + 3;}
+    \end{itemize}
+  \end{fixedarea}
 \end{frame}
 
 \begin{frame}
@@ -343,7 +346,7 @@
   \item \tt{a, b, c, d} $\Leftrightarrow$ \tt{(a, (b, (c, d)))}
   \item<.-> \alert{дясноасоциативна}
   \item<.-> използва се рядко
-  \item \exa \lstinline{a = (cout << x, x);}
+  \item \exa \lst{a = (cout << x, x);}
   \end{itemize}
 \end{frame}
 
@@ -474,14 +477,14 @@
   Какво имаме предвид, когато пишем:
   \lst{if (a > 0) if (b > 0) cout << 1; else cout << 3;}\\[1em]
   \pause
-  \begin{tabular}{l@{\hskip 12ex}c@{\hskip 12ex}l}
+  \begin{tabular}{l@{\hskip 6em}c@{\hskip 4em}l}
 \begin{lstlisting}
 if (a > 0) @\only<3->{\{}@
   if (b > 0)
-@\only<4->{\hskip 4ex// $a > 0$ \&\& $b > 0$}@
+@\only<4->{\hskip 2em// $a > 0$ \&\& $b > 0$}@
     cout << 1;
   else
-@\only<4->{\hskip 4ex// $a > 0$ \&\& $b \leq 0$}@
+@\only<4->{\hskip 2em// $a > 0$ \&\& $b \leq 0$}@
     cout << 3;
 @\only<3->{\}}@
 \end{lstlisting}%
@@ -490,11 +493,11 @@ if (a > 0) @\only<3->{\{}@
 \begin{lstlisting}
 if (a > 0) @\only<3->{\{}@
   if (b > 0)
-@\only<4->{\hskip 4ex// $a > 0$ \&\& $b > 0$}@
+@\only<4->{\hskip 2em// $a > 0$ \&\& $b > 0$}@
     cout << 1;
 @\only<3->{\}}@
 else
-@\only<4->{\hskip 2ex// $a \leq 0$}@
+@\only<4->{\hskip 1em// $a \leq 0$}@
   cout << 3;
 \end{lstlisting}
   \end{tabular}
@@ -502,7 +505,7 @@ else
 
 \begin{frame}[fragile]
   \frametitle{Съкратено оценяване на логически операции}
-Представяне на логически операции с вложени условни оператори:\\[1em]
+Представяне на логически операции с вложени условни оператори:\\[2ex]
 \begin{tabular}{l@{$\qquad\Leftrightarrow\qquad$}l}
 \begin{lstlisting}
 if (!A) X;
@@ -512,7 +515,7 @@ else    Y;
 \begin{lstlisting}
 if (A) Y;
 else   X;
-\end{lstlisting}\\[1.5em]
+\end{lstlisting}\\[3ex]
 \tpause
 \begin{lstlisting}
 if (A && B) X;
@@ -524,7 +527,7 @@ if (A)
   if (B) X;
   else   Y;
 else Y;
-\end{lstlisting}\\[2.5em]
+\end{lstlisting}\\[5ex]
 \tpause
 \begin{lstlisting}
 if (A || B) X;
@@ -537,7 +540,7 @@ else
   if (B) X;
   else   Y;
 \end{lstlisting}
-\end{tabular}\\[1em]
+\end{tabular}\\[2ex]
 \pause
 \exa \lst{if (x > 0 && log(x) < 5) ...}\\
 \exa \lst{if (x == 0 || y / x == 1) ...}
@@ -641,7 +644,7 @@ switch (x) {
 \end{frame}
 
 \begin{frame}
-  \frametitle{Оператор \tt{for}}
+  \frametitle{Оператор \lst{for}}
 
   \begin{itemize}[<+->]
   \item \tta{for (}<израз> \tta; <израз> \tta; <израз> \tta) <оператор>
@@ -658,8 +661,8 @@ switch (x) {
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile,fragile]
-  \frametitle{Оператор \tt{for} --- примери}
+\begin{frame}[fragile]
+  \frametitle{Оператор \lst{for} --- примери}
 
 \begin{lstlisting}
 double sum = 0, x;
@@ -682,7 +685,7 @@ for(int i = 1, x = 0, y = 1; i < 5; i++) {
 \end{frame}
 
 \begin{frame}
-  \frametitle{Задачи за \tt{for}}
+  \frametitle{Задачи за \lst{for}}
 
   \begin{enumerate}[<+->]
   \item Да се пресметне $n!$
@@ -693,7 +696,7 @@ for(int i = 1, x = 0, y = 1; i < 5; i++) {
 \end{frame}
 
 \begin{frame}
-  \frametitle{Оператор \tt{while}}
+  \frametitle{Оператор \lst{while}}
 
   \begin{itemize}[<+->]
   \item \tta{while (}<израз>\tta) <оператор>
@@ -720,7 +723,7 @@ for(int i = 1, x = 0, y = 1; i < 5; i++) {
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Оператор \tt{while} --- примери}
+  \frametitle{Оператор \lst{while} --- примери}
 
 \begin{lstlisting}
 cout << "НОД(" << a << ',' << b << ") = ";
@@ -744,7 +747,7 @@ cout << "Направени " << i << " стъпки" << endl;
 \end{frame}
 
 \begin{frame}<1-3>
-  \frametitle{Задачи за \tt{while}}
+  \frametitle{Задачи за \lst{while}}
 
   \begin{enumerate}[<+->]
   \item Да се пресметне $n!$
@@ -756,7 +759,7 @@ cout << "Направени " << i << " стъпки" << endl;
 \end{frame}
 
 \begin{frame}
-  \frametitle{Оператор \tt{do/while}}
+  \frametitle{Оператор \lst{do/while}}
 
   \begin{itemize}[<+->]
   \item \tta{do} <оператор> \tta{while (}<израз>\tta{);}
@@ -770,7 +773,7 @@ cout << "Направени " << i << " стъпки" << endl;
 \end{frame}
 
 \begin{frame}[fragile,fragile]
-  \frametitle{Оператор \tt{do/while} --- пример}
+  \frametitle{Оператор \lst{do/while} --- пример}
 
 \begin{lstlisting}
 @\only<4->{\tt{char c;}}@
@@ -784,12 +787,12 @@ do {
 \end{frame}
 
 \begin{frame}
-  \frametitle{\tt{while} или \tt{do/while}?}
+  \frametitle{\lst{while} или \lst{do/while}?}
 
   Как да изберем кой от циклите да използваме?
   \begin{itemize}[<+->]
-  \item Ако допускаме тялото да не се изпълни нито веднъж --- \tt{while}
-  \item Ако искаме тялото да се изпълни поне веднъж --- \tt{do/while}
+  \item Ако допускаме тялото да не се изпълни нито веднъж --- \lst{while}
+  \item Ако искаме тялото да се изпълни поне веднъж --- \lst{do/while}
   \item \lst{do} <тяло> \lst{while (}<условие>\lst{);}\\
     $\Leftrightarrow$\\
     <тяло> \lst{while (}<условие>\tt) <тяло>
@@ -804,7 +807,7 @@ do {
 \end{frame}
 
 \begin{frame}
-  \frametitle{Задачи за \tt{do/while}}
+  \frametitle{Задачи за \lst{do/while}}
 
   \begin{enumerate}[<+->]
   \item Да се провери дали $n$ е просто число
@@ -893,7 +896,7 @@ do {
 
   \begin{columns}
     \begin{column}{.5\textwidth}
-Пирамида\\[1em]
+      Пирамида\\[2ex]
 \begin{verbatim}
 1
 1 2
@@ -906,7 +909,7 @@ do {
     \end{column}
     \pause
     \begin{column}{.5\textwidth}
-Брояч\\[1em]
+      Брояч\\[2ex]
 \begin{verbatim}
 2:03
 2:02
