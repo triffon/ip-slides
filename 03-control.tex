@@ -1,5 +1,5 @@
 
-\documentclass{beamer}
+\documentclass[alsotrans]{beamerswitch}
 \usepackage{iprog}
 
 \title{Управляващи оператори в C++}
@@ -298,7 +298,8 @@
     \begin{tabular}[t]{@{}rl@{}}
       <израз> ::= &<константа> | <променлива> |\\
       &<едноместна\_операция> <израз> |\\
-      &<израз> <двуместна\_операция> <израз>
+      &<израз> <двуместна\_операция> <израз> |\\
+      &<функция>\tta(<израз>\tta)
     \end{tabular}
   \item{} <оператор> ::= <израз>\tta;
   \end{itemize}
