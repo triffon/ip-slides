@@ -552,12 +552,12 @@ else
   \begin{itemize}[<+->]
   \item{} <булев\_израз> ? <израз$_1$> : <израз$_2$>
   \item триместна (тернарна) операция
-  \item пресмята се \tt{<булев\_израз>}
+  \item пресмята се <булев\_израз>
     \begin{itemize}
     \item При \tt{true} се пресмята <израз$_1$> и се връща резултатът
     \item При \tt{false} се пресмята <израз$_2$> и се връща резултатът
     \end{itemize}
-  \item \exa \lst{x = (y < 2) ? y + 1 : y - 2;}
+  \item \exa \lst{x = y < 2 ? y + 1 : y - 2;}
   \item \lst{A} $\Leftrightarrow$ \lst{A ? true : false}
   \item \lst{!A} $\Leftrightarrow$ \lst{A ? false : true}
   \item \lst{A && B} $\Leftrightarrow$ \lst{A ? B : false}
@@ -648,8 +648,8 @@ switch (x) {
   \frametitle{Оператор \lst{for}}
 
   \begin{itemize}[<+->]
-  \item \tta{for (}<израз> \tta; <израз> \tta; <израз> \tta) <оператор>
-  \item \tta{for (}<инициализация> \tta; <условие> \tta; <корекция> \tta) <тяло>
+  \item \tta{for (} <израз> \tta; <израз> \tta; <израз> \tta) <оператор>
+  \item \tta{for (} <инициализация> \tta; <условие> \tta; <корекция> \tta) <тяло>
   \item Семантика:
     \begin{itemize}
     \item<.-> <инициализация>\tt;
