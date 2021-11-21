@@ -3,7 +3,7 @@
 
 \title{Масиви и низове}
 
-\date{15 ноември 2021 г.}
+\date{15--22 ноември 2021 г.}
 
 \newcommand{\s}{<низ>\xspace}
 \renewcommand{\ss}[1]{<низ$_{#1}$>\xspace}
@@ -35,7 +35,7 @@
   \frametitle{Дефиниция на масив}
 
   <тип> <идентификатор> \tta[ [<константа] \tta]\\
-  \hspace{5ex} [ \tta= \tta\{ <константа> \{\tta, <константа> \} \tta\} ] \tta;\\[1em]
+  \hspace{3em} [ \tta= \tta\{ <израз> \{\tta, <израз> \} \tta\} ] \tta;\\[2ex]
   \pause
   \textbf{Примери:}
   \begin{itemize}[<+->]
@@ -290,7 +290,7 @@
   \pause
   \begin{itemize}[<+->]
   \item{} <тип> <идентификатор> \tta[[<константа>]\tta]\{\tta[<константа>\tta]\}\\
-  \hspace{5ex} [ \tta= \tta\{ <константа> \{\tta, <константа> \} \tta\} ] \tta;
+  \hspace{3em} [ \tta= \tta\{ <израз> \{\tta, <израз> \} \tta\} ] \tta;
   \item първата размерност може да бъде изпусната, ако е даден инициализиращ списък
   \item \textbf{Примери:}
     \begin{itemize}
@@ -298,8 +298,8 @@
     \item \lst{double b[5][6] = \{0.1, 0.2, 0.3, 0.4\};}
     \item \lst{int c[4][5] = \{\{1, 2\}, \{3, 4, 5, 6\}, \{7, 8, 9\}, \{10\}\};}
     \item \lst{float f[][2][3] = \{\{\{1.2, 2.3, 3.4\}, \{4.5, 5.6, 6.7\}\},}\\
-        \hspace{22ex}\lst{\{\{7.8, 8.9, 9.1\}, \{1.2, 3.4, 3.4\}\},}\\
-        \hspace{22ex}\lst{\{\{5.6\},\{6.7, 7.8\}\}\};}
+        \hspace{10em}\lst{\{\{7.8, 8.9, 9.1\}, \{1.2, 3.4, 3.4\}\},}\\
+        \hspace{10em}\lst{\{\{5.6\},\{6.7, 7.8\}\}\};}
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -309,7 +309,7 @@
 
   \begin{center}
     \scalebox{.95}{
-      \begin{tabular}{|*{12}{@{\hspace{0.2ex}}c@{\hspace{0.2ex}}|}}
+      \begin{tabular}{|*{12}{@{\hspace{0.1em}}c@{\hspace{0.1em}}|}}
         \hline
         \multicolumn{12}{|c|}{\tt{a}}\\
         \hline
@@ -348,8 +348,8 @@
       ampersand replacement=\&,
       nodes={
         rectangle,
-        minimum width=4ex,
-        minimum height=1em,
+        minimum width=1.8em,
+        minimum height=2ex,
         text height=1ex,
         text depth=0.25ex,
         draw},
