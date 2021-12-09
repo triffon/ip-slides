@@ -182,7 +182,7 @@
     \begin{itemize}
     \item \lst{int x = 5, *p = \&x;}
     \item \lst{int *q = p, y = *p + 2;}
-    \item \lst{*p++; p = \&y;}
+    \item \lst{(*p)++; p = \&y;}
     \item \lst{*q = 1; *p = *q;}
     \end{itemize}
   \item \tt{\&}<lvalue> връща като резултат <rvalue>!
