@@ -135,7 +135,7 @@
 \begin{frame}
   \frametitle{Дефиниране на указателни променливи}
 
-  <тип> \tta*<име> [ \tta= <израз> ] \{\tta, \tta*<име> [ \tta= <израз> ] \}\tta;\\[1em]
+  <тип> \tta*<име> [ \tta= <израз> ] \{\tta, \tta*<име> [ \tta= <израз> ] \}\tta;\\[2ex]
   \begin{overlayarea}{\textwidth}{23ex}
   \textbf{Примери:}
   \pause
@@ -162,10 +162,10 @@
         \begin{tikzpicture}
           \node[label={\tt{pd}},cell] (pd) {};
           \draw (pd.south west) -- (pd.north east);
-        \end{tikzpicture}\\[2em]
+        \end{tikzpicture}\\[4ex]
       \end{onlyenv}
-      \only<4>{\tikz{\thedouble}}
-      \only<5>{\tikz{\thepointertodouble}}
+      \only<4| trans:0>{\tikz{\thedouble}}
+      \only<5| trans:0>{\tikz{\thepointertodouble}}
       \only<6>{\tikz{\thepointertopointertodouble}}
     \end{column}
   \end{columns}
@@ -224,9 +224,9 @@
       \end{itemize}
     \end{column}
     \begin{column}{.6\textwidth}
-      \only<2>{\tikz{\thearray{a[0]}}}
-      \only<3-4>{\tikz{\thearray{a[0]}\thepointer}}
-      \only<5-6>{\tikz{\thearray{ 15 }\thepointer}}
+      \only<2| trans:0>{\tikz{\thearray{a[0]}}}
+      \only<3-4| trans:0>{\tikz{\thearray{a[0]}\thepointer}}
+      \only<5-6| trans:0>{\tikz{\thearray{ 15 }\thepointer}}
       \only<7>{\tikz{\thearray{ 20 }\thepointer}}
     \end{column}
   \end{columns}
@@ -282,7 +282,7 @@
   \pause
   \textbf{Примери:}
   \begin{itemize}[<+->]
-  \item \lst{int a[5], x;}\hspace{8ex}\tikz{\thearray{a[0]}}
+  \item \lst{int a[5], x;}\hspace{4em}\tikz{\thearray{a[0]}}
   \item \lst{cout << *a;}
   \item \lst{*(a + 1) = 7;}
   \item \lst{*(a + 4)--;}
@@ -294,7 +294,7 @@
 \begin{frame}[fragile]
   \frametitle{Указатели и низове}
 
-  Низовете са масиви от символи\\[1em]
+  Низовете са масиви от символи\\[2ex]
   \begin{tikzpicture}
     \matrix (a) [m] {
       \tt{H} \&\tt{e} \&\tt{l} \&\tt{l} \&\tt{o} \&\tt{,} \&\tt{ } \&\tt{w} \&\tt{o} \&\tt{r} \&\tt{l} \&\tt{d} \&\tt{!} \& \tt{\textbackslash 0} \\
@@ -337,7 +337,7 @@ int strlen(char* p) {
   \begin{itemize}[<+->]
   \item Константен указател (който е константа)
     \begin{itemize}
-    \item{} <тип>\tta{* const} \hspace{25ex}
+    \item{} <тип>\tta{* const} \hspace{12em}
       \begin{tikzpicture}[>=stealth]
         \graph { ""[very thick,cell] -> ""[cell] };
       \end{tikzpicture}
@@ -346,7 +346,7 @@ int strlen(char* p) {
     \end{itemize}
   \item Указател към константа (сочещ към константа)
     \begin{itemize}
-    \item{} \tta{const} <тип>\tta* \eqv <тип> \tta{const*} \hspace{5ex}
+    \item{} \tta{const} <тип>\tta* \eqv <тип> \tta{const*} \hspace{2em}
       \begin{tikzpicture}[>=stealth]
         \graph { ""[cell] ->[very thick] ""[cell] };
       \end{tikzpicture}
@@ -379,9 +379,9 @@ int strlen(char* p) {
       \end{itemize}
     \end{column}
     \begin{column}{.4\textwidth}
-      \only<3-4>{\tikz{\thestringconstant\thefirstedge}}
-      \only<5>{\tikz{\thestringconstant\thefirstedge\thestring{i}}}
-      \only<6>{\tikz{\thestringconstant\thestring{i}\thesecondedge}}
+      \only<3-4| trans:0>{\tikz{\thestringconstant\thefirstedge}}
+      \only<5| trans:0>{\tikz{\thestringconstant\thefirstedge\thestring{i}}}
+      \only<6| trans:0>{\tikz{\thestringconstant\thestring{i}\thesecondedge}}
       \only<7->{\tikz{\thestringconstant\thestring{o}\thesecondedge}}
     \end{column}
   \end{columns}
@@ -414,7 +414,7 @@ int strlen(char* p) {
   \vspace{2em}
   \begin{center}
     \scalebox{.95}{
-      \begin{tabular}{|*{12}{@{\hspace{0.2ex}}c@{\hspace{0.2ex}}|}}
+      \begin{tabular}{|*{12}{@{\hspace{0.1em}}c@{\hspace{0.1em}}|}}
         \hline
         \multicolumn{12}{|c|}{\tt{a}}\\
         \hline
@@ -475,7 +475,7 @@ int strlen(char* p) {
 
   \begin{itemize}[<+->]
   \item{} <тип>\tta{\&} <идентификатор> \tta= <обект>\\
-    \hspace{5ex} \{\tta{, \&}<идентификатор> \tta= <обект> \}\tta;
+    \hspace{2.5em} \{\tta{, \&}<идентификатор> \tta= <обект> \}\tta;
   \item инициализацията е \alert{задължителна}!
     \begin{itemize}
     \item както и на константните указатели
@@ -497,11 +497,11 @@ int strlen(char* p) {
       \end{itemize}
     \end{column}
     \begin{column}{.5\textwidth}
-      \only<7>{\tikz{\labeledcell{x}3}}%
-      \only<8-10>{\tikz{\labeledcell{x,a}3}}%
+      \only<7| trans:0>{\tikz{\labeledcell{x}3}}%
+      \only<8-10| trans:0>{\tikz{\labeledcell{x,a}3}}%
       \only<11>{\tikz{\labeledcell{x,a}8}}%
-      \hspace{5ex}%
-      \only<8>{\tikz{\labeledcell{b}3}}%
+      \hspace{2em}%
+      \only<8| trans:0>{\tikz{\labeledcell{b}3}}%
       \only<9->{\tikz{\labeledcell{b,c}3}}
     \end{column}
   \end{columns}
@@ -549,10 +549,10 @@ int strlen(char* p) {
       \end{itemize}
     \end{column}
     \begin{column}{.5\textwidth}
-      \only<5>{\tikz{\labeledcell a3}}
-      \only<6>{\tikz{\labeledcell a4}}
-      \only<7>{\tikz{\labeledcell{a,b}4}}
-      \only<8>{\tikz{\labeledcell{a,b}5}}
+      \only<5| trans:0>{\tikz{\labeledcell a3}}
+      \only<6| trans:0>{\tikz{\labeledcell a4}}
+      \only<7| trans:0>{\tikz{\labeledcell{a,b}4}}
+      \only<8| trans:0>{\tikz{\labeledcell{a,b}5}}
       \only<9->{\tikz{\labeledcell{a,b,\alert{c}}5}}
     \end{column}
   \end{columns}
