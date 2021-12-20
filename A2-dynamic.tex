@@ -1,9 +1,9 @@
-\documentclass{beamer}
+\documentclass[alsotrans]{beamerswitch}
 \usepackage{iprog}
 
 \title{Динамична памет}
 
-\date{21 декември 2016 г.}
+\date{20 декември 2021 г.}
 
 \usetikzlibrary{arrows.meta}
 
@@ -180,47 +180,47 @@
 
   \small
   \begin{columns}[T,onlytextwidth]
-    \begin{column}{.5\textwidth}
+    \begin{column}{.48\textwidth}
       \begin{itemize}[<+->]
-        \setlength\itemsep{2em}
+        \setlength\itemsep{5ex}
       \item \lst{int* p = new int;}
-      \item \lst{float* q = new float(1.23);}
+      \item \lst{float* q = new float(1.2);}
       \item \lst{char* s = new char[6];}\\
         \lst{strcpy(s, "hello");}
       \item \lst{char** ss = new char*(s);}
       \end{itemize}
     \end{column}
-    \begin{column}{.5\textwidth}
-      \begin{overlayarea}{.5\textwidth}{16em}
+    \begin{column}{.52\textwidth}
+      \begin{overlayarea}{.52\textwidth}{38ex}
         \begin{onlyenv}<1->
           \begin{tikzpicture}
             \node (p) [n,label=p] {};
             \matrix [m,right=of p] { \ldots \& |(pc) [minimum width=15ex]| {\tt{?}} \& \ldots \\ };
-            \draw[l] (p) to [bend left=30] (pc.north west);
+            \draw[l] (p.center) to [bend left=30] (pc.north west);
           \end{tikzpicture}
         \end{onlyenv}
         \begin{onlyenv}<2->
           \begin{tikzpicture}
             \node (q) [n,label=q] {};
-            \matrix [m,right=of q] { \ldots \& |(qc) [minimum width=18ex]| {\tt{1.23}} \& \ldots \\ };
-            \draw[l] (q) to [bend left=30] (qc.north west);
+            \matrix [m,right=of q] { \ldots \& |(qc) [minimum width=18ex]| {\tt{1.2}} \& \ldots \\ };
+            \draw[l] (q.center) to [bend left=30] (qc.north west);
           \end{tikzpicture}
         \end{onlyenv}
         \begin{onlyenv}<3>
           \begin{tikzpicture}
             \node (s) [n,label=s] {};
             \matrix (a) [m,right=of s] { \ldots \& |(sc)| \tt{h} \& \tt{e} \& \tt{l} \& \tt{l} \& \tt{o} \& \tt{\textbackslash0} \& \ldots \\ };
-            \draw[l] (s) to [bend left=30] (sc.north west);
+            \draw[l] (s.center) to [bend left=30] (sc.north west);
           \end{tikzpicture}
         \end{onlyenv}
         \begin{onlyenv}<4>
           \begin{tikzpicture}
             \node (s) [n,label=s] {};
             \matrix (a) [m,right=of s] { \ldots \& |(sc)| \tt{h} \& \tt{e} \& \tt{l} \& \tt{l} \& \tt{o} \& \tt{\textbackslash0} \& \ldots \\ };
-            \draw[l] (s) to [bend left=30] (sc.north west);
+            \draw[l] (s.center) to [bend left=30] (sc.north west);
             \node (ss) [n,label=ss,below=of s] {};
             \matrix [m,right=of ss] { \ldots \& |(ssc) [minimum width=12ex]| \& \ldots \\ };
-            \draw[l] (ss) to [bend left=30] (ssc.north west);
+            \draw[l] (ss.center) to [bend left=30] (ssc.north west);
             \draw[l] (ssc) to (sc.south west);
           \end{tikzpicture}
         \end{onlyenv}
@@ -253,7 +253,7 @@
     \begin{itemize}
     \item \lst{int x; int* p = &x;} ... \sta{delete p;}
 %    \item \lst{double (*op)(double) = sin;} ... \sta{delete op;}
-    \item \sta{delete sin; delete main;}
+%    \item \sta{delete sin; delete main;}
     \end{itemize}
   \item Не е позволено частично освобождаване на памет
     \begin{itemize}

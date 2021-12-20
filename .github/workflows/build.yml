@@ -19,7 +19,8 @@ jobs:
   build:
     strategy:
       matrix:
-        file: [ 00-org, 01-intro, 02-basics, 03-control, 04-functions, 05-arrays, 06-functions2, 07-pointref, 08-functions3 ]
+        file: [ 00-org, 01-intro, 02-basics, 03-control, 04-functions, 05-arrays, 06-functions2,
+                07-pointref, 08-functions3, A2-dynamic ]
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
