@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         file: [ 00-org, 01-intro, 02-basics, 03-control, 04-functions, 05-arrays, 06-functions2,
-                07-pointref, 08-functions3, 09-recursion, A2-dynamic ]
+                07-pointref, 08-functions3, 09-recursion, A1-bitwise, A2-dynamic ]
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
